@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "google-books": "apps/google-books",
-    "google-books-e2e": "apps/google-books-e2e"
+    "google-books-e2e": "apps/google-books-e2e",
+    "shared-util-functionnal": "libs/shared/util-functionnal"
   }
 }

@@ -1,0 +1,5 @@
+{
+  "label": "Test Affected",
+  "type": "shell",
+  "command": "nx affected --target=test"
+}

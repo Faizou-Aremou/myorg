@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@myorg/shared-util-functionnal": [
+        "libs/shared/util-functionnal/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
