@@ -4,6 +4,8 @@
   "projects": {
     "google-books": "apps/google-books",
     "google-books-e2e": "apps/google-books-e2e",
+    "open-food": "apps/open-food",
+    "open-food-e2e": "apps/open-food-e2e",
     "shared-util-functionnal": "libs/shared/util-functionnal"
   }
 }
