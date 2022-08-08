@@ -1,113 +1,159 @@
-import { BinaryNode } from "../interfaces/binary-node"
-import { compose, equals, head, isEmpty, min, tail } from "ramda";
-import { removeOne } from "./functionnal-general";
-import { hasSameElements, hasSameSise, levelLinearizationByQueue } from "./functionnal-sequences";
-
+import { BinaryNode } from '../interfaces/binary-node';
+import { compose, equals, head, isEmpty, min, tail } from 'ramda';
+import { removeOne } from './functionnal-general';
+import {
+  hasSameElements,
+  hasSameSise,
+  levelLinearizationByQueue,
+} from './functionnal-sequences';
 
 /**
- * [a], [a] -> b
- * @param prefixedSequence 
- * @param infixedSequence 
+ * ::[a], [a] -> b
+ * @param prefixedSequence
+ * @param infixedSequence
  */
-export function binaryNodeFrom<T>(prefixedSequence: Array<T>, infixedSequence: Array<T>): BinaryNode<T> | undefined {
+export function binaryNodeFrom<T>(
+  prefixedSequence: Array<T>,
+  infixedSequence: Array<T>
+): BinaryNode<T> | undefined {
   if (!hasSameSise(prefixedSequence, infixedSequence)) {
     throw new Error("arguments doesn't have same size");
   } else if (prefixedSequence.length === 0 && infixedSequence.length === 0) {
     return undefined;
   }
-  const { root, leftChildOfInfixedSequence, rightChildOfInfixedSequence, leftChildOfInfixedSequenceSize } = infixedBinaryNodeSequences(head(prefixedSequence) as T, infixedSequence);
+  const {
+    root,
+    leftChildOfInfixedSequence,
+    rightChildOfInfixedSequence,
+    leftChildOfInfixedSequenceSize,
+  } = infixedBinaryNodeSequences(head(prefixedSequence) as T, infixedSequence);
   if (root === null) {
     throw new Error("arguments seems doesn't have same value");
   }
 
-  const { leftChildOfPrefixedSequence, rightChildOfPrefixedSequence } = prefixedBinaryNodeSequences(leftChildOfInfixedSequenceSize, tail(prefixedSequence));
+  const { leftChildOfPrefixedSequence, rightChildOfPrefixedSequence } =
+    prefixedBinaryNodeSequences(
+      leftChildOfInfixedSequenceSize,
+      tail(prefixedSequence)
+    );
 
   return {
     root: root,
-    leftChild: binaryNodeFrom(leftChildOfPrefixedSequence, leftChildOfInfixedSequence),
-    rightChild: binaryNodeFrom(rightChildOfPrefixedSequence, rightChildOfInfixedSequence)
-  }
+    leftChild: binaryNodeFrom(
+      leftChildOfPrefixedSequence,
+      leftChildOfInfixedSequence
+    ),
+    rightChild: binaryNodeFrom(
+      rightChildOfPrefixedSequence,
+      rightChildOfInfixedSequence
+    ),
+  };
 }
-
+/**
+ * ::[a] -> [b]
+ */
 export function existLeft<T>(node: BinaryNode<T>): boolean {
   return node.leftChild !== undefined;
 }
+/**
+ * ::[a] -> [b]
+ */
 export function existRight<T>(node: BinaryNode<T>): boolean {
   return node.rightChild !== undefined;
 }
 
 /**
- * a, [a] -> <a, [a], [a], b> 
- * @param element 
- * @param sequence 
- * @returns 
+ * ::a, [a] -> <a, [a], [a], b>
+ * @param element, element root of binary tree
+ * @param infixedLinearizedBinaryTree infixed Linearized BinaryTree
+ * @returns
  */
-export function infixedBinaryNodeSequences<T>(element: T, sequence: Array<T>): {
-  root: T | null, leftChildOfInfixedSequence: Array<T>,
-  rightChildOfInfixedSequence: Array<T>,
-  leftChildOfInfixedSequenceSize: number
+export function infixedBinaryNodeSequences<T>(
+  element: T,
+  infixedLinearizedBinaryTree: Array<T>
+): {
+  root: T | null;
+  leftChildOfInfixedSequence: Array<T>;
+  rightChildOfInfixedSequence: Array<T>;
+  leftChildOfInfixedSequenceSize: number;
 } {
-
-  if (isEmpty(sequence)) {
+  if (isEmpty(infixedLinearizedBinaryTree)) {
     return {
       root: null,
       leftChildOfInfixedSequence: [],
       rightChildOfInfixedSequence: [],
-      leftChildOfInfixedSequenceSize: 0
-    }
+      leftChildOfInfixedSequenceSize: 0,
+    };
   }
 
-  const { root, leftChildOfInfixedSequence, rightChildOfInfixedSequence, leftChildOfInfixedSequenceSize } = infixedBinaryNodeSequences(element, tail(sequence));
+  const {
+    root,
+    leftChildOfInfixedSequence,
+    rightChildOfInfixedSequence,
+    leftChildOfInfixedSequenceSize,
+  } = infixedBinaryNodeSequences(element, tail(infixedLinearizedBinaryTree));
 
-  if (root === null && equals(element, head(sequence) as T)) {
+  if (root === null && equals(element, head(infixedLinearizedBinaryTree) as T)) {
     return {
       root: element,
       leftChildOfInfixedSequence: [...leftChildOfInfixedSequence],
       rightChildOfInfixedSequence: [...rightChildOfInfixedSequence],
-      leftChildOfInfixedSequenceSize: leftChildOfInfixedSequenceSize
-    }
+      leftChildOfInfixedSequenceSize: leftChildOfInfixedSequenceSize,
+    };
   }
 
-  if (root === null && !equals(element, head(sequence) as T)) {
+  if (root === null && !equals(element, head(infixedLinearizedBinaryTree) as T)) {
     return {
       root: null,
       leftChildOfInfixedSequence: [...leftChildOfInfixedSequence],
-      rightChildOfInfixedSequence: [head(sequence) as T, ...rightChildOfInfixedSequence],
-      leftChildOfInfixedSequenceSize: leftChildOfInfixedSequenceSize
-    }
+      rightChildOfInfixedSequence: [
+        head(infixedLinearizedBinaryTree) as T,
+        ...rightChildOfInfixedSequence,
+      ],
+      leftChildOfInfixedSequenceSize: leftChildOfInfixedSequenceSize,
+    };
   }
 
   return {
     root: root,
-    leftChildOfInfixedSequence: [head(sequence) as T, ...leftChildOfInfixedSequence],
+    leftChildOfInfixedSequence: [
+      head(infixedLinearizedBinaryTree) as T,
+      ...leftChildOfInfixedSequence,
+    ],
     rightChildOfInfixedSequence: [...rightChildOfInfixedSequence],
-    leftChildOfInfixedSequenceSize: leftChildOfInfixedSequenceSize + 1
-  }
+    leftChildOfInfixedSequenceSize: leftChildOfInfixedSequenceSize + 1,
+  };
 }
 
 /**
- * 
- * @param binaryNode 
- * @returns 
+ *
+ * @param binaryNode
+ * @returns
  */
-export function infixedLinearization<T>(binaryNode: BinaryNode<T> | undefined): Array<T> {
+export function infixedLinearization<T>(
+  binaryNode: BinaryNode<T> | undefined
+): Array<T> {
   if (isEmptyTree(binaryNode)) {
-    return []
+    return [];
   }
-  return [...infixedLinearization(leftChildOf(binaryNode)), rootOf(binaryNode) as T, ...infixedLinearization(rightChildOf(binaryNode)),]
+  return [
+    ...infixedLinearization(leftChildOf(binaryNode)),
+    rootOf(binaryNode) as T,
+    ...infixedLinearization(rightChildOf(binaryNode)),
+  ];
 }
 /**
- * 
- * @param node 
- * @returns 
+ *
+ * @param node
+ * @returns
  */
 export function isBinary<T>(node: BinaryNode<T>): boolean {
   return node.rightChild !== undefined && node.leftChild !== undefined;
 }
 /**
- * 
- * @param node 
- * @returns 
+ *
+ * @param node
+ * @returns
  */
 export function isEmptyTree<T>(
   node: BinaryNode<T> | null | undefined
@@ -117,29 +163,41 @@ export function isEmptyTree<T>(
 
 /**
  * a, a -> b
- * @param binaryNode1 
- * @param binaryNode2 
- * @returns 
+ * @param binaryNode1
+ * @param binaryNode2
+ * @returns
  */
-export function isEqualityOfSetsStructuredAsTree<T>(binaryNode1: BinaryNode<T> | undefined, binaryNode2: BinaryNode<T> | undefined): boolean {
-  return hasSameElements(prefixedLinearization(binaryNode1), prefixedLinearization(binaryNode2));
+export function isEqualityOfSetsStructuredAsTree<T>(
+  binaryNode1: BinaryNode<T> | undefined,
+  binaryNode2: BinaryNode<T> | undefined
+): boolean {
+  return hasSameElements(
+    prefixedLinearization(binaryNode1),
+    prefixedLinearization(binaryNode2)
+  );
 }
 
 /**
  * a, a , a -> b
- * @param binaryNode 
- * @param subNode1 
- * @param subNode2 
- * @returns 
+ * @param binaryNode
+ * @param subNode1
+ * @param subNode2
+ * @returns
  */
-export function isEqualToNearestOrder<T>(binaryNode: BinaryNode<T> | undefined, subNode1: BinaryNode<T>, subNode2: BinaryNode<T>): boolean {
+export function isEqualToNearestOrder<T>(
+  binaryNode: BinaryNode<T> | undefined,
+  subNode1: BinaryNode<T>,
+  subNode2: BinaryNode<T>
+): boolean {
   if (isEmptyTree(binaryNode)) {
     return false;
   }
 
-  return equals(subNodeOf(rootOf(subNode1), binaryNode), subNode1)
-    && equals(subNodeOf(rootOf(subNode2), binaryNode), subNode2)
-    && levelFor(subNode1, binaryNode) === levelFor(subNode2, binaryNode)
+  return (
+    equals(subNodeOf(rootOf(subNode1), binaryNode), subNode1) &&
+    equals(subNodeOf(rootOf(subNode2), binaryNode), subNode2) &&
+    levelFor(subNode1, binaryNode) === levelFor(subNode2, binaryNode)
+  );
 }
 
 export function isSingleton<T>(node: BinaryNode<T>): boolean {
@@ -153,25 +211,28 @@ export function isUnaryRight<T>(node: BinaryNode<T>): boolean {
   return node.rightChild !== undefined && node.leftChild === undefined;
 }
 
-
 /**
  * a, a -> b
- * @param binaryNode1 
- * @param binaryNode2 
- * @returns 
+ * @param binaryNode1
+ * @param binaryNode2
+ * @returns
  */
-export function isSameStructure<T>(binaryNode1: BinaryNode<T> | undefined, binaryNode2: BinaryNode<T> | undefined): boolean {
+export function isSameStructure<T>(
+  binaryNode1: BinaryNode<T> | undefined,
+  binaryNode2: BinaryNode<T> | undefined
+): boolean {
   if (isEmptyTree(binaryNode1) && isEmptyTree(binaryNode2)) {
     return true;
   } else if (isEmptyTree(binaryNode1) && !isEmptyTree(binaryNode2)) {
     return false;
-
   } else if (!isEmptyTree(binaryNode1) && isEmptyTree(binaryNode2)) {
     return false;
   }
-  return isSameStructure(leftChildOf(binaryNode1), leftChildOf(binaryNode2)) && isSameStructure(rightChildOf(binaryNode1), rightChildOf(binaryNode2))
+  return (
+    isSameStructure(leftChildOf(binaryNode1), leftChildOf(binaryNode2)) &&
+    isSameStructure(rightChildOf(binaryNode1), rightChildOf(binaryNode2))
+  );
 }
-
 
 export function leftChildOf<T>(
   node: BinaryNode<T> | null | undefined
@@ -222,8 +283,8 @@ export function levelFor<T>(
 }
 /**
  * a -> b
- * @param node 
- * @returns 
+ * @param node
+ * @returns
  */
 export function levelLinearization<T>(node: BinaryNode<T>): Array<T> {
   return levelLinearizationByQueue([node]);
@@ -250,12 +311,16 @@ export function minimumLevelOfLeaves<T>(node: BinaryNode<T>): number {
  * @param element a element in the tree
  * @returns -1, if element is not in the tree
  */
-export const numberOfDescendantsOf = compose(removeOne, numberOfNodes, subNodeOf);
+export const numberOfDescendantsOf = compose(
+  removeOne,
+  numberOfNodes,
+  subNodeOf
+);
 
 /**
- * 
- * @param node 
- * @returns 
+ *
+ * @param node
+ * @returns
  */
 export function numberOfLeaves<T>(node: BinaryNode<T> | undefined): number {
   if (isEmptyTree(node)) {
@@ -270,9 +335,9 @@ export function numberOfLeaves<T>(node: BinaryNode<T> | undefined): number {
   return numberOfLeaves(node.leftChild) + numberOfLeaves(node.rightChild);
 }
 /**
- * 
- * @param node 
- * @returns 
+ *
+ * @param node
+ * @returns
  */
 export function numberOfNodes<T>(node: BinaryNode<T> | undefined): number {
   if (isEmptyTree(node)) {
@@ -289,50 +354,79 @@ export function numberOfNodes<T>(node: BinaryNode<T> | undefined): number {
 
 /**
  * a, [b] -> <[b],[b]>
- * @param size 
- * @param sequence 
- * @returns 
+ * @param size
+ * @param sequence
+ * @returns
  */
-export function prefixedBinaryNodeSequences<T>(size: number, sequence: Array<T>): { leftChildOfPrefixedSequence: Array<T>, rightChildOfPrefixedSequence: Array<T> } {
+export function prefixedBinaryNodeSequences<T>(
+  size: number,
+  sequence: Array<T>
+): {
+  leftChildOfPrefixedSequence: Array<T>;
+  rightChildOfPrefixedSequence: Array<T>;
+} {
   if (size === 0 && sequence.length > 0) {
-    return { leftChildOfPrefixedSequence: [], rightChildOfPrefixedSequence: [...sequence] }
+    return {
+      leftChildOfPrefixedSequence: [],
+      rightChildOfPrefixedSequence: [...sequence],
+    };
   }
 
   if (size === 0 && sequence.length === 0) {
-
-    return { leftChildOfPrefixedSequence: [], rightChildOfPrefixedSequence: [] }
-
+    return {
+      leftChildOfPrefixedSequence: [],
+      rightChildOfPrefixedSequence: [],
+    };
   }
-  const { leftChildOfPrefixedSequence, rightChildOfPrefixedSequence } = prefixedBinaryNodeSequences(size - 1, tail(sequence));
-  return { leftChildOfPrefixedSequence: [head(sequence) as T, ...leftChildOfPrefixedSequence], rightChildOfPrefixedSequence };
+  const { leftChildOfPrefixedSequence, rightChildOfPrefixedSequence } =
+    prefixedBinaryNodeSequences(size - 1, tail(sequence));
+  return {
+    leftChildOfPrefixedSequence: [
+      head(sequence) as T,
+      ...leftChildOfPrefixedSequence,
+    ],
+    rightChildOfPrefixedSequence,
+  };
 }
 
 /**
  * a -> [b]
- * @param binaryNode 
- * @returns 
+ * @param binaryNode
+ * @returns
  */
-export function prefixedLinearization<T>(binaryNode: BinaryNode<T> | undefined): Array<T> {
+export function prefixedLinearization<T>(
+  binaryNode: BinaryNode<T> | undefined
+): Array<T> {
   if (isEmptyTree(binaryNode)) {
-    return []
+    return [];
   }
-  return [rootOf(binaryNode) as T, ...prefixedLinearization(leftChildOf(binaryNode)), ...prefixedLinearization(rightChildOf(binaryNode))]
+  return [
+    rootOf(binaryNode) as T,
+    ...prefixedLinearization(leftChildOf(binaryNode)),
+    ...prefixedLinearization(rightChildOf(binaryNode)),
+  ];
 }
 /**
  * a -> [b]
- * @param binaryNode 
- * @returns 
+ * @param binaryNode
+ * @returns
  */
-export function postfixedLinearization<T>(binaryNode: BinaryNode<T> | undefined): Array<T> {
+export function postfixedLinearization<T>(
+  binaryNode: BinaryNode<T> | undefined
+): Array<T> {
   if (isEmptyTree(binaryNode)) {
-    return []
+    return [];
   }
-  return [...postfixedLinearization(leftChildOf(binaryNode)), ...postfixedLinearization(rightChildOf(binaryNode)), rootOf(binaryNode) as T]
+  return [
+    ...postfixedLinearization(leftChildOf(binaryNode)),
+    ...postfixedLinearization(rightChildOf(binaryNode)),
+    rootOf(binaryNode) as T,
+  ];
 }
 /**
- * 
- * @param node 
- * @returns 
+ *
+ * @param node
+ * @returns
  */
 export function rightChildOf<T>(
   node: BinaryNode<T> | null | undefined
@@ -345,11 +439,13 @@ export function rightChildOf<T>(
   return { ...node.rightChild };
 }
 /**
- * 
- * @param node 
- * @returns 
+ *
+ * @param node
+ * @returns
  */
-export function rootOf<T>(node: BinaryNode<T> | null | undefined): T | undefined {
+export function rootOf<T>(
+  node: BinaryNode<T> | null | undefined
+): T | undefined {
   if (isEmptyTree(node)) {
     return undefined;
   }
@@ -370,14 +466,18 @@ export function subNodeOf<T>(
   if (isEmptyTree(node)) {
     return undefined;
   } else if (isSingleton<T>(node)) {
-    return undefined;
+    return equals(rootOf(node), element) ? { ...node } : undefined;
   } else if (isUnaryLeft(node)) {
-    return subNodeOf<T>(element, node.leftChild as BinaryNode<T>);
+    return equals(rootOf(node), element)
+      ? { ...node }
+      : subNodeOf<T>(element, node.leftChild as BinaryNode<T>);
   } else if (isUnaryRight(node)) {
-    return subNodeOf<T>(element, node.rightChild as BinaryNode<T>);
+    return equals(rootOf(node), element)
+      ? { ...node }
+      : subNodeOf<T>(element, node.rightChild as BinaryNode<T>);
   }
 
-  if (equals(node.root, element)) {
+  if (equals(rootOf(node), element)) {
     return { ...node };
   }
   const subTree = subNodeOf(element, node.leftChild as BinaryNode<T>);
@@ -385,6 +485,3 @@ export function subNodeOf<T>(
     ? subNodeOf(element, node.rightChild as BinaryNode<T>)
     : subTree;
 }
-
-
-
