@@ -1,10 +1,10 @@
 import { compose } from 'ramda';
 import { BinaryNode } from '../interfaces/binary-node';
 import {
-  binaryNodeFrom,
+  binaryTreeFrom,
   existLeft,
   existRight,
-  infixedBinaryTreeSequences,
+  binaryTreeInfixedLeftRightSequences,
   infixedLinearization,
   hasHisTwoChildren,
   levelLinearization,
@@ -16,9 +16,9 @@ import {
   prefixedLinearization,
   subNodeOf,
   isEmptyTree,
-  isEqualityOfSetsStructuredAsTree,
+  binaryTreesElementsIsEquals,
   isSingleton,
-  depthOfTheBinaryTree,
+  binaryTreeDepth,
   rightChildOf,
   rootOf,
   levelFor,
@@ -27,6 +27,7 @@ import {
   isUnaryRight,
   isUnaryLeft,
   embelishLevelFor,
+  binaryTreePrefixedLeftRightSequences,
 } from './functionnal-binary-tree';
 
 const numberTree: BinaryNode<number> = {
@@ -151,27 +152,143 @@ const prefixedfixedLinerizedlowercaseAlphabetTree = [
 ];
 
 describe('functionnal binary tree ', () => {
+  it('binaryTreeDepth', () => {
+    const t0 = performance.now();
+    binaryTreeDepth(uppercaseAlphabetTree);
+    const t1 = performance.now();
+    console.log('binaryTreeDepth ' + (t1 - t0), 'milliseconds');
+    expect(binaryTreeDepth(uppercaseAlphabetTree)).toBe(4);
+  });
+  it('binaryTreesElementsIsEquals', () => {
+    const t0 = performance.now();
+    binaryTreesElementsIsEquals(uppercaseAlphabetTree, uppercaseAlphabetTree);
+    const t1 = performance.now();
+    console.log('binaryTreesElementsIsEquals ' + (t1 - t0), 'milliseconds');
+    expect(
+      binaryTreesElementsIsEquals(uppercaseAlphabetTree, {
+        root: 'A',
+        leftChild: {
+          root: 'B',
+          leftChild: {
+            root: 'C',
+          },
+          rightChild: {
+            root: 'G',
+          },
+        },
+        rightChild: {
+          root: 'D',
+          leftChild: {
+            root: 'E',
+          },
+          rightChild: {
+            root: 'F',
+          },
+        },
+      })
+    ).toBe(true);
+    expect(
+      binaryTreesElementsIsEquals(uppercaseAlphabetTree, {
+        root: 'A',
+        leftChild: {
+          root: 'B',
+          leftChild: {
+            root: 'C',
+          },
+          rightChild: {
+            root: 'K',
+          },
+        },
+        rightChild: {
+          root: 'D',
+          leftChild: {
+            root: 'E',
+          },
+          rightChild: {
+            root: 'F',
+          },
+        },
+      })
+    ).toBe(false);
+  });
   it('binaryNodeFrom', () => {
     const t0 = performance.now();
-    binaryNodeFrom(
+    binaryTreeFrom(
       prefixedLinerizedUppercaseAlphabetTree,
       infixedLinerizedUppercaseAlphabetTree
     );
     const t1 = performance.now();
     console.log('binaryNodeFrom ' + (t1 - t0), 'milliseconds');
     expect(
-      binaryNodeFrom(
+      binaryTreeFrom(
         prefixedLinerizedUppercaseAlphabetTree,
         infixedLinerizedUppercaseAlphabetTree
       )
     ).toEqual(uppercaseAlphabetTree);
+    expect(() => {
+      binaryTreeFrom(
+        prefixedLinerizedUppercaseAlphabetTree,
+        postfixedLinerizedlowercaseAlphabetTree
+      );
+    }).toThrowError("arguments doesn't have same size");
+    expect(() => {
+      binaryTreeFrom(prefixedLinerizedUppercaseAlphabetTree, [
+        'C',
+        'B',
+        'C',
+        'E',
+        'D',
+        'G',
+        'F',
+      ]);
+    }).toThrowError("arguments doesn't have same value");
   });
-  it('depthOfTheBinaryTree', () => {
+  it('binaryTreeInfixedLeftRightSequences', () => {
     const t0 = performance.now();
-    depthOfTheBinaryTree(uppercaseAlphabetTree);
+    binaryTreeInfixedLeftRightSequences(
+      'A',
+      infixedLinerizedUppercaseAlphabetTree
+    );
     const t1 = performance.now();
-    console.log('minimumLevelOfLeaves ' + (t1 - t0), 'milliseconds');
-    expect(depthOfTheBinaryTree(uppercaseAlphabetTree)).toBe(4);
+    console.log(
+      'binaryTreeInfixedLeftRightSequences ' + (t1 - t0),
+      'milliseconds'
+    );
+    expect(
+      binaryTreeInfixedLeftRightSequences(
+        'A',
+        infixedLinerizedUppercaseAlphabetTree
+      )
+    ).toEqual({
+      root: 'A',
+      binaryTreeLeftChildInfixedLinearization: ['C', 'B'],
+      binaryTreeRightChildInfixedLinearization: ['E', 'D', 'G', 'F'],
+      binaryTreeLeftChildInfixedLinearizationSize: 2,
+    });
+    expect(binaryTreeInfixedLeftRightSequences('A', ['C', 'B'])).toEqual({
+      root: null,
+      binaryTreeLeftChildInfixedLinearization: [],
+      binaryTreeRightChildInfixedLinearization: ['C', 'B'],
+      binaryTreeLeftChildInfixedLinearizationSize: 0,
+    });
+  });
+  it('binaryTreePrefixedLeftRightSequences', () => {
+    const t0 = performance.now();
+    binaryTreePrefixedLeftRightSequences(
+      2,
+      prefixedLinerizedUppercaseAlphabetTree
+    );
+    const t1 = performance.now();
+    console.log(
+      'binaryTreePrefixedLeftRightSequences ' + (t1 - t0),
+      'milliseconds'
+    );
+    expect(
+      binaryTreePrefixedLeftRightSequences(2, ['B', 'C', 'D', 'E', 'F', 'G'])
+    ).toEqual({
+      binaryTreeLeftChildPrefixedLinearization: ['B', 'C'],
+      binaryTreeRightChildPrefixedLinearization: ['D', 'E', 'F', 'G'],
+    });
   });
   it('embelishLevelFor', () => {
     const t0 = performance.now();
@@ -227,26 +344,6 @@ describe('functionnal binary tree ', () => {
     ).toBe(false);
   });
 
-  it('infixedBinaryTreeSequences', () => {
-    const t0 = performance.now();
-    infixedBinaryTreeSequences('A', infixedLinerizedUppercaseAlphabetTree);
-    const t1 = performance.now();
-    console.log('infixedBinaryTreeSequences ' + (t1 - t0), 'milliseconds');
-    expect(
-      infixedBinaryTreeSequences('A', infixedLinerizedUppercaseAlphabetTree)
-    ).toEqual({
-      root: 'A',
-      leftChildOfInfixedSequence: ['C', 'B'],
-      rightChildOfInfixedSequence: ['E', 'D', 'G', 'F'],
-      leftChildOfInfixedSequenceSize: 2,
-    });
-    expect(infixedBinaryTreeSequences('A', ['C', 'B'])).toEqual({
-      root: null,
-      leftChildOfInfixedSequence: [],
-      rightChildOfInfixedSequence: ['C', 'B'],
-      leftChildOfInfixedSequenceSize: 0,
-    });
-  });
   it('infixedLinearization', () => {
     const t0 = performance.now();
     infixedLinearization(uppercaseAlphabetTree);
@@ -269,64 +366,6 @@ describe('functionnal binary tree ', () => {
     );
   });
 
-  it('isEqualityOfSetsStructuredAsTree', () => {
-    const t0 = performance.now();
-    isEqualityOfSetsStructuredAsTree(
-      uppercaseAlphabetTree,
-      uppercaseAlphabetTree
-    );
-    const t1 = performance.now();
-    console.log(
-      'isEqualityOfSetsStructuredAsTree ' + (t1 - t0),
-      'milliseconds'
-    );
-    expect(
-      isEqualityOfSetsStructuredAsTree(uppercaseAlphabetTree, {
-        root: 'A',
-        leftChild: {
-          root: 'B',
-          leftChild: {
-            root: 'C',
-          },
-          rightChild: {
-            root: 'G',
-          },
-        },
-        rightChild: {
-          root: 'D',
-          leftChild: {
-            root: 'E',
-          },
-          rightChild: {
-            root: 'F',
-          },
-        },
-      })
-    ).toBe(true);
-    expect(
-      isEqualityOfSetsStructuredAsTree(uppercaseAlphabetTree, {
-        root: 'A',
-        leftChild: {
-          root: 'B',
-          leftChild: {
-            root: 'C',
-          },
-          rightChild: {
-            root: 'K',
-          },
-        },
-        rightChild: {
-          root: 'D',
-          leftChild: {
-            root: 'E',
-          },
-          rightChild: {
-            root: 'F',
-          },
-        },
-      })
-    ).toBe(false);
-  });
   it('isSingleton', () => {
     const t0 = performance.now();
     isSingleton(uppercaseAlphabetTree);
