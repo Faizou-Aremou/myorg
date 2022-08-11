@@ -417,19 +417,19 @@ export function levelLinearization<T>(node: BinaryNode<T>): Array<T> {
  * @param node
  * @returns
  */
-export function minimumLevelOfLeaves<T>(node: BinaryNode<T>): number {
+export function binaryTreeLeavesMinimumLevel<T>(node: BinaryNode<T>): number {
   if (isSingleton<T>(node)) {
     return 1;
   } else if (isUnaryLeft(node)) {
-    return 1 + minimumLevelOfLeaves(node.leftChild as BinaryNode<T>);
+    return 1 + binaryTreeLeavesMinimumLevel(node.leftChild as BinaryNode<T>);
   } else if (isUnaryRight(node)) {
-    return 1 + minimumLevelOfLeaves(node.rightChild as BinaryNode<T>);
+    return 1 + binaryTreeLeavesMinimumLevel(node.rightChild as BinaryNode<T>);
   }
   return (
     1 +
     min(
-      minimumLevelOfLeaves(node.leftChild as BinaryNode<T>),
-      minimumLevelOfLeaves(node.rightChild as BinaryNode<T>)
+      binaryTreeLeavesMinimumLevel(node.leftChild as BinaryNode<T>),
+      binaryTreeLeavesMinimumLevel(node.rightChild as BinaryNode<T>)
     )
   );
 }

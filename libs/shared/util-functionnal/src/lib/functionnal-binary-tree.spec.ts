@@ -8,7 +8,7 @@ import {
   infixedLinearization,
   hasHisTwoChildren,
   levelLinearization,
-  minimumLevelOfLeaves,
+  binaryTreeLeavesMinimumLevel,
   numberOfDescendantsOf,
   numberOfLeaves,
   numberOfNodes,
@@ -514,12 +514,12 @@ describe('functionnal binary tree ', () => {
       'k',
     ]);
   });
-  it('minimumLevelOfLeaves', () => {
+  it('binaryTreeLeavesMinimumLevel', () => {
     const t0 = performance.now();
-    minimumLevelOfLeaves(uppercaseAlphabetTree);
+    binaryTreeLeavesMinimumLevel(uppercaseAlphabetTree);
     const t1 = performance.now();
-    console.log('minimumLevelOfLeaves ' + (t1 - t0), 'milliseconds');
-    expect(minimumLevelOfLeaves(uppercaseAlphabetTree)).toBe(3);
+    console.log('binaryTreeLeavesMinimumLevel ' + (t1 - t0), 'milliseconds');
+    expect(binaryTreeLeavesMinimumLevel(uppercaseAlphabetTree)).toBe(3);
   });
   it('numberOfNodes', () => {
     const t0 = performance.now();
@@ -545,10 +545,10 @@ describe('functionnal binary tree ', () => {
   });
   it('minimumLevelOfLeaves', () => {
     const t0 = performance.now();
-    minimumLevelOfLeaves(numberTree);
+    binaryTreeLeavesMinimumLevel(numberTree);
     const t1 = performance.now();
     console.log('minimumLevelOfLeaves ' + (t1 - t0), 'milliseconds');
-    expect(minimumLevelOfLeaves(numberTree)).toBe(3);
+    expect(binaryTreeLeavesMinimumLevel(numberTree)).toBe(3);
   });
   it('prefixedLinearization', () => {
     const t0 = performance.now();
