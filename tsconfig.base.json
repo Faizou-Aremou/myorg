@@ -17,7 +17,9 @@
     "paths": {
       "@myorg/shared-util-functionnal": [
         "libs/shared/util-functionnal/src/index.ts"
-      ]
+      ],
+      "@myorg/shared/authorization": ["libs/shared/authorization/src/index.ts"],
+      "@myorg/shared/http-services": ["libs/shared/http-services/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
