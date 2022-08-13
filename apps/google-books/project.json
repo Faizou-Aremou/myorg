@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/google-books",
         "index": "apps/google-books/src/index.html",
@@ -17,7 +19,10 @@
           "apps/google-books/src/favicon.ico",
           "apps/google-books/src/assets"
         ],
-        "styles": ["apps/google-books/src/styles.scss"],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/google-books/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -82,7 +87,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/google-books"],
+      "outputs": [
+        "coverage/apps/google-books"
+      ],
       "options": {
         "jestConfig": "apps/google-books/jest.config.ts",
         "passWithNoTests": true

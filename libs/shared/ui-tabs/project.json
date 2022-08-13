@@ -1,0 +1,45 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/shared/ui-tabs/src",
+  "prefix": "myorg",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": [
+        "dist/libs/shared/ui-tabs"
+      ],
+      "options": {
+        "project": "libs/shared/ui-tabs/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/ui-tabs/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shared/ui-tabs/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/shared/ui-tabs"
+      ],
+      "options": {
+        "jestConfig": "libs/shared/ui-tabs/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/ui-tabs/**/*.ts",
+          "libs/shared/ui-tabs/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

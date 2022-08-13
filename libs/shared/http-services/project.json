@@ -5,7 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/http-services"],
+      "outputs": [
+        "coverage/libs/shared/http-services"
+      ],
       "options": {
         "jestConfig": "libs/shared/http-services/jest.config.ts",
         "passWithNoTests": true

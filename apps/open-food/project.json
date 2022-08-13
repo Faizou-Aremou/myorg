@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/open-food",
         "index": "apps/open-food/src/index.html",
@@ -17,7 +19,9 @@
           "apps/open-food/src/favicon.ico",
           "apps/open-food/src/assets"
         ],
-        "styles": ["apps/open-food/src/styles.scss"],
+        "styles": [
+          "apps/open-food/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -82,7 +86,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/open-food"],
+      "outputs": [
+        "coverage/apps/open-food"
+      ],
       "options": {
         "jestConfig": "apps/open-food/jest.config.ts",
         "passWithNoTests": true
