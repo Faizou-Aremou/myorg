@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/shared/ui-products-grid/src",
+  "prefix": "myorg",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/shared/ui-products-grid"],
+      "options": {
+        "project": "libs/shared/ui-products-grid/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/ui-products-grid/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shared/ui-products-grid/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/ui-products-grid"],
+      "options": {
+        "jestConfig": "libs/shared/ui-products-grid/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/ui-products-grid/**/*.ts",
+          "libs/shared/ui-products-grid/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

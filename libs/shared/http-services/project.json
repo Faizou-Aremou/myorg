@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/shared/http-services/src",
+  "prefix": "myorg",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/shared/http-services"
+      ],
+      "options": {
+        "jestConfig": "libs/shared/http-services/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/http-services/**/*.ts",
+          "libs/shared/http-services/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
