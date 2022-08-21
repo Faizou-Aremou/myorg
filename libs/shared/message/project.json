@@ -1,31 +1,29 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/shared/authorization/src",
+  "sourceRoot": "libs/shared/message/src",
   "prefix": "myorg",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/shared/authorization"],
+      "outputs": ["dist/libs/shared/message"],
       "options": {
-        "project": "libs/shared/authorization/ng-package.json"
+        "project": "libs/shared/message/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/shared/authorization/tsconfig.lib.prod.json"
+          "tsConfig": "libs/shared/message/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/shared/authorization/tsconfig.lib.json"
+          "tsConfig": "libs/shared/message/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/shared/authorization"
-      ],
+      "outputs": ["coverage/libs/shared/message"],
       "options": {
-        "jestConfig": "libs/shared/authorization/jest.config.ts",
+        "jestConfig": "libs/shared/message/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -33,8 +31,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/shared/authorization/**/*.ts",
-          "libs/shared/authorization/**/*.html"
+          "libs/shared/message/**/*.ts",
+          "libs/shared/message/**/*.html"
         ]
       }
     }
