@@ -1,0 +1,29 @@
+<ng-container *ngIf="tabGroup">
+    <mat-tab-group class="tab-group" [(selectedIndex)]="tabGroup.selectedTab">
+        <mat-tab class="tab-group__static-tabs" *ngFor="let tab of tabGroup.staticTabs; let i = index">
+            <ng-template mat-tab-label>
+                <span class="tab-group__static-tabs__label"> {{ tab.label }} </span>
+            </ng-template>
+            <ng-template matTabContent>
+                <ng-container *ngIf="staticTabsContentRefs; let content">
+                    <ng-container [ngTemplateOutlet]="content.get(i)?.templateRef?? null" [ngTemplateOutletContext]="{ $implicit: tab } ">
+                    </ng-container>
+                </ng-container>
+            </ng-template>
+        </mat-tab>
+        <mat-tab class="tab-group__dynamic-tabs " *ngFor="let tab of tabGroup.dynamicTabs; let index=index; trackBy:dynamicTrackBy ">
+            <ng-template mat-tab-label>
+                <div class="tab-group__dynamic-tabs__label">
+                    <span> {{ tab.label }} </span>
+                    <button mat-icon-button id="dynamic__tab-close-btn " aria-label="icon-button with cancel icon " (click)="tabGroup.deleteTab(index)">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </div>
+            </ng-template>
+            <ng-template matTabContent>
+                <ng-container [ngTemplateOutlet]="dynamicTabsContentRef" [ngTemplateOutletContext]="{ $implicit: tab.contentInfos}">
+                </ng-container>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</ng-container>
