@@ -1,6 +1,7 @@
+import { Name } from "./name.model";
+
 export interface User {
     id: string;
-    firstName: string;
-    lastName: string;
+    name:Name;
     email: string;
   }

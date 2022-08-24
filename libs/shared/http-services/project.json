@@ -3,11 +3,25 @@
   "sourceRoot": "libs/shared/http-services/src",
   "prefix": "myorg",
   "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/shared/http-services"],
+      "options": {
+        "project": "libs/shared/http-services/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/http-services/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shared/http-services/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/shared/http-services"
-      ],
+      "outputs": ["coverage/libs/shared/http-services"],
       "options": {
         "jestConfig": "libs/shared/http-services/jest.config.ts",
         "passWithNoTests": true
