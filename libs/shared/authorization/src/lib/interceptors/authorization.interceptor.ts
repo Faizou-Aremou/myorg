@@ -6,12 +6,12 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthorizationService } from '../services/authorization.service';
+import { Authorization } from '../services/authorization';
 
 @Injectable()
 export class AuthorizationInterceptor implements HttpInterceptor {
 
-  constructor(private authorizationService: AuthorizationService) {}
+  constructor(private authorizationService: Authorization) {}
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const authorizationToken = this.authorizationService.getAuthorizationToken();
     const authorizationReq = request.clone({ setHeaders: { Authorization: authorizationToken } });

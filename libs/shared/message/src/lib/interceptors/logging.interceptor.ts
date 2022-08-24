@@ -8,11 +8,11 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { MessageService } from '../services/message.service';
+import { Message } from '../services/message';
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
-  constructor(private messenger: MessageService) {}
+  constructor(private messenger: Message) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -30,7 +30,6 @@ export class LoggingInterceptor implements HttpInterceptor {
       finalize(() => {
         const elapsed = Date.now() - started;
         const message = `${request.method} "${request.urlWithParams}" ${ok} in ${elapsed} ms.`;
-           console.log(message)
         this.messenger.add(message);
       })
     );
