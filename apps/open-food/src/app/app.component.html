@@ -1,11 +1,1 @@
-<h1>{{ appTitle }}</h1>
-<myorg-tab-group>
-  <ng-container *ngFor="let category of detailedFoodCategories$ | async">
-    <ng-template appStaticTabsContent>
-      <section class="general-infos__static-tabs__first-tab-content">
-        <myorg-products-grid [products]="category.product">
-        </myorg-products-grid>
-    </section>
-    </ng-template>
-  </ng-container>
-</myorg-tab-group>
+

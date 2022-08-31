@@ -15,14 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@myorg/shared-ui-catalog": ["libs/shared/ui-catalog/src/index.ts"],
       "@myorg/shared-util-functionnal": [
         "libs/shared/util-functionnal/src/index.ts"
       ],
       "@myorg/shared/authorization": ["libs/shared/authorization/src/index.ts"],
       "@myorg/shared/http-services": ["libs/shared/http-services/src/index.ts"],
-      "@myorg/shared/ui-products-grid": [
-        "libs/shared/ui-products-grid/src/index.ts"
-      ],
       "@myorg/shared/ui-tabs": ["libs/shared/ui-tabs/src/index.ts"],
       "@web-times-team/message": ["libs/shared/message/src/index.ts"]
     }

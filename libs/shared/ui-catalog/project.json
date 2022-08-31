@@ -1,29 +1,30 @@
 {
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/shared/ui-products-grid/src",
+  "sourceRoot": "libs/shared/ui-catalog/src",
   "prefix": "myorg",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": ["dist/libs/shared/ui-products-grid"],
+      "outputs": ["dist/libs/shared/ui-catalog"],
       "options": {
-        "project": "libs/shared/ui-products-grid/ng-package.json"
+        "project": "libs/shared/ui-catalog/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/shared/ui-products-grid/tsconfig.lib.prod.json"
+          "tsConfig": "libs/shared/ui-catalog/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/shared/ui-products-grid/tsconfig.lib.json"
+          "tsConfig": "libs/shared/ui-catalog/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/ui-products-grid"],
+      "outputs": ["coverage/libs/shared/ui-catalog"],
       "options": {
-        "jestConfig": "libs/shared/ui-products-grid/jest.config.ts",
+        "jestConfig": "libs/shared/ui-catalog/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -31,8 +32,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/shared/ui-products-grid/**/*.ts",
-          "libs/shared/ui-products-grid/**/*.html"
+          "libs/shared/ui-catalog/**/*.ts",
+          "libs/shared/ui-catalog/**/*.html"
         ]
       }
     }
