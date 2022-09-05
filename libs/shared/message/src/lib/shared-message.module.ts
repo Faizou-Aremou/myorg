@@ -6,4 +6,4 @@ import { httpInterceptorProviders } from './interceptors';
   imports: [CommonModule],
   providers:[httpInterceptorProviders]
 })
-export class SharedHttpServicesModule {}
+export class SharedMessageModule {}

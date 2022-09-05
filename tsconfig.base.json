@@ -23,7 +23,8 @@
       "@myorg/shared/ui-products-grid": [
         "libs/shared/ui-products-grid/src/index.ts"
       ],
-      "@myorg/shared/ui-tabs": ["libs/shared/ui-tabs/src/index.ts"]
+      "@myorg/shared/ui-tabs": ["libs/shared/ui-tabs/src/index.ts"],
+      "@web-times-team/message": ["libs/shared/message/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
