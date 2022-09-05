@@ -3,10 +3,10 @@
 <div> </div>
 </header>
 <myorg-tab-group>
-  <ng-container *ngFor="let products of productsByCategory$ | async">
+  <ng-container *ngFor="let products of productsByCategory$ | async |keyvalue">
     <ng-template appStaticTabsContent>
-      <section class="general-infos__static-tabs__first-tab-content">
-        <myorg-open-food-catalog [openFoodProducts]="products">
+      <section class="open-food-products__static-tab">
+        <myorg-open-food-catalog [openFoodProducts]="products.value?.products">
         </myorg-open-food-catalog>
     </section>
     </ng-template>

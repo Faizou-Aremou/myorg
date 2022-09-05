@@ -1,4 +1,5 @@
 export interface Product {
-brand:'';
-categories:'';
+  id: string | number; // Primary ID
+  brand: '';
+  imgUrl: '';
 }

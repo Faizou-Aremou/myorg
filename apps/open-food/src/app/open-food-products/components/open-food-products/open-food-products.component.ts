@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Product } from '../../interfaces/product';
+import { OpenFoodProductsFacade } from '../../state/open-food-products/open-food-products.facade';
 
 @Component({
   selector: 'myorg-open-food-products',
@@ -9,5 +8,10 @@ import { Product } from '../../interfaces/product';
 })
 export class OpenFoodProductsComponent {
   appTitle = '';
-  productsByCategory$:Observable<Product[][]>=of([]); //  create façade for every service
+  productsByCategory$=this.openFoodProductsFacade.openFoodProductEntitiesByCategory$;
+
+  constructor(private openFoodProductsFacade: OpenFoodProductsFacade) {
+    this.openFoodProductsFacade.init();
+  }
+
 }
