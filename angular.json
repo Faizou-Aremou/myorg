@@ -9,7 +9,7 @@
     "shared-authorization": "libs/shared/authorization",
     "shared-http-services": "libs/shared/http-services",
     "shared-message": "libs/shared/message",
-    "shared-ui-products-grid": "libs/shared/ui-products-grid",
+    "shared-ui-catalog": "libs/shared/ui-catalog",
     "shared-ui-tabs": "libs/shared/ui-tabs",
     "shared-util-functionnal": "libs/shared/util-functionnal"
   }
