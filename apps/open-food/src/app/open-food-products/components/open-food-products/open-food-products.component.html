@@ -1,0 +1,14 @@
+<header> 
+<h1> {{ appTitle }} </h1> <!-- create façade for this too -->
+<div> </div>
+</header>
+<myorg-tab-group>
+  <ng-container *ngFor="let products of productsByCategory$ | async |keyvalue">
+    <ng-template appStaticTabsContent>
+      <section class="open-food-products__static-tab">
+        <myorg-open-food-catalog [openFoodProducts]="products.value?.products">
+        </myorg-open-food-catalog>
+    </section>
+    </ng-template>
+  </ng-container>
+</myorg-tab-group>

@@ -1,14 +1,31 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { SharedUiProductsGridModule } from '@myorg/shared/ui-products-grid';
-import { SharedUiTabsModule } from '@myorg/shared/ui-tabs';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
+import { OpenFoodProductsModule } from './open-food-products/open-food-products.module';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
-  imports: [BrowserModule, SharedUiTabsModule, SharedUiProductsGridModule],
+  declarations: [AppComponent],
   providers: [],
   bootstrap: [AppComponent],
+  imports: [
+    StoreModule.forRoot(
+      {},
+      {
+        metaReducers: !environment.production ? [] : [],
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+        },
+      }
+    ),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    AppRoutingModule,
+    OpenFoodProductsModule
+  ],
 })
 export class AppModule {}
