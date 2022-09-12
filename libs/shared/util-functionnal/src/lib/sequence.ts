@@ -1,5 +1,6 @@
 import { append, curry, equals, head, isEmpty, prepend, tail } from 'ramda';
-import { BinaryNode, isSingleton, isUnaryLeft, isUnaryRight, theLeftChild, theRightChild, theRoot } from './binary-tree';
+
+export type Sequence<T> = Array<T>
 
 /**
  * [a], [b] -> [b]
@@ -8,10 +9,10 @@ import { BinaryNode, isSingleton, isUnaryLeft, isUnaryRight, theLeftChild, theRi
  */
 export function embelishMaxOfSequence<T>(
   isSup: (element1: T, element2: T) => boolean,
-  sequence: Array<T>
+  sequence: Sequence<T>
 ): {
   max: T;
-  seq: Array<T>;
+  seq: Sequence<T>;
 } {
   if (sequence.length === 0) {
     throw new Error('param must have a least one element');
@@ -32,8 +33,8 @@ export function embelishMaxOfSequence<T>(
  */
 export function embelishIncludes<T>(
   element: T,
-  sequence: Array<T>
-): { bool: boolean; seq: Array<T> } {
+  sequence: Sequence<T>
+): { bool: boolean; seq: Sequence<T> } {
   if (isEmpty(sequence)) {
     return { bool: false, seq: [] };
   }
@@ -48,9 +49,9 @@ export function embelishIncludes<T>(
   return { bool, seq: [head(sequence) as T, ...seq] };
 }
 
-export function embelishSlipInTwo<T>(sequence: Array<T>): {
-  sequencePart1: Array<T>;
-  sequencePart2: Array<T>;
+export function embelishSlipInTwo<T>(sequence: Sequence<T>): {
+  sequencePart1: Sequence<T>;
+  sequencePart2: Sequence<T>;
   halfOfSequenceSize: number;
   sequenceSize: number;
 } {
@@ -103,9 +104,9 @@ export function embelishSlipInTwo<T>(sequence: Array<T>): {
  */
 export function InterClassement<T>(
   isInf: (element1: T, element2: T) => boolean,
-  sequence1: Array<T>,
-  sequence2: Array<T>
-): Array<T> {
+  sequence1: Sequence<T>,
+  sequence2: Sequence<T>
+): Sequence<T> {
   if (sequence1.length === 0 && sequence2.length === 0) {
     return [];
   }
@@ -138,8 +139,8 @@ export function InterClassement<T>(
  * @returns
  */
 export function hasSameSise<T>(
-  sequence1: Array<T>,
-  sequence2: Array<T>
+  sequence1: Sequence<T>,
+  sequence2: Sequence<T>
 ): boolean {
   return sequence1.length === sequence2.length;
 }
@@ -151,8 +152,8 @@ export function hasSameSise<T>(
  * @returns true if both sequences has same elements whatever the order
  */
 export function hasSameElements<T>(
-  sequence1: Array<T>,
-  sequence2: Array<T>
+  sequence1: Sequence<T>,
+  sequence2: Sequence<T>
 ): boolean {
   if (isEmpty(sequence1) && isEmpty(sequence2)) {
     return true;
@@ -169,8 +170,8 @@ export function hasSameElements<T>(
 
 export function interClassementSort<T>(
   isInf: (element1: T, element2: T) => boolean,
-  sequence: Array<T>
-): Array<T> {
+  sequence: Sequence<T>
+): Sequence<T> {
   switch (sequence.length) {
     case 0:
       return [];
@@ -245,55 +246,7 @@ export function quickSort<T>(
     }
   }
 }
-/**
- *
- * @param nodeArray
- * @returns
- */
-export function levelLinearizationByQueue<T>(
-  nodeArray: Array<BinaryNode<T>>
-): Array<T> {
-  if (nodeArray.length === 0) {
-    return [];
-  } else if (isSingleton(head(nodeArray) as BinaryNode<T>)) {
-    return prepend(
-      theRoot(head(nodeArray) as BinaryNode<T>) as T,
-      levelLinearizationByQueue(tail(nodeArray))
-    );
-  } else if (isUnaryLeft(head(nodeArray) as BinaryNode<T>)) {
-    return prepend(
-      theRoot(head(nodeArray) as BinaryNode<T>) as T,
-      levelLinearizationByQueue(
-        append(
-          theLeftChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
-          tail(nodeArray)
-        )
-      )
-    );
-  } else if (isUnaryRight(head(nodeArray) as BinaryNode<T>)) {
-    return prepend(
-      theRoot(head(nodeArray) as BinaryNode<T>) as T,
-      levelLinearizationByQueue(
-        append(
-          theRightChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
-          tail(nodeArray)
-        )
-      )
-    );
-  }
-  return prepend(
-    theRoot(head(nodeArray) as BinaryNode<T>) as T,
-    levelLinearizationByQueue(
-      append(
-        theRightChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
-        append(
-          theLeftChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
-          tail(nodeArray)
-        )
-      )
-    )
-  );
-}
+
 /**
  * [a] -> [a]
  * @param sequence
@@ -301,8 +254,8 @@ export function levelLinearizationByQueue<T>(
  */
 export function maxSearchSort<T>(
   isSup: (element1: T, element2: T) => boolean,
-  sequence: Array<T>
-): Array<T> {
+  sequence: Sequence<T>
+): Sequence<T> {
   if (isEmpty(sequence)) {
     return [];
   } else {
@@ -317,7 +270,7 @@ export function maxSearchSort<T>(
  * @param param1
  * @returns
  */
-export function sliceUntil<T>(index: number, sequence: Array<T>): Array<T> {
+export function sliceUntil<T>(index: number, sequence: Sequence<T>): Sequence<T> {
   if (index === 0 && sequence.length === 0) {
     return [];
   } else if (index > 0 && sequence.length === 0) {
@@ -365,14 +318,17 @@ export function sliceSort<T>(
   }
 }
 
-export function slipInTwoPart<T>(sequence: Array<T>): [Array<T>, Array<T>] {
+export function slipInTwoPart<T>(sequence: Sequence<T>): [Sequence<T>, Sequence<T>] {
   const { sequencePart1, sequencePart2, halfOfSequenceSize, sequenceSize } =
     embelishSlipInTwo(sequence);
   return [sequencePart1, sequencePart2];
 }
 
+export function isSingleton<T>(sequence: Sequence<T>){
+  return sequence.length === 1;
+}
 //-------------------------------------------------------------------------------------------String Sequences functions----------------------------------------------------------------------------------------
-export function trimSequence(sequence: Array<string>): Array<string> {
+export function trimSequence(sequence: Sequence<string>): Sequence<string> {
   if (sequence.length === 0) {
     return [];
   }
