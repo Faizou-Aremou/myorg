@@ -1,4 +1,4 @@
-import {testModule} from"./functionnal-number";
+import {testModule} from"./number";
 
 describe('functionnal number ', () => {
     it("it works", ()=> {

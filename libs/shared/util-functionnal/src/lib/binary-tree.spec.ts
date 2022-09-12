@@ -1,5 +1,4 @@
 import { compose } from 'ramda';
-import { BinaryNode } from '../interfaces/binary-node';
 import {
   binaryTreeFrom,
   existLeft,
@@ -19,16 +18,17 @@ import {
   binaryTreesElementsIsEquals,
   isSingleton,
   binaryTreeDepth,
-  rightChildOf,
-  rootOf,
   levelFor,
-  leftChildOf,
   isSameStructure,
   isUnaryRight,
   isUnaryLeft,
   embelishLevelFor,
   binaryTreePrefixedLeftRightSequences,
-} from './functionnal-binary-tree';
+  BinaryNode,
+  theLeftChild,
+  theRightChild,
+  theRoot,
+} from './binary-tree';
 
 const numberBinaryTree: BinaryNode<number> = {
   root: 1,
@@ -154,6 +154,8 @@ const prefixedfixedLinerizedlowercaseAlphabetTree = [
 describe('functionnal binary tree ', () => {
   it('binaryTreeDepth', () => {
     const t0 = performance.now();
+
+
     binaryTreeDepth(uppercaseAlphabetTree);
     const t1 = performance.now();
     console.log('binaryTreeDepth ' + (t1 - t0), 'milliseconds');
@@ -463,12 +465,12 @@ describe('functionnal binary tree ', () => {
       })
     ).toBe(false);
   });
-  it('leftChildOf', () => {
+  it('theLeftChild', () => {
     const t0 = performance.now();
-    leftChildOf(uppercaseAlphabetTree);
+    theLeftChild(uppercaseAlphabetTree);
     const t1 = performance.now();
-    console.log('leftChildOf ' + (t1 - t0), 'milliseconds');
-    expect(leftChildOf(uppercaseAlphabetTree)).toEqual({
+    console.log('theLeftChild ' + (t1 - t0), 'milliseconds');
+    expect(theLeftChild(uppercaseAlphabetTree)).toEqual({
       root: 'B',
       leftChild: {
         root: 'C',
@@ -568,12 +570,12 @@ describe('functionnal binary tree ', () => {
       postfixedLinerizedlowercaseAlphabetTree
     );
   });
-  it('rightChildOf', () => {
+  it('theRightChild', () => {
     const t0 = performance.now();
-    rightChildOf(uppercaseAlphabetTree);
+    theRightChild(uppercaseAlphabetTree);
     const t1 = performance.now();
-    console.log('rightChildOf ' + (t1 - t0), 'milliseconds');
-    expect(rightChildOf(uppercaseAlphabetTree)).toEqual({
+    console.log('theRightChild ' + (t1 - t0), 'milliseconds');
+    expect(theRightChild(uppercaseAlphabetTree)).toEqual({
       root: 'D',
       leftChild: {
         root: 'E',
@@ -586,12 +588,12 @@ describe('functionnal binary tree ', () => {
       },
     });
   });
-  it('rootOf', () => {
+  it('theRoot', () => {
     const t0 = performance.now();
-    rootOf(uppercaseAlphabetTree);
+    theRoot(uppercaseAlphabetTree);
     const t1 = performance.now();
     console.log('rootOf ' + (t1 - t0), 'milliseconds');
-    expect(rootOf(uppercaseAlphabetTree)).toEqual('A');
+    expect(theRoot(uppercaseAlphabetTree)).toEqual('A');
   });
   it('postfixedLinearization', () => {
     const t0 = performance.now();

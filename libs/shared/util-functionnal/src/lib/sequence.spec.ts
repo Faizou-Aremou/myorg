@@ -10,9 +10,9 @@ import {
   insertionSort,
   insertion,
   trimSequence,
-} from './functionnal-sequences';
+} from './sequence';
 
-import { isInfNumber, isSupNumber } from './functionnal-general';
+import { isInfNumber, isSupNumber } from './util';
 
 const numberList = [12, 13, 20, 8, 3, 4, 0, 5, 3];
 const words = ['spray', 'limit', 'elite', 'ola'];

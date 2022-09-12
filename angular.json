@@ -2,8 +2,6 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "google-books": "apps/google-books",
-    "google-books-e2e": "apps/google-books-e2e",
     "open-food": "apps/open-food",
     "open-food-e2e": "apps/open-food-e2e",
     "shared-authorization": "libs/shared/authorization",
@@ -11,6 +9,8 @@
     "shared-message": "libs/shared/message",
     "shared-ui-catalog": "libs/shared/ui-catalog",
     "shared-ui-tabs": "libs/shared/ui-tabs",
-    "shared-util-functionnal": "libs/shared/util-functionnal"
+    "shared-util-functionnal": "libs/shared/util-functionnal",
+    "vsm": "apps/vsm",
+    "vsm-e2e": "apps/vsm-e2e"
   }
 }

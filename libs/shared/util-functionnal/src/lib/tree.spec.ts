@@ -1,13 +1,14 @@
-import { Tree } from '../interfaces/tree';
+
 import {
-  childrenForest,
+  theChildrenForest,
   forestLeavesMinimumLevel,
   isSingleton,
   maxDegree,
   maxForestDegree,
-  root,
+  theRoot,
   treeLeavesMinimumLevel,
-} from './functionnal-tree';
+  Tree,
+} from './tree';
 
 const numberTree: Tree<number> = {
   root: 1,
@@ -42,10 +43,10 @@ const numberTree: Tree<number> = {
 describe('functionnal tree ', () => {
   it('childrenForest', () => {
     const t0 = performance.now();
-    childrenForest(numberTree);
+    theChildrenForest(numberTree);
     const t1 = performance.now();
     console.log('childrenForest ' + (t1 - t0), 'milliseconds');
-    expect(childrenForest(numberTree)).toEqual([
+    expect(theChildrenForest(numberTree)).toEqual([
       {
         root: 2,
         forest: [
@@ -94,17 +95,17 @@ describe('functionnal tree ', () => {
   });
   it('maxForestDegree', () => {
     const t0 = performance.now();
-    maxForestDegree(childrenForest(numberTree));
+    maxForestDegree(theChildrenForest(numberTree));
     const t1 = performance.now();
     console.log('maxForestDegree ' + (t1 - t0), 'milliseconds');
-    expect(maxForestDegree(childrenForest(numberTree))).toBe(10);
+    expect(maxForestDegree(theChildrenForest(numberTree))).toBe(10);
   });
   it('root', () => {
     const t0 = performance.now();
-    root(numberTree);
+    theRoot(numberTree);
     const t1 = performance.now();
     console.log('root ' + (t1 - t0), 'milliseconds');
-    expect(root(numberTree)).toBe(1);
+    expect(theRoot(numberTree)).toBe(1);
   });
   it('treeLeavesMinimumLevel', () => {
     const t0 = performance.now();
@@ -115,9 +116,9 @@ describe('functionnal tree ', () => {
   });
   it('forestLeavesMinimumLevel', () => {
     const t0 = performance.now();
-    forestLeavesMinimumLevel(childrenForest(numberTree));
+    forestLeavesMinimumLevel(theChildrenForest(numberTree));
     const t1 = performance.now();
     console.log('forestLeavesMinimumLevel ' + (t1 - t0), 'milliseconds');
-    expect(forestLeavesMinimumLevel(childrenForest(numberTree))).toBe(1);
+    expect(forestLeavesMinimumLevel(theChildrenForest(numberTree))).toBe(1);
   });
 });

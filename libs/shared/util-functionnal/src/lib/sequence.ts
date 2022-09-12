@@ -1,6 +1,5 @@
 import { append, curry, equals, head, isEmpty, prepend, tail } from 'ramda';
-import { BinaryNode } from '../interfaces/binary-node';
-import { isSingleton, isUnaryLeft, isUnaryRight, leftChildOf, rightChildOf, rootOf } from './functionnal-binary-tree';
+import { BinaryNode, isSingleton, isUnaryLeft, isUnaryRight, theLeftChild, theRightChild, theRoot } from './binary-tree';
 
 /**
  * [a], [b] -> [b]
@@ -258,37 +257,37 @@ export function levelLinearizationByQueue<T>(
     return [];
   } else if (isSingleton(head(nodeArray) as BinaryNode<T>)) {
     return prepend(
-      rootOf(head(nodeArray) as BinaryNode<T>) as T,
+      theRoot(head(nodeArray) as BinaryNode<T>) as T,
       levelLinearizationByQueue(tail(nodeArray))
     );
   } else if (isUnaryLeft(head(nodeArray) as BinaryNode<T>)) {
     return prepend(
-      rootOf(head(nodeArray) as BinaryNode<T>) as T,
+      theRoot(head(nodeArray) as BinaryNode<T>) as T,
       levelLinearizationByQueue(
         append(
-          leftChildOf(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
+          theLeftChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
           tail(nodeArray)
         )
       )
     );
   } else if (isUnaryRight(head(nodeArray) as BinaryNode<T>)) {
     return prepend(
-      rootOf(head(nodeArray) as BinaryNode<T>) as T,
+      theRoot(head(nodeArray) as BinaryNode<T>) as T,
       levelLinearizationByQueue(
         append(
-          rightChildOf(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
+          theRightChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
           tail(nodeArray)
         )
       )
     );
   }
   return prepend(
-    rootOf(head(nodeArray) as BinaryNode<T>) as T,
+    theRoot(head(nodeArray) as BinaryNode<T>) as T,
     levelLinearizationByQueue(
       append(
-        rightChildOf(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
+        theRightChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
         append(
-          leftChildOf(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
+          theLeftChild(head(nodeArray) as BinaryNode<T>) as BinaryNode<T>,
           tail(nodeArray)
         )
       )

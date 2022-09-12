@@ -1,23 +1,34 @@
 import { compose, isEmpty, max, length, head, tail, min } from 'ramda';
-import { Forest } from '../interfaces/forest';
-import { Tree } from '../interfaces/tree';
 
+export interface Tree<T> {
+  root: T;
+  forest:Forest<T>;
+}
 
+export type Forest<T>= Array<Tree<T>>;
 /**
  * Forest of sub tree of tree
  * :: a -> b
  * @param tree Tree
  * @returns Forest
  */
-export function childrenForest<T>(tree: Tree<T>): Forest<T> {
+export function theChildrenForest<T>(tree: Tree<T>): Forest<T> {
   return tree.forest;
+}
+/**
+ * root of tree<T>
+ * @param tree
+ * @returns T
+ */
+ export function theRoot<T>(tree: Tree<T>): T {
+  return tree.root;
 }
 /**
  * Predicate, check if tree doesn't have any trees in his forest 
  * :: a -> b
  * @returns boolean 
  */
-export const isSingleton = compose(isEmpty, childrenForest);
+export const isSingleton = compose(isEmpty, theChildrenForest);
 /**
  * maximum degree of the children of a tree
  * @param tree Tree
@@ -25,8 +36,8 @@ export const isSingleton = compose(isEmpty, childrenForest);
  */
 export function maxDegree<T>(tree: Tree<T>): number {
   return max(
-    length(childrenForest(tree)),
-    maxForestDegree(childrenForest(tree))
+    length(theChildrenForest(tree)),
+    maxForestDegree(theChildrenForest(tree))
   );
 }
 /**
@@ -57,14 +68,7 @@ export function depthFor<T>(tree: Tree<T>): number {
 export function pathFor<T>(tree: Tree<T>): Tree<T>[] {
   return [];
 }
-/**
- * root of tree<T>
- * @param tree
- * @returns T
- */
-export function root<T>(tree: Tree<T>): T {
-  return tree.root;
-}
+
 /**
  * 
  * @param tree 
@@ -94,12 +98,12 @@ export function forestLeavesMinimumLevel<T>(forest: Forest<T>): number {
     return 1;
   } else if (length(forest) === 1 && !isSingleton(head(forest) as Tree<T>)) {
     return (
-      1 + forestLeavesMinimumLevel(childrenForest(head(forest) as Tree<T>))
+      1 + forestLeavesMinimumLevel(theChildrenForest(head(forest) as Tree<T>))
     );
   }
 
   return min(
-    1 + forestLeavesMinimumLevel(childrenForest(head(forest) as Tree<T>)),
+    1 + forestLeavesMinimumLevel(theChildrenForest(head(forest) as Tree<T>)),
     forestLeavesMinimumLevel(tail(forest))
   );
 }
