@@ -1,1 +1,1 @@
-export type Percentage = string; 
+export type Percentage = number; 

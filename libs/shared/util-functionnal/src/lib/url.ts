@@ -1,1 +1,1 @@
-export type url = string;
+export type Url = string;

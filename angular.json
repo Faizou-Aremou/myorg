@@ -8,6 +8,7 @@
     "shared-http-services": "libs/shared/http-services",
     "shared-message": "libs/shared/message",
     "shared-ui-catalog": "libs/shared/ui-catalog",
+    "shared-ui-file": "libs/shared/ui-file",
     "shared-ui-tabs": "libs/shared/ui-tabs",
     "shared-util-functionnal": "libs/shared/util-functionnal",
     "vsm": "apps/vsm",

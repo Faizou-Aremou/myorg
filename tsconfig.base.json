@@ -22,7 +22,8 @@
       "@myorg/shared/authorization": ["libs/shared/authorization/src/index.ts"],
       "@myorg/shared/http-services": ["libs/shared/http-services/src/index.ts"],
       "@myorg/shared/ui-tabs": ["libs/shared/ui-tabs/src/index.ts"],
-      "@web-times-team/message": ["libs/shared/message/src/index.ts"]
+      "@web-times-team/message": ["libs/shared/message/src/index.ts"],
+      "@web-times-team/ui-file": ["libs/shared/ui-file/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

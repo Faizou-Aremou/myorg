@@ -1,6 +1,6 @@
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { RequestCacheEntry } from '../interfaces/request-cache-entry';
+import { RequestCacheEntry } from '../types/request-cache-entry';
 import { CACHEABLE_URLS } from '../tokens/cacheable-urls';
 import { MAX_AGE } from '../tokens/max-age';
 import { HttpRequestCache } from './http-request-cache';
