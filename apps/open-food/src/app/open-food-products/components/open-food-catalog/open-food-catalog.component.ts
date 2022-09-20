@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SharedUiCatalogAcpService } from '../../services/shared-ui-catalog-acp.service';
 import { Product as CatalogProduct } from '@myorg/shared-ui-catalog';
 
-import { Product } from '../../interfaces/product';
+import { Product } from '../../domain/models/types/product.model';
 
 @Component({
   selector: 'myorg-open-food-catalog',

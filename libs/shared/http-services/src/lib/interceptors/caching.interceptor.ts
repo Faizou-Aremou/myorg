@@ -8,12 +8,12 @@ import {
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { HttpRequestCache } from '../services/http-request-cache';
+import { HttpRequestCacheInterface } from '../interfaces/http-request-cache.interface';
 import { isCacheable } from '../utils';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
-  constructor(private readonly cache: HttpRequestCache) {}
+  constructor(private readonly cache: HttpRequestCacheInterface) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -33,7 +33,7 @@ export class CachingInterceptor implements HttpInterceptor {
 function sendRequest(
   request: HttpRequest<unknown>,
   next: HttpHandler,
-  cache: HttpRequestCache
+  cache: HttpRequestCacheInterface
 ): Observable<HttpEvent<unknown>> {
   return next.handle(request).pipe(
     tap((event) => {

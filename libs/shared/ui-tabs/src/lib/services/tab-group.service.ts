@@ -1,12 +1,13 @@
-import { DynamicTab } from "../interfaces/dynamic-tab.interface";
-import { StaticTab } from "../interfaces/static-tab.interface";
-import { TabGroup } from "../interfaces/tab-group.interface";
+
+import { TabGroupInterface } from "../interfaces/tab-group.interface";
+import { DynamicTab } from "../types/dynamic-tab.model";
+import { StaticTab } from "../types/static-tab.model";
 
 
 /**
  * TabGroup stands exactly like multi service instance, the same things can be done in multi service instance implementation
  */
-export class SimpleTabGroup<T> implements TabGroup<T>{
+export class SimpleTabGroup<T> implements TabGroupInterface<T>{
   private _staticTabs: Array<StaticTab> = [];
   private _dynamicTabs: Array<DynamicTab<T>> = [];
   

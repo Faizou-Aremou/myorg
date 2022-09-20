@@ -1,15 +1,15 @@
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { RequestCacheEntry } from '../interfaces/request-cache-entry';
+import { RequestCacheEntry } from '../types/request-cache-entry.model';
 import { CACHEABLE_URLS } from '../tokens/cacheable-urls';
 import { MAX_AGE } from '../tokens/max-age';
-import { HttpRequestCache } from './http-request-cache';
+import { HttpRequestCacheInterface } from '../interfaces/http-request-cache.interface';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class RequestCacheWithMapService extends HttpRequestCache{
+export class RequestCacheWithMapService extends HttpRequestCacheInterface{
 
   private cache = new Map<string, RequestCacheEntry>();
 

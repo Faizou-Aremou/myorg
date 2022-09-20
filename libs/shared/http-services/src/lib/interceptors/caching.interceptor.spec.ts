@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
-import { HttpRequestCache } from '../services/http-request-cache';
+import { HttpRequestCacheInterface } from '../interfaces/http-request-cache.interface';
 import { RequestCacheWithMapService } from '../services/request-cache-with-map.service';
 import { CACHEABLE_URLS } from '../tokens/cacheable-urls';
 import { MAX_AGE } from '../tokens/max-age';
@@ -15,7 +15,7 @@ describe('CachingInterceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         CachingInterceptor,
-        { provide: HttpRequestCache, useClass: RequestCacheWithMapService },
+        { provide: HttpRequestCacheInterface, useClass: RequestCacheWithMapService },
         { provide: CACHEABLE_URLS, useValue: ['/test'] },
         { provide: MAX_AGE, useValue: 3000 },
       ],

@@ -8,7 +8,7 @@ import { TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { Credentials } from '../models/credential.model';
 import { User } from '../models/user.model';
-import { Authorization } from '../services/authorization';
+import { Authorization } from '../interfaces/authorization.interface';
 
 import { AuthorizationInterceptor } from './authorization.interceptor';
 

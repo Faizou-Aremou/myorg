@@ -1,4 +1,4 @@
-import { Product } from "../../interfaces/product";
+import { Product } from "../../domain/models/types/product.model";
 
 /**
  * Interface for the 'OpenFoodProducts' data
