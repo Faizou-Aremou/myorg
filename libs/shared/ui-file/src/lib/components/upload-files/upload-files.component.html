@@ -1,0 +1,20 @@
+<ng-template #buttonFileInputTrigger>
+    <button mat-raised-button class="upload-files__add-files-button" (click)="fileInput.click()">
+        Add files
+    </button>
+</ng-template>
+<ng-container *ngIf="labelFileInputTrigger; else buttonFileInputTrigger" [ngTemplateOutlet]="labelFileInputTrigger.templateRef">
+</ng-container>
+<ul class="upload-files__files-container">
+    <li class="upload-files__file-item" *ngFor="let file of files; let index=index">
+        <span> {{ file.name }} </span>
+        <button mat-icon-button (click)="downloadFile(index)">
+            <mat-icon>download</mat-icon>
+        </button>
+        <button mat-icon-button (click)="removeFile(index)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </li>
+</ul>
+
+<input type="file" #fileInput id="fileInput" hidden (change)="selectFiles($event)" [multiple]="multiple">

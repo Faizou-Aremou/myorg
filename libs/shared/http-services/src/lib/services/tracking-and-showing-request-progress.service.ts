@@ -8,12 +8,12 @@ import {
 import { Injectable } from '@angular/core';
 import { Path, Percentage} from '@myorg/shared-util-functionnal';
 import { map, Observable } from 'rxjs';
-import { TrackingAndShowingRequestProgress } from './tracking-and-showing-request-progress';
+import { TrackingAndShowingRequestProgressInterface } from '../interfaces/tracking-and-showing-request-progress.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TrackingAndShowingRequestProgressService implements TrackingAndShowingRequestProgress {
+export class TrackingAndShowingRequestProgressService implements TrackingAndShowingRequestProgressInterface {
   constructor(private http: HttpClient) {}
 
   trackingRequest<T>(data: T, path: Path): Observable<Percentage> {

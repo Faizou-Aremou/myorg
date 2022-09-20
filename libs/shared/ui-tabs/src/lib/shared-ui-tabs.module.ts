@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabGroupComponent } from './tab-group/tab-group.component';
+import { TabGroupComponent } from './components/tab-group/tab-group.component';
 import { StaticTabsContentDirective } from './directives/static-tabs-content.directive';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatIconModule} from '@angular/material/icon'; 

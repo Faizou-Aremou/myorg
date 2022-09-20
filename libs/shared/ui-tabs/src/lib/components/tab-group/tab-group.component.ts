@@ -1,7 +1,8 @@
 import { Component, ContentChild, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
-import { StaticTabsContentDirective } from '../directives/static-tabs-content.directive';
-import { TabGroup } from '../interfaces/tab-group.interface';
-import { DynamicTab} from '../interfaces/dynamic-tab.interface'
+import { StaticTabsContentDirective } from '../../directives/static-tabs-content.directive';
+import { TabGroupInterface } from '../../interfaces/tab-group.interface';
+import { DynamicTab } from '../../types/dynamic-tab.model';
+
 
 
 @Component({
@@ -10,7 +11,7 @@ import { DynamicTab} from '../interfaces/dynamic-tab.interface'
   styleUrls: ['./tab-group.component.scss'],
 })
 export class TabGroupComponent<T> {
-  @Input() tabGroup: TabGroup<T> | null = null;
+  @Input() tabGroup: TabGroupInterface<T> | null = null;
   @ContentChildren(StaticTabsContentDirective) staticTabsContentRefs: QueryList<StaticTabsContentDirective> | null = null;
   @ContentChild("dynamicTabsContent", { static: false }) dynamicTabsContentRef: TemplateRef<unknown> | null = null;
 

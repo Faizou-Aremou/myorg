@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { Message } from '../services/message';
+import { Message } from '../interfaces/message.interface';
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {

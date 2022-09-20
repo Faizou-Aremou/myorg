@@ -1,14 +1,14 @@
 import { HttpResponse } from '@angular/common/http';
-import { Url } from '@myorg/shared-util-functionnal';
+import { WebPageUrl } from '@myorg/shared-util-functionnal';
 
 export interface RequestCacheEntry {
-  url: Url;
+  url: WebPageUrl;
   response: HttpResponse<unknown>;
   lastRead: number;
 }
 
 export function theRequestCacheEntry(
-  url: Url,
+  url: WebPageUrl,
   response: HttpResponse<unknown>,
   lastRead: number
 ): RequestCacheEntry {
@@ -19,12 +19,12 @@ export function theRequestCacheEntry(
   };
 }
 
-export function theUrl(RequestCacheEntry: RequestCacheEntry): Url {
+export function theUrl(RequestCacheEntry: RequestCacheEntry): WebPageUrl {
   return RequestCacheEntry.url;
 }
-export function theResponse(RequestCacheEntry: RequestCacheEntry): Url {
+export function theResponse(RequestCacheEntry: RequestCacheEntry): WebPageUrl {
   return RequestCacheEntry.url;
 }
-export function thelastRead(RequestCacheEntry: RequestCacheEntry): Url {
+export function thelastRead(RequestCacheEntry: RequestCacheEntry): WebPageUrl {
   return RequestCacheEntry.url;
 }

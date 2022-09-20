@@ -1,7 +1,8 @@
-import { DynamicTab } from "./dynamic-tab.interface";
-import { StaticTab } from "./static-tab.interface";
+import { DynamicTab } from "../types/dynamic-tab.model";
+import { StaticTab } from "../types/static-tab.model";
 
-export abstract class TabGroup<T> {
+
+export abstract class TabGroupInterface<T> {
     abstract staticTabs: Array<StaticTab>; 
     abstract dynamicTabs: Array<DynamicTab<T>>;
     abstract selectedTab:number;  

@@ -6,3 +6,6 @@ export * from './lib/url';
 export * from './lib/designation';
 export * from './lib/percentage';
 export * from './lib/path';
+export * from './lib/bit';
+export * from './lib/mega-bit';
+export * from './lib/bit-in-string';

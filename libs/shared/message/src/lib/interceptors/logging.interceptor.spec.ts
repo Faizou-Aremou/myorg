@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
-import { Message } from '../services/message';
+import { Message } from '../interfaces/message.interface';
 
 import { LoggingInterceptor } from './logging.interceptor';
 class SimpleMessageService extends Message {

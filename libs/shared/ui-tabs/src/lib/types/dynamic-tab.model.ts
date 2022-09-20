@@ -1,4 +1,4 @@
-import { StaticTab } from './static-tab.interface';
+import { StaticTab } from './static-tab.model';
 export interface DynamicTab<T> extends StaticTab {
   contentInfos: T;
 }
