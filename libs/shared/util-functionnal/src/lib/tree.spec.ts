@@ -8,6 +8,7 @@ import {
   theRoot,
   treeLeavesMinimumLevel,
   Tree,
+  depthTree,
 } from './tree';
 
 const numberTree: Tree<number> = {
@@ -72,6 +73,13 @@ describe('functionnal tree ', () => {
       { root: 10, forest: [] },
       { root: 11, forest: [] },
     ]);
+  });
+  it('depthTree', () => {
+    const t0 = performance.now();
+    depthTree(numberTree);
+    const t1 = performance.now();
+    console.log('depthTree ' + (t1 - t0), 'milliseconds');
+    expect(depthTree(numberTree)).toBe(3);
   });
   it('isSingleton', () => {
     const t0 = performance.now();

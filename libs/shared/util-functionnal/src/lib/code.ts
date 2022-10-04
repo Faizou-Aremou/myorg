@@ -1,1 +1,1 @@
-export type code = string;
+export type Code = string;

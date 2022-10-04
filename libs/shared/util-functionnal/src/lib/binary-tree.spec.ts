@@ -24,13 +24,14 @@ import {
   isUnaryLeft,
   embelishLevelFor,
   binaryTreePrefixedLeftRightSequences,
-  BinaryNode,
+  BinaryTree,
   theLeftChild,
   theRightChild,
   theRoot,
+  depth,
 } from './binary-tree';
 
-const numberBinaryTree: BinaryNode<number> = {
+const numberBinaryTree: BinaryTree<number> = {
   root: 1,
   leftChild: {
     root: 2,
@@ -51,7 +52,7 @@ const numberBinaryTree: BinaryNode<number> = {
     },
   },
 };
-const uppercaseAlphabetTree: BinaryNode<string> = {
+const uppercaseAlphabetTree: BinaryTree<string> = {
   root: 'A',
   leftChild: {
     root: 'B',
@@ -73,7 +74,7 @@ const uppercaseAlphabetTree: BinaryNode<string> = {
   },
 };
 
-const lowcaseAlphabetTree: BinaryNode<string> = {
+const lowcaseAlphabetTree: BinaryTree<string> = {
   root: 'a',
   leftChild: {
     root: 'b',
@@ -154,7 +155,6 @@ const prefixedfixedLinerizedlowercaseAlphabetTree = [
 describe('functionnal binary tree ', () => {
   it('binaryTreeDepth', () => {
     const t0 = performance.now();
-
 
     binaryTreeDepth(uppercaseAlphabetTree);
     const t1 = performance.now();
@@ -292,6 +292,19 @@ describe('functionnal binary tree ', () => {
       binaryTreeRightChildPrefixedLinearization: ['D', 'E', 'F', 'G'],
     });
   });
+  it('depthOfABinaryTree', () => {
+    const t0 = performance.now();
+    depth(lowcaseAlphabetTree);
+    const t1 = performance.now();
+    console.log(
+      'depthOfABinaryTree ' + (t1 - t0),
+      'milliseconds'
+    );
+    expect(
+      depth(lowcaseAlphabetTree)
+    ).toBe(4);
+  });
+
   it('embelishLevelFor', () => {
     const t0 = performance.now();
     embelishLevelFor(
