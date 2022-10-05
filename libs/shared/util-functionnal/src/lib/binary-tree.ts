@@ -13,9 +13,9 @@ import { removeOne } from './util';
 import { hasSameElements, hasSameSise } from './sequence';
 import { LevelPresence } from './level-presence';
 export type BinaryTree<T> = {
-  root: T;
-  leftChild?: BinaryTree<T>;
-  rightChild?: BinaryTree<T>;
+  readonly root: T;
+  readonly leftChild?: BinaryTree<T>;
+  readonly rightChild?: BinaryTree<T>;
 };
 /**
  *

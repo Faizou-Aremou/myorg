@@ -3,8 +3,8 @@ import { LevelPresence } from './level-presence';
 import { isSingleton as isSingletonSequence, Sequence } from './sequence';
 
 export type Tree<T> = {
-  root: T;
-  forest: Forest<T>;
+  readonly root: T;
+  readonly forest: Forest<T>;
 };
 
 export type Forest<T> = Sequence<Tree<T>>;

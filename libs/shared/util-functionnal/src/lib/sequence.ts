@@ -1,6 +1,6 @@
 import { append, curry, equals, head, isEmpty, prepend, tail } from 'ramda';
 
-export type Sequence<T> = Array<T>
+export type Sequence<T> = ReadonlyArray<T>
 
 /**
  * [a], [b] -> [b]
