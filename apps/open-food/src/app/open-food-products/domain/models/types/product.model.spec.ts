@@ -1,14 +1,14 @@
-import { code, url } from "@myorg/shared-util-functionnal";
+import { Code, Url } from "@myorg/shared-util-functionnal";
 import { Ingredient } from "./ingredient.model";
 
 export interface Product {
-  id: code; // Primary ID
+  id: Code; // Primary ID
   brand: string;
-  imgUrl: url;
+  imgUrl: Url;
   ingredient:Ingredient;
 }
 
-export function theProduct(id: code, brand: string, imgUrl: url, ingredient:Ingredient): Product {
+export function theProduct(id: Code, brand: string, imgUrl: Url, ingredient:Ingredient): Product {
   return {
     id: id,
     brand: brand,
@@ -17,7 +17,7 @@ export function theProduct(id: code, brand: string, imgUrl: url, ingredient:Ingr
   };
 }
 
-export function theId(product:Product):code{
+export function theId(product:Product):Code{
 return product.id;
 }
 
@@ -25,7 +25,7 @@ export function theBrand (product:Product):string{
   return product.brand;
 }
 
-export function theImgUrl (product:Product):url{
+export function theImgUrl (product:Product):Url{
   return product.imgUrl;
 }
 

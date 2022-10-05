@@ -1,12 +1,12 @@
-import { BitInString } from '@myorg/shared-util-functionnal';
+import { BitString } from '@myorg/shared-util-functionnal';
 import { FileUnit } from './file-unit.enum';
 
 export interface FileSize {
-  size: BitInString;
+  size: BitString;
   unit: FileUnit;
 }
 
-export function TheFileSize(size: BitInString, unit: FileUnit) {
+export function TheFileSize(size: BitString, unit: FileUnit) {
   return { size: size, unit: unit };
 }
 

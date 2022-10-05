@@ -2,10 +2,10 @@ import { compose, isEmpty, max, length, head, tail, min, equals } from 'ramda';
 import { LevelPresence } from './level-presence';
 import { isSingleton as isSingletonSequence, Sequence } from './sequence';
 
-export interface Tree<T> {
-  root: T;
-  forest: Forest<T>;
-}
+export type Tree<T> = {
+  readonly root: T;
+  readonly forest: Forest<T>;
+};
 
 export type Forest<T> = Sequence<Tree<T>>;
 /**
@@ -55,31 +55,52 @@ export function maxForestDegree<T>(forest: Forest<T>): number {
   return max(maxDegree(head(forest) as Tree<T>), maxForestDegree(tail(forest)));
 }
 /**
- *
- * @param tree
- * @returns
+ * :: Tree -> integer
  */
-export function depthFor<T>(tree: Tree<T>): number {
-  return 0;
-}
-/**
- *
- * @param tree
- * @returns
- */
-export function pathFor<T>(tree: Tree<T>): Tree<T>[] {
-  return [];
+export function depthTree<T>(tree: Tree<T>): number {
+  return depthForest([tree]);
 }
 
 /**
- *
- * @param tree
- * @returns
+ * :: Forest -> integer
  */
-export function widthFor<T>(tree: Tree<T>): number {
-  // need more explanation
-  return 0;
+export function depthForest<T>(forest: Forest<T>): number {
+  if (isSingletonSequence(forest) && isSingleton(head(forest) as Tree<T>)) {
+    return 1;
+  } else if (
+    isSingletonSequence(forest) &&
+    !isSingleton(head(forest) as Tree<T>)
+  ) {
+    return (1+depthForest(theChildrenForest(head(forest) as Tree<T>)));
+  } else if (
+    !isSingletonSequence(forest) &&
+    isSingleton(head(forest) as Tree<T>)
+  ) {
+    return max(1, depthForest(tail(forest)));
+  }
+  return max(
+    1 + depthForest(theChildrenForest(head(forest))),
+    depthForest(tail(forest))
+  );
 }
+// /**
+//  *
+//  * @param tree
+//  * @returns
+//  */
+// export function pathFor<T>(tree: Tree<T>): Tree<T>[] {
+//   return [];
+// }
+
+// /**
+//  *
+//  * @param tree
+//  * @returns
+//  */
+// export function widthFor<T>(tree: Tree<T>): number {
+//   // need more explanation
+//   return 0;
+// }
 
 /**
  * Tree leaves minimum level
