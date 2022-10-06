@@ -1,13 +1,9 @@
 import { compose, isEmpty, max, length, head, tail, min, equals } from 'ramda';
-import { LevelPresence } from './level-presence';
-import { isSingleton as isSingletonSequence, Sequence } from './sequence';
+import { LevelPresence } from './common.types';
+import { isSingleton as isSingletonSequence} from './sequence.functions';
+import { Forest, Tree } from './tree.types';
 
-export type Tree<T> = {
-  readonly root: T;
-  readonly forest: Forest<T>;
-};
 
-export type Forest<T> = Sequence<Tree<T>>;
 /**
  * Forest of sub tree of tree
  * :: a -> b
@@ -22,7 +18,7 @@ export function theChildrenForest<T>(tree: Tree<T>): Forest<T> {
  * @param tree
  * @returns T
  */
-export function theRoot<T>(tree: Tree<T>): T {
+export function theTreeRoot<T>(tree: Tree<T>): T {
   return tree.root;
 }
 /**
@@ -30,7 +26,7 @@ export function theRoot<T>(tree: Tree<T>): T {
  * :: a -> b
  * @returns boolean
  */
-export const isSingleton = compose(isEmpty, theChildrenForest);
+export const isSingletonTree = compose(isEmpty, theChildrenForest);
 /**
  * maximum degree of the children of a tree
  * @param tree Tree
@@ -65,16 +61,16 @@ export function depthTree<T>(tree: Tree<T>): number {
  * :: Forest -> integer
  */
 export function depthForest<T>(forest: Forest<T>): number {
-  if (isSingletonSequence(forest) && isSingleton(head(forest) as Tree<T>)) {
+  if (isSingletonSequence(forest) && isSingletonTree(head(forest) as Tree<T>)) {
     return 1;
   } else if (
     isSingletonSequence(forest) &&
-    !isSingleton(head(forest) as Tree<T>)
+    !isSingletonTree(head(forest) as Tree<T>)
   ) {
     return (1+depthForest(theChildrenForest(head(forest) as Tree<T>)));
   } else if (
     !isSingletonSequence(forest) &&
-    isSingleton(head(forest) as Tree<T>)
+    isSingletonTree(head(forest) as Tree<T>)
   ) {
     return max(1, depthForest(tail(forest)));
   }
@@ -117,9 +113,9 @@ export function treeLeavesMinimumLevel<T>(tree: Tree<T>): number {
  * @returns
  */
 export function forestLeavesMinimumLevel<T>(forest: Forest<T>): number {
-  if (isSingleton(head(forest) as Tree<T>)) {
+  if (isSingletonTree(head(forest) as Tree<T>)) {
     return 1;
-  } else if (length(forest) === 1 && !isSingleton(head(forest) as Tree<T>)) {
+  } else if (length(forest) === 1 && !isSingletonTree(head(forest) as Tree<T>)) {
     return (
       1 + forestLeavesMinimumLevel(theChildrenForest(head(forest) as Tree<T>))
     );
@@ -139,12 +135,12 @@ export function levelAndPresenceOfElementInForest<T>(
   element: T,
   forest: Forest<T>
 ): LevelPresence {
-  if (isSingletonSequence(forest) && compose(isSingleton, head)(forest)) {
-    return equals(element, compose(theRoot, head)(forest))
+  if (isSingletonSequence(forest) && compose(isSingletonTree, head)(forest)) {
+    return equals(element, compose(theTreeRoot, head)(forest))
       ? { level: 1, present: true }
       : { level: 0, present: false };
-  } else if (isSingletonSequence(forest) && !isSingleton(head(forest))) {
-    if (equals(element, compose(theRoot, head)(forest))) {
+  } else if (isSingletonSequence(forest) && !isSingletonTree(head(forest))) {
+    if (equals(element, compose(theTreeRoot, head)(forest))) {
       return {
         level: 1,
         present: true,
@@ -160,9 +156,9 @@ export function levelAndPresenceOfElementInForest<T>(
     }
   } else if (
     !isSingletonSequence(forest) &&
-    compose(isSingleton, head)(forest)
+    compose(isSingletonTree, head)(forest)
   ) {
-    if (equals(element, compose(theRoot, head)(forest))) {
+    if (equals(element, compose(theTreeRoot, head)(forest))) {
       return {
         level: 1,
         present: true,
@@ -177,7 +173,7 @@ export function levelAndPresenceOfElementInForest<T>(
         : { level: level, present: false };
     }
   }
-  if (equals(element, compose(theRoot, head)(forest))) {
+  if (equals(element, compose(theTreeRoot, head)(forest))) {
     return {
       level: 1,
       present: true,
@@ -210,12 +206,12 @@ export function levelAndPresenceOfElementInTree<T>(
   element: T,
   tree: Tree<T>
 ): LevelPresence {
-  if (isSingleton(tree)) {
-    return equals(element, theRoot(tree))
+  if (isSingletonTree(tree)) {
+    return equals(element, theTreeRoot(tree))
       ? { level: 1, present: true }
       : { level: 0, present: false };
   }
-  if (equals(element, theRoot(tree))) {
+  if (equals(element, theTreeRoot(tree))) {
     return { level: 1, present: true };
   } else {
     const { level, present } = levelAndPresenceOfElementInForest(

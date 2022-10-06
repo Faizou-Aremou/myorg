@@ -16,7 +16,7 @@ import {
   subNodeOf,
   isEmptyTree,
   binaryTreesElementsIsEquals,
-  isSingleton,
+  isSingletonBinaryTree,
   binaryTreeDepth,
   levelFor,
   isSameStructure,
@@ -24,12 +24,12 @@ import {
   isUnaryLeft,
   embelishLevelFor,
   binaryTreePrefixedLeftRightSequences,
-  BinaryTree,
   theLeftChild,
   theRightChild,
   theRoot,
   depth,
-} from './binary-tree';
+} from './binary-tree.functions';
+import { BinaryTree } from './binary-tree.types';
 
 const numberBinaryTree: BinaryTree<number> = {
   root: 1,
@@ -383,11 +383,11 @@ describe('functionnal binary tree ', () => {
 
   it('isSingleton', () => {
     const t0 = performance.now();
-    isSingleton(uppercaseAlphabetTree);
+    isSingletonBinaryTree(uppercaseAlphabetTree);
     const t1 = performance.now();
     console.log('isSingleton ' + (t1 - t0), 'milliseconds');
-    expect(isSingleton(uppercaseAlphabetTree)).toBe(false);
-    expect(compose(isSingleton, subNodeOf)('C', uppercaseAlphabetTree));
+    expect(isSingletonBinaryTree(uppercaseAlphabetTree)).toBe(false);
+    expect(compose(isSingletonBinaryTree, subNodeOf)('C', uppercaseAlphabetTree));
   });
   it('isUnaryLeft', () => {
     const t0 = performance.now();

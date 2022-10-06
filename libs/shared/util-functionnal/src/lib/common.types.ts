@@ -1,0 +1,10 @@
+export type ApiUrl = string;
+export type Bit = number;
+export type BitString = string;
+export type Code = string;
+export type Designation = string;
+export type LevelPresence = { level: number; present: boolean };
+export type MegaBit = number;
+export type Path = string;
+export type Percentage = number; 
+export type Url = string;

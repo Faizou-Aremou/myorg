@@ -2,14 +2,14 @@
 import {
   theChildrenForest,
   forestLeavesMinimumLevel,
-  isSingleton,
+  isSingletonTree,
   maxDegree,
   maxForestDegree,
-  theRoot,
+  theTreeRoot,
   treeLeavesMinimumLevel,
   Tree,
   depthTree,
-} from './tree';
+} from './tree.functions';
 
 const numberTree: Tree<number> = {
   root: 1,
@@ -83,16 +83,16 @@ describe('functionnal tree ', () => {
   });
   it('isSingleton', () => {
     const t0 = performance.now();
-    isSingleton(numberTree);
+    isSingletonTree(numberTree);
     const t1 = performance.now();
     console.log('isSingleton ' + (t1 - t0), 'milliseconds');
     expect(
-      isSingleton({
+      isSingletonTree({
         root: 1,
         forest: [],
       })
     ).toBe(true);
-    expect(isSingleton(numberTree)).toBe(false);
+    expect(isSingletonTree(numberTree)).toBe(false);
   });
   it('maxDegree', () => {
     const t0 = performance.now();
@@ -110,10 +110,10 @@ describe('functionnal tree ', () => {
   });
   it('root', () => {
     const t0 = performance.now();
-    theRoot(numberTree);
+    theTreeRoot(numberTree);
     const t1 = performance.now();
     console.log('root ' + (t1 - t0), 'milliseconds');
-    expect(theRoot(numberTree)).toBe(1);
+    expect(theTreeRoot(numberTree)).toBe(1);
   });
   it('treeLeavesMinimumLevel', () => {
     const t0 = performance.now();

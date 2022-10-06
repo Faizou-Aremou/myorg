@@ -9,14 +9,11 @@ import {
   prepend,
   tail,
 } from 'ramda';
-import { removeOne } from './util';
-import { hasSameElements, hasSameSise } from './sequence';
-import { LevelPresence } from './level-presence';
-export type BinaryTree<T> = {
-  readonly root: T;
-  readonly leftChild?: BinaryTree<T>;
-  readonly rightChild?: BinaryTree<T>;
-};
+import { removeOne } from './common.functions';
+import { hasSameElements, hasSameSise } from './sequence.functions';
+import { BinaryTree } from './binary-tree.types';
+import { LevelPresence } from './common.types';
+
 /**
  *
  * @param node
@@ -29,7 +26,7 @@ export function theRoot<T>(
     return undefined;
   }
 
-  return node.root; // TODO: type generic immutable
+  return node.root;
 }
 
 /**
@@ -71,7 +68,7 @@ export function theRightChild<T>(
  * @returns number
  */
 export function binaryTreeDepth<T>(node: BinaryTree<T>): number {
-  if (isSingleton<T>(node)) {
+  if (isSingletonBinaryTree<T>(node)) {
     return 1;
   } else if (isUnaryLeft(node)) {
     return 1 + binaryTreeDepth(node.leftChild as BinaryTree<T>);
@@ -309,7 +306,7 @@ export function embelishLevelFor<T>(
 ): { hasNode: boolean; level: number } {
   if (isEmptyTree(treeNode)) {
     return { hasNode: false, level: 0 };
-  } else if (isSingleton(treeNode)) {
+  } else if (isSingletonBinaryTree(treeNode)) {
     return equals(theRoot(node), theRoot(treeNode))
       ? { hasNode: true, level: 1 }
       : { hasNode: false, level: 0 };
@@ -418,7 +415,7 @@ export function isEqualToNearestOrder<T>(
  * @param node
  * @returns
  */
-export function isSingleton<T>(node: BinaryTree<T>): boolean {
+export function isSingletonBinaryTree<T>(node: BinaryTree<T>): boolean {
   return !node.leftChild && !node.rightChild;
 }
 /**
@@ -493,7 +490,7 @@ export function levelLinearizationByQueue<T>(
 ): Array<T> {
   if (nodeArray.length === 0) {
     return [];
-  } else if (isSingleton(head(nodeArray) as BinaryTree<T>)) {
+  } else if (isSingletonBinaryTree(head(nodeArray) as BinaryTree<T>)) {
     return prepend(
       theRoot(head(nodeArray) as BinaryTree<T>) as T,
       levelLinearizationByQueue(tail(nodeArray))
@@ -541,7 +538,7 @@ export function levelAndPresenceOfAnElementInBinaryTree<T>(
   element: T,
   binaryTree: BinaryTree<T>
 ): LevelPresence {
-  if (isSingleton(binaryTree)) {
+  if (isSingletonBinaryTree(binaryTree)) {
     return equals(element, theRoot(binaryTree))
       ? { level: 1, present: true }
       : { level: 0, present: false };
@@ -599,7 +596,7 @@ export function levelAndPresenceOfAnElementInBinaryTree<T>(
  * @returns
  */
 export function binaryTreeLeavesMinimumLevel<T>(node: BinaryTree<T>): number {
-  if (isSingleton<T>(node)) {
+  if (isSingletonBinaryTree<T>(node)) {
     return 1;
   } else if (isUnaryLeft(node)) {
     return 1 + binaryTreeLeavesMinimumLevel(node.leftChild as BinaryTree<T>);
@@ -634,7 +631,7 @@ export const numberOfDescendantsOf = compose(
 export function numberOfLeaves<T>(node: BinaryTree<T> | undefined): number {
   if (isEmptyTree(node)) {
     return 0;
-  } else if (isSingleton<T>(node)) {
+  } else if (isSingletonBinaryTree<T>(node)) {
     return 1;
   } else if (isUnaryLeft(node)) {
     return numberOfLeaves<T>(node.leftChild);
@@ -651,7 +648,7 @@ export function numberOfLeaves<T>(node: BinaryTree<T> | undefined): number {
 export function numberOfNodes<T>(node: BinaryTree<T> | undefined): number {
   if (isEmptyTree(node)) {
     return 0;
-  } else if (isSingleton<T>(node)) {
+  } else if (isSingletonBinaryTree<T>(node)) {
     return 1;
   } else if (isUnaryLeft(node)) {
     return 1 + numberOfNodes<T>(node.leftChild);
@@ -708,7 +705,7 @@ export function subNodeOf<T>(
 ): BinaryTree<T> | undefined {
   if (isEmptyTree(node)) {
     return undefined;
-  } else if (isSingleton<T>(node)) {
+  } else if (isSingletonBinaryTree<T>(node)) {
     return equals(theRoot(node), element) ? { ...node } : undefined;
   } else if (isUnaryLeft(node)) {
     return equals(theRoot(node), element)
