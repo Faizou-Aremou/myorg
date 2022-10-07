@@ -7,9 +7,10 @@ import {
   maxForestDegree,
   theTreeRoot,
   treeLeavesMinimumLevel,
-  Tree,
   depthTree,
+  numberOfElementsOfGivenValueInTree,
 } from './tree.functions';
+import { Tree } from './tree.types';
 
 const numberTree: Tree<number> = {
   root: 1,
@@ -107,6 +108,41 @@ describe('functionnal tree ', () => {
     const t1 = performance.now();
     console.log('maxForestDegree ' + (t1 - t0), 'milliseconds');
     expect(maxForestDegree(theChildrenForest(numberTree))).toBe(10);
+  });
+  it('numberOfElementsOfGivenValueInTree', () => {
+    const t0 = performance.now();
+    numberOfElementsOfGivenValueInTree(5, numberTree);
+    const t1 = performance.now();
+    console.log('numberOfElementsOfGivenValueInTree ' + (t1 - t0), 'milliseconds');
+    expect(numberOfElementsOfGivenValueInTree(12,{
+      root: 1,
+      forest: [
+        {
+          root: 2,
+          forest: [
+            { root: 12, forest: [] },
+            { root: 13, forest: [] },
+            { root: 14, forest: [] },
+            { root: 15, forest: [] },
+            { root: 16, forest: [] },
+            { root: 17, forest: [] },
+            { root: 18, forest: [] },
+            { root: 19, forest: [] },
+            { root: 12, forest: [] },
+            { root: 21, forest: [] },
+          ],
+        },
+        { root: 3, forest: [] },
+        { root: 4, forest: [] },
+        { root: 12, forest: [] },
+        { root: 6, forest: [] },
+        { root: 7, forest: [] },
+        { root: 8, forest: [] },
+        { root: 9, forest: [] },
+        { root: 10, forest: [] },
+        { root: 11, forest: [] },
+      ],
+    })).toBe(3);
   });
   it('root', () => {
     const t0 = performance.now();

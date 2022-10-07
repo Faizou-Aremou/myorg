@@ -13,6 +13,7 @@ import { removeOne } from './common.functions';
 import { hasSameElements, hasSameSise } from './sequence.functions';
 import { BinaryTree } from './binary-tree.types';
 import { LevelPresence } from './common.types';
+import { Integer } from './integer.types';
 
 /**
  *
@@ -272,26 +273,25 @@ export function binaryTreePrefixedLeftRightSequences<T>(
  * binaryTree -> number
  */
 export function depth<T>(binaryTree: BinaryTree<T>): number {
-  if (isEmptyTree(theLeftChild(binaryTree)) && isEmptyTree(theRightChild(binaryTree))) {
+  if (
+    isEmptyTree(theLeftChild(binaryTree)) &&
+    isEmptyTree(theRightChild(binaryTree))
+  ) {
     return 1;
   } else if (
     !isEmptyTree(theLeftChild(binaryTree)) &&
     isEmptyTree(theRightChild(binaryTree))
   ) {
-    return( 1 + depth(theLeftChild(binaryTree)));
+    return 1 + depth(theLeftChild(binaryTree));
   } else if (
     !isEmptyTree(theRightChild(binaryTree)) &&
     isEmptyTree(theLeftChild(binaryTree))
   ) {
-    return (1 + depth(theRightChild(binaryTree)));
+    return 1 + depth(theRightChild(binaryTree));
   }
 
   return (
-    1 +
-    max(
-      depth(theLeftChild(binaryTree)),
-      depth(theRightChild(binaryTree))
-    )
+    1 + max(depth(theLeftChild(binaryTree)), depth(theRightChild(binaryTree)))
   );
 }
 
@@ -657,7 +657,45 @@ export function numberOfNodes<T>(node: BinaryTree<T> | undefined): number {
   }
   return numberOfNodes(node.leftChild) + 1 + numberOfNodes(node.rightChild);
 }
+/**
+ * a -> BinaryTree -> Integer
+ */
+export function numberOfElementsOfGivenValueInBinaryTree<T>(
+  element: T,
+  binaryTree: BinaryTree<T>
+): Integer {
+  if (isSingletonBinaryTree(binaryTree)) {
+    return equals(element, theRoot(binaryTree)) ? 1 : 0;
+  } else if (isUnaryLeft(binaryTree)) {
+    return (
+      (equals(element, theRoot(binaryTree)) ? 1 : 0) +
+      numberOfElementsOfGivenValueInBinaryTree(
+        element,
+        theLeftChild(binaryTree)
+      )
+    );
+  } else if (isUnaryRight(binaryTree)) {
+    return (
+      (equals(element, theRoot(binaryTree)) ? 1 : 0) +
+      numberOfElementsOfGivenValueInBinaryTree(
+        element,
+        theRightChild(binaryTree)
+      )
+    );
+  }
 
+  return (
+    (equals(element, theRoot(binaryTree)) ? 1 : 0) +
+    numberOfElementsOfGivenValueInBinaryTree(
+      element,
+      theLeftChild(binaryTree)
+    ) +
+    numberOfElementsOfGivenValueInBinaryTree(
+      element,
+      theRightChild(binaryTree)
+    )
+  );
+}
 /**
  *:: a -> [b]
  * @param binaryNode

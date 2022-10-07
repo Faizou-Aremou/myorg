@@ -1,8 +1,8 @@
 import { compose, isEmpty, max, length, head, tail, min, equals } from 'ramda';
 import { LevelPresence } from './common.types';
-import { isSingleton as isSingletonSequence} from './sequence.functions';
+import { Integer } from './integer.types';
+import { isSingleton as isSingletonSequence } from './sequence.functions';
 import { Forest, Tree } from './tree.types';
-
 
 /**
  * Forest of sub tree of tree
@@ -67,7 +67,7 @@ export function depthForest<T>(forest: Forest<T>): number {
     isSingletonSequence(forest) &&
     !isSingletonTree(head(forest) as Tree<T>)
   ) {
-    return (1+depthForest(theChildrenForest(head(forest) as Tree<T>)));
+    return 1 + depthForest(theChildrenForest(head(forest) as Tree<T>));
   } else if (
     !isSingletonSequence(forest) &&
     isSingletonTree(head(forest) as Tree<T>)
@@ -79,24 +79,80 @@ export function depthForest<T>(forest: Forest<T>): number {
     depthForest(tail(forest))
   );
 }
-// /**
-//  *
-//  * @param tree
-//  * @returns
-//  */
-// export function pathFor<T>(tree: Tree<T>): Tree<T>[] {
-//   return [];
-// }
+/**
+ * :: forest -> boolean
+ */
+export function hasFirstTreeAsSingleton<T>(forest: Forest<T>): boolean {
+  return (
+    !isSingletonSequence(forest) && isSingletonTree(head(forest) as Tree<T>)
+  );
+}
+/**
+ * :: forest -> boolean
+ */
+export function isSingletonTreeInSingletonForest<T>(
+  forest: Forest<T>
+): boolean {
+  return (
+    isSingletonSequence(forest) && isSingletonTree(head(forest) as Tree<T>)
+  );
+}
+/**
+ * ::Forest -> boolean
+ */
+export function isSingletonForest<T>(forest: Forest<T>): boolean {
+  return (
+    isSingletonSequence(forest) && !isSingletonTree(head(forest) as Tree<T>)
+  );
+}
+/**
+ *::a -> Tree -> Integer
+ */
+export function numberOfElementsOfGivenValueInTree<T>(
+  element: T,
+  tree: Tree<T>
+): Integer {
+  if (isSingletonTree(tree)) {
+    return equals(element, theTreeRoot(tree)) ? 1 : 0;
+  }
 
-// /**
-//  *
-//  * @param tree
-//  * @returns
-//  */
-// export function widthFor<T>(tree: Tree<T>): number {
-//   // need more explanation
-//   return 0;
-// }
+  return (
+    (equals(element, theTreeRoot(tree)) ? 1 : 0) +
+    numberOfElementsOfGivenValueInForest(element, theChildrenForest(tree))
+  );
+}
+/**
+ * ::a -> forest -> Integer
+ */
+export function numberOfElementsOfGivenValueInForest<T>(
+  element: T,
+  forest: Forest<T>
+): Integer {
+  if (isSingletonTreeInSingletonForest(forest)) {
+    return equals(element, theTreeRoot(head(forest) as Tree<T>)) ? 1 : 0;
+  } else if (isSingletonForest(forest)) {
+    return (
+      (equals(element, theTreeRoot(head(forest) as Tree<T>)) ? 1 : 0) +
+      numberOfElementsOfGivenValueInForest(
+        element,
+        theChildrenForest(head(forest) as Tree<T>)
+      )
+    );
+  } else if (hasFirstTreeAsSingleton(forest)) {
+    return (
+      (equals(element, theTreeRoot(head(forest) as Tree<T>)) ? 1 : 0) +
+      numberOfElementsOfGivenValueInForest(element, tail(forest))
+    );
+  }
+  return (
+    (equals(element, theTreeRoot(head(forest) as Tree<T>)) ? 1 : 0) +
+    numberOfElementsOfGivenValueInForest(
+      element,
+      theChildrenForest(head(forest) as Tree<T>)
+    ) +
+    numberOfElementsOfGivenValueInForest(element, tail(forest))
+  );
+}
 
 /**
  * Tree leaves minimum level
@@ -115,7 +171,10 @@ export function treeLeavesMinimumLevel<T>(tree: Tree<T>): number {
 export function forestLeavesMinimumLevel<T>(forest: Forest<T>): number {
   if (isSingletonTree(head(forest) as Tree<T>)) {
     return 1;
-  } else if (length(forest) === 1 && !isSingletonTree(head(forest) as Tree<T>)) {
+  } else if (
+    length(forest) === 1 &&
+    !isSingletonTree(head(forest) as Tree<T>)
+  ) {
     return (
       1 + forestLeavesMinimumLevel(theChildrenForest(head(forest) as Tree<T>))
     );
@@ -127,9 +186,7 @@ export function forestLeavesMinimumLevel<T>(forest: Forest<T>): number {
   );
 }
 /**
- *
- * @param element
- * @param forest
+ * ::a -> Forest -> LevelPresence
  */
 export function levelAndPresenceOfElementInForest<T>(
   element: T,
@@ -197,11 +254,16 @@ export function levelAndPresenceOfElementInForest<T>(
   }
 }
 
-export function levelOfElementInTree<T>(element: T, tree: Tree<T>): number {
+/**
+ * :: a -> Tree -> Integer
+ */
+export function levelOfElementInTree<T>(element: T, tree: Tree<T>): Integer {
   const { level, present } = levelAndPresenceOfElementInTree(element, tree);
   return present ? level : -1;
 }
-
+/**
+ * ::a -> Tree -> LevelPresence 
+ */
 export function levelAndPresenceOfElementInTree<T>(
   element: T,
   tree: Tree<T>

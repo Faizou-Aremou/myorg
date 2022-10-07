@@ -28,6 +28,7 @@ import {
   theRightChild,
   theRoot,
   depth,
+  numberOfElementsOfGivenValueInBinaryTree,
 } from './binary-tree.functions';
 import { BinaryTree } from './binary-tree.types';
 
@@ -550,6 +551,33 @@ describe('functionnal binary tree ', () => {
     const t1 = performance.now();
     console.log('numberOfDescendantsOf ' + (t1 - t0), 'milliseconds');
     expect(numberOfDescendantsOf(5, numberBinaryTree)).toBe(2);
+  });
+  it('numberOfElementsOfGivenValueInABinaryTree', () => {
+    const t0 = performance.now();
+    numberOfElementsOfGivenValueInBinaryTree(5, numberBinaryTree);
+    const t1 = performance.now();
+    console.log('numberOfElementsOfGivenValueInABinaryTree ' + (t1 - t0), 'milliseconds');
+    expect(numberOfElementsOfGivenValueInBinaryTree(5, {
+      root: 1,
+      leftChild: {
+        root: 2,
+        leftChild: {
+          root: 3,
+        },
+        rightChild: {
+          root: 5,
+        },
+      },
+      rightChild: {
+        root: 5,
+        leftChild: {
+          root: 6,
+        },
+        rightChild: {
+          root: 5,
+        },
+      },
+    })).toBe(3);
   });
   it('numberOfLeaves', () => {
     const t0 = performance.now();
