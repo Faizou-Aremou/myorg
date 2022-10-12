@@ -88,6 +88,60 @@ export function hasFirstTreeAsSingleton<T>(forest: Forest<T>): boolean {
   );
 }
 /**
+ *:: element -> Tree -> booleen
+ * @param element
+ * @param tree
+ * @returns
+ */
+export function isTheElementPresentInTheTree<T>(
+  element: T,
+  tree: Tree<T>
+): boolean {
+  if (isSingletonTree(tree)) {
+    return equals(theTreeRoot(tree), element);
+  }
+  return (
+    equals(theTreeRoot(tree), element) ||
+    isTheElementPresentInTheForest(element, theChildrenForest(tree))
+  );
+}
+/**
+ * :: a -> forest -> booleen
+ * @param element 
+ * @param forest 
+ * @returns 
+ */
+export function isTheElementPresentInTheForest<T>(
+  element: T,
+  forest: Forest<T>
+): boolean {
+  if (isSingletonTreeInSingletonForest(forest)) {
+    return equals(theTreeRoot(head(forest) as Tree<T>), element);
+  } else if (isSingletonForest(forest)) {
+    return (
+      equals(theTreeRoot(head(forest) as Tree<T>), element) ||
+      isTheElementPresentInTheForest(
+        element,
+        theChildrenForest(head(forest) as Tree<T>)
+      )
+    );
+  } else if (hasFirstTreeAsSingleton(forest)) {
+    return (
+      equals(theTreeRoot(head(forest) as Tree<T>), element) ||
+      isTheElementPresentInTheForest(element, tail(forest))
+    );
+  }
+  return (
+    equals(theTreeRoot(head(forest) as Tree<T>), element) ||
+    isTheElementPresentInTheForest(
+      element,
+      theChildrenForest(head(forest) as Tree<T>)
+    ) ||
+    isTheElementPresentInTheForest(element, tail(forest))
+  );
+}
+
+/**
  * :: forest -> boolean
  */
 export function isSingletonTreeInSingletonForest<T>(
@@ -262,7 +316,7 @@ export function levelOfElementInTree<T>(element: T, tree: Tree<T>): Integer {
   return present ? level : -1;
 }
 /**
- * ::a -> Tree -> LevelPresence 
+ * ::a -> Tree -> LevelPresence
  */
 export function levelAndPresenceOfElementInTree<T>(
   element: T,

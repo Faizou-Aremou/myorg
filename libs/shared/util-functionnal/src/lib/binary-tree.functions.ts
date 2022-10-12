@@ -11,24 +11,36 @@ import {
 } from 'ramda';
 import { removeOne } from './common.functions';
 import { hasSameElements, hasSameSise } from './sequence.functions';
-import { BinaryTree } from './binary-tree.types';
+import { BinaryTree, TheRoot } from './binary-tree.types';
 import { LevelPresence } from './common.types';
 import { Integer } from './integer.types';
 
+// /**
+//  *
+//  * @param node
+//  * @returns
+//  */
+// export function theRoot<T>(
+//   node: BinaryTree<T> | null | undefined
+// ): T | undefined {
+//   if (isEmptyTree(node)) {
+//     return undefined;
+//   }
+
+//   return node.root;
+// }
 /**
  *
  * @param node
  * @returns
  */
-export function theRoot<T>(
-  node: BinaryTree<T> | null | undefined
-): T | undefined {
+export const theRoot: TheRoot = <T>(node: BinaryTree<T> | null | undefined) => {
   if (isEmptyTree(node)) {
     return undefined;
   }
 
   return node.root;
-}
+};
 
 /**
  *
@@ -436,28 +448,54 @@ export function isUnaryRight<T>(node: BinaryTree<T>): boolean {
 }
 
 /**
- * a, a -> b
- * @param binaryNode1
- * @param binaryNode2
+ * :: BinaryTree, BinaryTree -> boolean
+ * @param binaryTree
+ * @param binaryTree2
  * @returns
  */
 export function isSameStructure<T>(
-  binaryNode1: BinaryTree<T> | undefined,
-  binaryNode2: BinaryTree<T> | undefined
+  binaryTree: BinaryTree<T> | undefined,
+  binaryTree2: BinaryTree<T> | undefined
 ): boolean {
-  if (isEmptyTree(binaryNode1) && isEmptyTree(binaryNode2)) {
+  if (isEmptyTree(binaryTree) && isEmptyTree(binaryTree2)) {
     return true;
-  } else if (isEmptyTree(binaryNode1) && !isEmptyTree(binaryNode2)) {
+  } else if (isEmptyTree(binaryTree) && !isEmptyTree(binaryTree2)) {
     return false;
-  } else if (!isEmptyTree(binaryNode1) && isEmptyTree(binaryNode2)) {
+  } else if (!isEmptyTree(binaryTree) && isEmptyTree(binaryTree2)) {
     return false;
   }
   return (
-    isSameStructure(theLeftChild(binaryNode1), theLeftChild(binaryNode2)) &&
-    isSameStructure(theRightChild(binaryNode1), theRightChild(binaryNode2))
+    isSameStructure(theLeftChild(binaryTree), theLeftChild(binaryTree2)) &&
+    isSameStructure(theRightChild(binaryTree), theRightChild(binaryTree2))
   );
 }
+/**
+ * ::a -> BinaryTree -> boolean
+ */
+export function isTheElementPresentInTheBinaryTree<T>(
+  element: T,
+  binaryTree: BinaryTree<T>
+): boolean {
+  if (isSingletonBinaryTree(binaryTree)) {
+    return equals(theRoot(binaryTree), element);
+  } else if (isUnaryLeft(binaryTree)) {
+    return (
+      equals(theRoot(binaryTree), element) ||
+      isTheElementPresentInTheBinaryTree(element, theLeftChild(binaryTree))
+    );
+  } else if (isUnaryRight(binaryTree)) {
+    return (
+      equals(theRoot(binaryTree), element) ||
+      isTheElementPresentInTheBinaryTree(element, theRightChild(binaryTree))
+    );
+  }
 
+  return (
+    equals(theRoot(binaryTree), element) ||
+    isTheElementPresentInTheBinaryTree(element, theLeftChild(binaryTree)) ||
+    isTheElementPresentInTheBinaryTree(element, theRightChild(binaryTree))
+  );
+}
 /**
  *
  * @param node
@@ -690,10 +728,7 @@ export function numberOfElementsOfGivenValueInBinaryTree<T>(
       element,
       theLeftChild(binaryTree)
     ) +
-    numberOfElementsOfGivenValueInBinaryTree(
-      element,
-      theRightChild(binaryTree)
-    )
+    numberOfElementsOfGivenValueInBinaryTree(element, theRightChild(binaryTree))
   );
 }
 /**

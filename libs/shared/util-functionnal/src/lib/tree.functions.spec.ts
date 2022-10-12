@@ -9,6 +9,7 @@ import {
   treeLeavesMinimumLevel,
   depthTree,
   numberOfElementsOfGivenValueInTree,
+  isTheElementPresentInTheTree,
 } from './tree.functions';
 import { Tree } from './tree.types';
 
@@ -94,6 +95,16 @@ describe('functionnal tree ', () => {
       })
     ).toBe(true);
     expect(isSingletonTree(numberTree)).toBe(false);
+  });
+  it('isTheElementPresentInTheTree', () => {
+    const t0 = performance.now();
+    isTheElementPresentInTheTree(12,numberTree);
+    const t1 = performance.now();
+    console.log('isTheElementPresentInTheTree ' + (t1 - t0), 'milliseconds');
+    expect(
+      isTheElementPresentInTheTree(12, numberTree)
+    ).toBe(true);
+    expect(isTheElementPresentInTheTree(25, numberTree)).toBe(false);
   });
   it('maxDegree', () => {
     const t0 = performance.now();
