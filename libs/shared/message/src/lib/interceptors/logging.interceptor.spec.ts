@@ -16,8 +16,6 @@ class SimpleMessageService extends Message {
   }
 }
 
-
-
 describe('LoggingInterceptor', () => {
   let interceptor: LoggingInterceptor;
   let messenger: SimpleMessageService;

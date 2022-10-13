@@ -1,0 +1,1 @@
+export type Sequence<T> = ReadonlyArray<T>

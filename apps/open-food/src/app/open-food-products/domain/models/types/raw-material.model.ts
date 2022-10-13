@@ -1,8 +1,8 @@
 import { Designation, Percentage } from '@myorg/shared-util-functionnal';
 
-export interface RawMaterial {
-  designation: Designation;
-  percentage?: Percentage;
+export type RawMaterial = {
+  readonly designation: Designation;
+  readonly percentage?: Percentage;
 }
 export function theRawMaterial(
   designation: Designation,
