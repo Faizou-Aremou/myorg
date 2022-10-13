@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
-import { Credentials } from "../models/credential.model";
-import { User } from "../models/user.model";
+import { Credentials } from "../models/credentials.types";
+import { User } from "../models/user.types";
 
 export abstract class AuthorizationInterface {
   abstract login(credentials: Credentials): Observable<User>;

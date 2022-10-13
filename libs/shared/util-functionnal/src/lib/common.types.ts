@@ -3,6 +3,7 @@ export type Bit = number;
 export type BitString = string;
 export type Code = string;
 export type Designation = string;
+export type Email = string;
 export type LevelPresence = { level: number; present: boolean };
 export type MegaBit = number;
 export type Path = string;
