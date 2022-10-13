@@ -1,4 +1,4 @@
-import {testModule} from"./number";
+import {testModule} from"./integer.functions";
 
 describe('functionnal general ', () => {
     it("it works", ()=> {

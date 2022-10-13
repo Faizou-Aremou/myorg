@@ -6,13 +6,14 @@ import {
 } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
-import { Credentials } from '../models/credential.model';
-import { User } from '../models/user.model';
-import { Authorization } from '../interfaces/authorization.interface';
+import { AuthorizationInterface } from '../interfaces/authorization.interface';
+import { Credentials } from '../models/credentials.types';
+import { User } from '../models/user.types';
+
 
 import { AuthorizationInterceptor } from './authorization.interceptor';
 
-class AuthService extends Authorization {
+class AuthService extends AuthorizationInterface {
   login(credentials: Credentials): Observable<User> {
     throw new Error('Method not implemented.');
   }
@@ -33,7 +34,7 @@ describe('AuthorizationInterceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthorizationInterceptor,
-        { provide: Authorization, useClass: AuthService },
+        { provide: AuthorizationInterface, useClass: AuthService },
       ],
     });
     interceptor = TestBed.inject(AuthorizationInterceptor);
