@@ -13,7 +13,7 @@ import {
   numberOfNodes,
   postfixedLinearization,
   prefixedLinearization,
-  subNodeOf,
+  subTreeOf,
   isEmptyTree,
   binaryTreesElementsIsEquals,
   isSingletonBinaryTree,
@@ -29,7 +29,8 @@ import {
   theRoot,
   depth,
   numberOfElementsOfGivenValueInBinaryTree,
-  isTheElementPresentInTheBinaryTree,
+  isElementPresentInBinaryTree,
+  isElementEDescentOfElementF,
 } from './binary-tree.functions';
 import { BinaryTree } from './binary-tree.types';
 
@@ -335,7 +336,7 @@ describe('functionnal binary tree ', () => {
     const t1 = performance.now();
     console.log('existLeft ' + (t1 - t0), 'milliseconds');
     expect(existLeft(lowcaseAlphabetTree)).toBe(true);
-    expect(existLeft(subNodeOf('g', lowcaseAlphabetTree))).toBe(false);
+    expect(existLeft(subTreeOf('g', lowcaseAlphabetTree))).toBe(false);
   });
   it('existRight', () => {
     const t0 = performance.now();
@@ -343,7 +344,7 @@ describe('functionnal binary tree ', () => {
     const t1 = performance.now();
     console.log('existRight ' + (t1 - t0), 'milliseconds');
     expect(existRight(lowcaseAlphabetTree)).toBe(true);
-    expect(existRight(subNodeOf('g', lowcaseAlphabetTree))).toBe(false);
+    expect(existRight(subTreeOf('g', lowcaseAlphabetTree))).toBe(false);
   });
   it('hasHisTwoChildren', () => {
     const t0 = performance.now();
@@ -352,7 +353,7 @@ describe('functionnal binary tree ', () => {
     console.log('hasHisTwoChildren ' + (t1 - t0), 'milliseconds');
     expect(hasHisTwoChildren(uppercaseAlphabetTree)).toBe(true);
     expect(
-      compose(hasHisTwoChildren, subNodeOf)('F', uppercaseAlphabetTree)
+      compose(hasHisTwoChildren, subTreeOf)('F', uppercaseAlphabetTree)
     ).toBe(false);
   });
 
@@ -366,20 +367,29 @@ describe('functionnal binary tree ', () => {
     );
     expect(infixedLinearization(undefined)).toEqual([]);
   });
-  it('isTheElementPresentInTheBinaryTree', () => {
+  it('isElementEDescentOfElementF', () => {
     const t0 = performance.now();
-    isTheElementPresentInTheBinaryTree('A', uppercaseAlphabetTree);
+    isElementEDescentOfElementF('G', 'D', uppercaseAlphabetTree);
     const t1 = performance.now();
-    console.log(
-      'isTheElementPresentInTheBinaryTree ' + (t1 - t0),
-      'milliseconds'
-    );
+    console.log('isElementEDescentOfElementF ' + (t1 - t0), 'milliseconds');
     expect(
-      isTheElementPresentInTheBinaryTree('A', uppercaseAlphabetTree)
+      isElementEDescentOfElementF('G', 'D', uppercaseAlphabetTree)
     ).toEqual(true);
     expect(
-      isTheElementPresentInTheBinaryTree('Z', uppercaseAlphabetTree)
+      isElementEDescentOfElementF('A', 'G', uppercaseAlphabetTree)
     ).toEqual(false);
+  });
+  it('isElementPresentInBinaryTree', () => {
+    const t0 = performance.now();
+    isElementPresentInBinaryTree('A', uppercaseAlphabetTree);
+    const t1 = performance.now();
+    console.log('isElementPresentInBinaryTree ' + (t1 - t0), 'milliseconds');
+    expect(isElementPresentInBinaryTree('A', uppercaseAlphabetTree)).toEqual(
+      true
+    );
+    expect(isElementPresentInBinaryTree('Z', uppercaseAlphabetTree)).toEqual(
+      false
+    );
   });
   it('isEmptyTree', () => {
     const t0 = performance.now();
@@ -388,7 +398,7 @@ describe('functionnal binary tree ', () => {
     console.log('isEmptyTree ' + (t1 - t0), 'milliseconds');
     expect(isEmptyTree(uppercaseAlphabetTree)).toBe(false);
     expect(isEmptyTree(undefined)).toBe(true);
-    expect(compose(isEmptyTree, subNodeOf)('D', uppercaseAlphabetTree)).toBe(
+    expect(compose(isEmptyTree, subTreeOf)('D', uppercaseAlphabetTree)).toBe(
       false
     );
   });
@@ -400,7 +410,7 @@ describe('functionnal binary tree ', () => {
     console.log('isSingleton ' + (t1 - t0), 'milliseconds');
     expect(isSingletonBinaryTree(uppercaseAlphabetTree)).toBe(false);
     expect(
-      compose(isSingletonBinaryTree, subNodeOf)('C', uppercaseAlphabetTree)
+      compose(isSingletonBinaryTree, subTreeOf)('C', uppercaseAlphabetTree)
     );
   });
   it('isUnaryLeft', () => {
@@ -409,7 +419,7 @@ describe('functionnal binary tree ', () => {
     const t1 = performance.now();
     console.log('isUnaryLeft ' + (t1 - t0), 'milliseconds');
     expect(isUnaryLeft(uppercaseAlphabetTree)).toBe(false);
-    expect(compose(isUnaryLeft, subNodeOf)('B', uppercaseAlphabetTree)).toBe(
+    expect(compose(isUnaryLeft, subTreeOf)('B', uppercaseAlphabetTree)).toBe(
       true
     );
   });
@@ -419,7 +429,7 @@ describe('functionnal binary tree ', () => {
     const t1 = performance.now();
     console.log('isUnaryRight ' + (t1 - t0), 'milliseconds');
     expect(isUnaryRight(lowcaseAlphabetTree)).toBe(false);
-    expect(compose(isUnaryRight, subNodeOf)('d', lowcaseAlphabetTree)).toBe(
+    expect(compose(isUnaryRight, subTreeOf)('d', lowcaseAlphabetTree)).toBe(
       true
     );
   });
@@ -665,10 +675,10 @@ describe('functionnal binary tree ', () => {
   });
   it('subNodeOf', () => {
     const t0 = performance.now();
-    subNodeOf('b', lowcaseAlphabetTree);
+    subTreeOf('b', lowcaseAlphabetTree);
     const t1 = performance.now();
     console.log('subNodeOf ' + (t1 - t0), 'milliseconds');
-    expect(subNodeOf('b', lowcaseAlphabetTree)).toEqual({
+    expect(subTreeOf('b', lowcaseAlphabetTree)).toEqual({
       root: 'b',
       leftChild: {
         root: 'd',
