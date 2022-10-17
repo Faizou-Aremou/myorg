@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/shared/http-services"],
+      "outputs": [
+        "dist/libs/shared/http-services"
+      ],
       "options": {
         "project": "libs/shared/http-services/ng-package.json"
       },
@@ -21,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/http-services"],
+      "outputs": [
+        "coverage/libs/shared/http-services"
+      ],
       "options": {
         "jestConfig": "libs/shared/http-services/jest.config.ts",
         "passWithNoTests": true
