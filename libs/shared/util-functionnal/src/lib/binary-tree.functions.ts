@@ -11,25 +11,18 @@ import {
 } from 'ramda';
 import { removeOne } from './common.functions';
 import { hasSameElements, hasSameSise } from './sequence.functions';
-import { BinaryTree, TheRoot } from './binary-tree.types';
+import {
+  AreTwoBinaryTreesSymmetricalToEachOther,
+  BinaryTree,
+  BothBinaryTreesAreEmpty,
+  FirstBinaryTreeisEmptyInDoublet,
+  IsBinaryRootNode,
+  SecondBinaryTreeisEmptyInDoublet,
+  TheRoot,
+} from './binary-tree.types';
 import { LevelPresence } from './common.types';
 import { Integer } from './integer.types';
-import { theTreeRoot } from './tree.functions';
 
-// /**
-//  *
-//  * @param node
-//  * @returns
-//  */
-// export function theRoot<T>(
-//   node: BinaryTree<T> | null | undefined
-// ): T | undefined {
-//   if (isEmptyTree(node)) {
-//     return undefined;
-//   }
-
-//   return node.root;
-// }
 /**
  *
  * @param node
@@ -75,6 +68,117 @@ export function theRightChild<T>(
   return { ...node.rightChild };
 }
 
+/**
+ * :: BinaryTree -> BinaryTree -> boolean
+ * @param leftTree BinaryTree<T> | undefined
+ * @param rightTree  BinaryTree<T> | undefined
+ * @returns true if the two tree are symetrical
+ */
+export const areTwoBinaryTreesSymmetricalToEachOther: AreTwoBinaryTreesSymmetricalToEachOther =
+  <T>(
+    leftTree: BinaryTree<T> | undefined,
+    rightTree: BinaryTree<T> | undefined
+  ) => {
+    if (
+      bothBinaryTreesAreEmpty(leftTree, rightTree) ||
+      firstBinaryTreeisEmptyInDoublet(leftTree, rightTree) ||
+      secondBinaryTreeisEmptyInDoublet(leftTree, rightTree) ||
+      (isSingletonBinaryTree(leftTree) && isBinaryRootNode(rightTree)) ||
+      (isSingletonBinaryTree(leftTree) && isUnaryLeft(rightTree)) ||
+      (isSingletonBinaryTree(leftTree) && isUnaryRight(rightTree)) ||
+      (isUnaryLeft(leftTree) && isSingletonBinaryTree(rightTree)) ||
+      (isUnaryLeft(leftTree) && isUnaryLeft(rightTree)) ||
+      (isUnaryLeft(leftTree) && isBinaryRootNode(rightTree)) ||
+      (isUnaryRight(leftTree) && isSingletonBinaryTree(rightTree)) ||
+      (isUnaryRight(leftTree) && isUnaryRight(rightTree)) ||
+      (isUnaryRight(leftTree) && isBinaryRootNode(rightTree)) ||
+      (isBinaryRootNode(leftTree) && isSingletonBinaryTree(rightTree)) ||
+      (isBinaryRootNode(leftTree) && isUnaryLeft(rightTree)) ||
+      (isBinaryRootNode(leftTree) && isUnaryRight(rightTree))
+    ) {
+      return false;
+    } else if (
+      isSingletonBinaryTree(leftTree) &&
+      isSingletonBinaryTree(rightTree)
+    ) {
+      return equals(theRoot(leftTree), theRoot(rightTree));
+    } else if (isUnaryLeft(leftTree) && isUnaryRight(rightTree)) {
+      return (
+        equals(theRoot(leftTree), theRoot(rightTree)) &&
+        areTwoBinaryTreesSymmetricalToEachOther(
+          theLeftChild(leftTree),
+          theRightChild(rightTree)
+        )
+      );
+    } else if (isUnaryRight(leftTree) && isUnaryLeft(rightTree)) {
+      return (
+        equals(theRoot(leftTree), theRoot(rightTree)) &&
+        areTwoBinaryTreesSymmetricalToEachOther(
+          theRightChild(leftTree),
+          theLeftChild(rightTree)
+        )
+      );
+    }
+    return (
+      equals(theRoot(leftTree), theRoot(rightTree)) &&
+      areTwoBinaryTreesSymmetricalToEachOther(
+        theLeftChild(leftTree),
+        theRightChild(rightTree)
+      ) &&
+      areTwoBinaryTreesSymmetricalToEachOther(
+        theRightChild(leftTree),
+        theLeftChild(rightTree)
+      )
+    );
+  };
+/**
+ *
+ * @param firstBinaryTree
+ * @param secondBinaryTree
+ * @returns
+ */
+export const bothBinaryTreesAreEmpty: BothBinaryTreesAreEmpty = <T>(
+  firstBinaryTree: BinaryTree<T> | undefined,
+  secondBinaryTree: BinaryTree<T> | undefined
+) => {
+  return isEmptyTree(firstBinaryTree) && isEmptyTree(secondBinaryTree);
+};
+/**
+ *
+ * @param firstBinaryTree
+ * @param secondBinaryTree
+ * @returns
+ */
+export const firstBinaryTreeisEmptyInDoublet: FirstBinaryTreeisEmptyInDoublet =
+  <T>(
+    firstBinaryTree: BinaryTree<T> | undefined,
+    secondBinaryTree: BinaryTree<T> | undefined
+  ) => {
+    return isEmptyTree(firstBinaryTree) && !isEmptyTree(secondBinaryTree);
+  };
+/**
+ *
+ * @param firstBinaryTree
+ * @param secondBinaryTree
+ * @returns
+ */
+export const secondBinaryTreeisEmptyInDoublet: SecondBinaryTreeisEmptyInDoublet =
+  <T>(
+    firstBinaryTree: BinaryTree<T> | undefined,
+    secondBinaryTree: BinaryTree<T> | undefined
+  ) => {
+    return !isEmptyTree(firstBinaryTree) && isEmptyTree(secondBinaryTree);
+  };
+/**
+ *
+ * @param tree
+ * @returns
+ */
+export const isBinaryRootNode: IsBinaryRootNode = <T>(tree: BinaryTree<T>) => {
+  return (
+    !isUnaryLeft(tree) && !isUnaryRight(tree) && !isSingletonBinaryTree(tree)
+  );
+};
 /**
  * binary tree depth
  * :: a -> b

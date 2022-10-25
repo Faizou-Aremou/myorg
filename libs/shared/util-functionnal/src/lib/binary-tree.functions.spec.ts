@@ -31,6 +31,7 @@ import {
   numberOfElementsOfGivenValueInBinaryTree,
   isElementPresentInBinaryTree,
   isElementEDescentOfElementF,
+  areTwoBinaryTreesSymmetricalToEachOther,
 } from './binary-tree.functions';
 import { BinaryTree } from './binary-tree.types';
 
@@ -110,6 +111,51 @@ const lowcaseAlphabetTree: BinaryTree<string> = {
     },
   },
 };
+
+const leftSideOfSymetricalTree: BinaryTree<string> = {
+  root: 'A',
+  leftChild: {
+    root: 'B',
+    leftChild: {
+      root: 'D',
+    },
+  },
+  rightChild: {
+    root: 'C',
+    leftChild: {
+      root: 'E',
+      rightChild: {
+        root: 'G',
+      },
+    },
+    rightChild: {
+      root: 'F',
+    },
+  },
+};
+
+const rightSideOfSymetricalTree: BinaryTree<string> = {
+  root: 'A',
+  leftChild: {
+    root: 'C',
+    leftChild: {
+      root: 'F',
+    },
+    rightChild: {
+      root: 'E',
+      leftChild: {
+        root: 'G',
+      },
+    },
+  },
+  rightChild: {
+    root: 'B',
+    rightChild: {
+      root: 'D',
+    },
+  },
+};
+
 const prefixedLinerizedUppercaseAlphabetTree = [
   'A',
   'B',
@@ -156,6 +202,30 @@ const prefixedfixedLinerizedlowercaseAlphabetTree = [
 ];
 
 describe('functionnal binary tree ', () => {
+  it('are Two Binary trees symmetrical to each other', () => {
+    const t0 = performance.now();
+    areTwoBinaryTreesSymmetricalToEachOther(
+      leftSideOfSymetricalTree,
+      rightSideOfSymetricalTree
+    );
+    const t1 = performance.now();
+    console.log(
+      'areTwoBinaryTreesSymmetricalToEachOther' + (t1 - t0),
+      'milliseconds'
+    );
+    expect(
+      areTwoBinaryTreesSymmetricalToEachOther(
+        leftSideOfSymetricalTree,
+        rightSideOfSymetricalTree
+      )
+    ).toBe(true);
+    expect(
+      areTwoBinaryTreesSymmetricalToEachOther(
+        leftSideOfSymetricalTree,
+        leftSideOfSymetricalTree
+      )
+    ).toBe(false);
+  });
   it('binaryTreeDepth', () => {
     const t0 = performance.now();
 
