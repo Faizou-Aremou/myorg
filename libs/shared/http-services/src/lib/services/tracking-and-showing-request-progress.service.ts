@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Path, Percentage} from '@myorg/shared-util-functionnal';
+import { ApiUrl, Path, Percentage} from '@myorg/shared-util-functionnal';
 import { map, Observable } from 'rxjs';
 import { TrackingAndShowingRequestProgressInterface } from '../interfaces/tracking-and-showing-request-progress.interface';
 
@@ -16,7 +16,7 @@ import { TrackingAndShowingRequestProgressInterface } from '../interfaces/tracki
 export class TrackingAndShowingRequestProgressService implements TrackingAndShowingRequestProgressInterface {
   constructor(private http: HttpClient) {}
 
-  trackingRequest<T>(data: T, path: Path): Observable<Percentage> {
+  trackingRequest<T>(data: T, path: ApiUrl): Observable<Percentage> {
     const request = new HttpRequest('POST', path, data, {
       reportProgress: true,
     });
