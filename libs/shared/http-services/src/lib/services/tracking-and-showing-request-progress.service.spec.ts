@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { TrackingAndShowingRequestProgressService } from './tracking-and-showing-request-progress.service';
 import { HttpClient, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
+import { ApiUrl } from '@myorg/shared-util-functionnal';
 
 describe('TrackingAndShowingRequestProgressService', () => {
   let service: TrackingAndShowingRequestProgressService;
@@ -30,7 +31,7 @@ describe('TrackingAndShowingRequestProgressService', () => {
     let startReceptionEvent: HttpEvent<unknown>;
     let uploadReceptionEvent: HttpEvent<unknown>;
     let endReceptionEvent: HttpEvent<unknown>;
-    let apiUrl:string;
+    let apiUrl:ApiUrl;
     beforeEach(() => {
       startReceptionEvent = {
         type: HttpEventType.Sent,

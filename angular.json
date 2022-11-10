@@ -10,7 +10,11 @@
     "shared-ui-catalog": "libs/shared/ui-catalog",
     "shared-ui-file": "libs/shared/ui-file",
     "shared-ui-tabs": "libs/shared/ui-tabs",
+    "shared-util-binary-tree": "libs/shared/util-binary-tree",
     "shared-util-functionnal": "libs/shared/util-functionnal",
+    "shared-util-number": "libs/shared/util-number",
+    "shared-util-sequence": "libs/shared/util-sequence",
+    "shared-util-tree": "libs/shared/util-tree",
     "vsm": "apps/vsm",
     "vsm-e2e": "apps/vsm-e2e"
   }

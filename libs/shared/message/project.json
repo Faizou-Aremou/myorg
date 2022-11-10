@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/shared/message"],
+      "outputs": [
+        "dist/libs/shared/message"
+      ],
       "options": {
         "project": "libs/shared/message/ng-package.json"
       },
@@ -21,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/message"],
+      "outputs": [
+        "coverage/libs/shared/message"
+      ],
       "options": {
         "jestConfig": "libs/shared/message/jest.config.ts",
         "passWithNoTests": true

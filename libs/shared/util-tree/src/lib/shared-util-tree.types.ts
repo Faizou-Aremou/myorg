@@ -1,4 +1,5 @@
-import { Sequence } from './sequence.types';
+import { Sequence } from "@web-times-team/util-sequence";
+
 
 export type Tree<T> = {
   readonly root: T;
