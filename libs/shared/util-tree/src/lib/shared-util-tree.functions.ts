@@ -1,12 +1,13 @@
 import { compose, isEmpty, max, length, head, tail, min, equals } from 'ramda';
-import { LevelPresence } from './common.types';
-import { Integer } from './integer.types';
-import { isSingleton as isSingletonSequence } from './sequence.functions';
-import { Forest, Tree } from './tree.types';
+import { Integer } from '@web-times-team/util-number';
+import { isSingleton as isSingletonSequence } from "@web-times-team/util-sequence";
+import { Forest, Tree } from './shared-util-tree.types';
+import { LevelPresence } from '@web-times-team/util-functionnal';
+
 
 export function TheTree<T>(
   root: Readonly<T>,
-  forest: Readonly<Forest<T>>
+  forest: Forest<T>
 ): Tree<T> {
   return {
     root: root,

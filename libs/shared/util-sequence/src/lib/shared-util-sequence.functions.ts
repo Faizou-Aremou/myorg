@@ -1,5 +1,5 @@
 import { append, curry, equals, head, isEmpty, prepend, tail } from 'ramda';
-import { Sequence } from './sequence.types';
+import { Sequence } from './shared-util-sequence.types';
 
 
 

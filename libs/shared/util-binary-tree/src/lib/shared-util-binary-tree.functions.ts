@@ -1,3 +1,6 @@
+import { LevelPresence, removeOne } from '@web-times-team/util-functionnal';
+import { Integer } from '@web-times-team/util-number';
+import { hasSameElements, hasSameSise } from '@web-times-team/util-sequence';
 import {
   append,
   compose,
@@ -9,8 +12,6 @@ import {
   prepend,
   tail,
 } from 'ramda';
-import { removeOne } from './common.functions';
-import { hasSameElements, hasSameSise } from './sequence.functions';
 import {
   AreTwoBinaryTreesSymmetricalToEachOther,
   BinaryTree,
@@ -19,9 +20,8 @@ import {
   IsBinaryRootNode,
   SecondBinaryTreeisEmptyInDoublet,
   TheRoot,
-} from './binary-tree.types';
-import { LevelPresence } from './common.types';
-import { Integer } from './integer.types';
+} from './shared-util-binary-tree.types';
+
 
 /**
  *
@@ -67,6 +67,9 @@ export function theRightChild<T>(
   }
   return { ...node.rightChild };
 }
+
+
+
 
 /**
  * :: BinaryTree -> BinaryTree -> boolean

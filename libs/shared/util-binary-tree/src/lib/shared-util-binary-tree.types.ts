@@ -28,6 +28,12 @@ export type TheBinaryTree = <T>(
   rightChild?: BinaryTree<T>
 ) => BinaryTree<T>;
 
+export type theBinaryRootTree = <T>(
+  root: T,
+  leftChild: BinaryTree<T>,
+  rightChild: BinaryTree<T>
+) => BinaryRootTree<T>;
+
 export type TheRoot = <T>(
   node: BinaryTree<T> | null | undefined
 ) => T | undefined;

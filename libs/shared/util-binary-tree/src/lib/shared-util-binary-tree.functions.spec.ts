@@ -32,8 +32,9 @@ import {
   isElementPresentInBinaryTree,
   isElementEDescentOfElementF,
   areTwoBinaryTreesSymmetricalToEachOther,
-} from './binary-tree.functions';
-import { BinaryTree } from './binary-tree.types';
+} from './shared-util-binary-tree.functions';
+import { BinaryTree } from './shared-util-binary-tree.types';
+import {performance} from 'perf_hooks';
 
 const numberBinaryTree: BinaryTree<number> = {
   root: 1,

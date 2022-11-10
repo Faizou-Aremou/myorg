@@ -10,8 +10,9 @@ import {
   numberOfElementsOfGivenValueInTree,
   isTheElementPresentInTheTree,
   isElementEDescentOfElementFInTree,
-} from './tree.functions';
-import { Tree } from './tree.types';
+} from './shared-util-tree.functions';
+import { Tree } from './shared-util-tree.types';
+import {performance} from 'perf_hooks';
 
 const numberTree: Tree<number> = {
   root: 1,
