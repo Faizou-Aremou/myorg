@@ -4,14 +4,14 @@ import {
   isSingletonTree,
   maxDegree,
   maxForestDegree,
-  theTreeRoot,
+  theRoot,
   treeLeavesMinimumLevel,
   depthTree,
   numberOfElementsOfGivenValueInTree,
   isTheElementPresentInTheTree,
   isElementEDescentOfElementFInTree,
-} from './shared-util-tree.functions';
-import { Tree } from './shared-util-tree.types';
+} from './tree.functions';
+import { Tree } from './tree.types';
 import {performance} from 'perf_hooks';
 
 const numberTree: Tree<number> = {
@@ -172,10 +172,10 @@ describe('functionnal tree ', () => {
   });
   it('root', () => {
     const t0 = performance.now();
-    theTreeRoot(numberTree);
+    theRoot(numberTree);
     const t1 = performance.now();
     console.log('root ' + (t1 - t0), 'milliseconds');
-    expect(theTreeRoot(numberTree)).toBe(1);
+    expect(theRoot(numberTree)).toBe(1);
   });
   it('treeLeavesMinimumLevel', () => {
     const t0 = performance.now();

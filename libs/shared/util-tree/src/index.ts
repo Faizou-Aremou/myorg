@@ -1,2 +1,2 @@
-export * from './lib/shared-util-tree.functions';
-export * from './lib/shared-util-tree.types';
+export * from './lib/tree.functions';
+export * from './lib/tree.types';

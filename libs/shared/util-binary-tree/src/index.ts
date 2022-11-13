@@ -1,2 +1,2 @@
-export * from './lib/shared-util-binary-tree.functions';
-export * from './lib/shared-util-binary-tree.types';
+export * from './lib/binary-tree.functions';
+export * from './lib/binary-tree.types';
