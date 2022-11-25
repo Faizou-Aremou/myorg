@@ -71,3 +71,6 @@ export type IsBinaryRootNode = <T>(tree: BinaryTree<T>) => boolean;
 export type CreateSymetricalOfBinaryTree = <T>(
   tree: BinaryTree<T>
 ) => BinaryTree<T>;
+
+export type AreAllElementsEquals = <T>(tree:BinaryTree<T>) => boolean;
+export type ElementsEqualTo = <T>(element:T, tree:BinaryTree<T>) => boolean;

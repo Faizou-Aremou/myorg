@@ -14,6 +14,7 @@ import {
 import { Integer } from '@web-times-team/util-number';
 import { isSingleton as isSingletonSequence } from '@web-times-team/util-sequence';
 import {
+  AreAllElementsEquals,
   AreBothForestAsSingletonOfSingletonTree,
   AreBothForestSingleton,
   AreBothTreesSingleton,
@@ -24,6 +25,7 @@ import {
   AreFirstForestFirstTreeAsSingletonAndSecondForestHasLastTreeAsSingleton,
   AreFirstForestSingletonAndSecondForestAsSingletonOfSingletonTree,
   AreFirstForestSingletonAndSecondForestHasFirstTreeAsSingleton,
+  AreForestElementsEqualsTo,
   AreTwoForestsSymmetricalToEachOther,
   AreTwoTreesSymmetricalToEachOther,
   CreateSymetricalOfForest,
@@ -61,6 +63,43 @@ export function theChildrenForest<T>(tree: Tree<T>): Forest<T> {
 export function theRoot<T>(tree: Tree<T>): T {
   return tree.root;
 }
+
+export const areAllElementsEquals: AreAllElementsEquals = <T>(
+  tree: Tree<T>
+) => {
+  if (isSingletonTree(tree)) {
+    return true;
+  }
+
+  return areForestElementsEqualsTo(theRoot(tree), theChildrenForest(tree));
+};
+
+export const areForestElementsEqualsTo: AreForestElementsEqualsTo = <T>(
+  element: T,
+  forest: Forest<T>
+) => {
+  if (isEmpty(forest)) {
+    return true;
+  } else if (isSingletonTreeInSingletonForest(forest)) {
+    return equals(theRootOfFirstTreeOfForest(forest), element);
+  } else if (isSingletonForest) {
+    return (
+      equals(theRootOfFirstTreeOfForest(forest), element) &&
+      areForestElementsEqualsTo(element, theChildrenForest(head(forest)))
+    );
+  } else if (hasFirstTreeAsSingleton(forest)) {
+    return (
+      equals(theRootOfFirstTreeOfForest(forest), element) &&
+      areForestElementsEqualsTo(element, tail(forest))
+    );
+  }
+
+  return (
+    equals(theRootOfFirstTreeOfForest(forest), element) &&
+    areForestElementsEqualsTo(element, theChildrenForest(head(forest))) &&
+    areForestElementsEqualsTo(element, tail(forest))
+  );
+};
 /**
  * Predicate, check if tree doesn't have any trees in his forest
  * :: a -> b
@@ -101,17 +140,11 @@ export function depthTree<T>(tree: Tree<T>): number {
  * :: Forest -> integer
  */
 export function depthForest<T>(forest: Forest<T>): number {
-  if (isSingletonSequence(forest) && isSingletonTree(head(forest) as Tree<T>)) {
+  if (isSingletonTreeInSingletonForest(forest) || isEmpty(forest)) {
     return 1;
-  } else if (
-    isSingletonSequence(forest) &&
-    !isSingletonTree(head(forest) as Tree<T>)
-  ) {
+  } else if (isSingletonForest(forest)) {
     return 1 + depthForest(theForestOfFirstTreeOfForest(forest));
-  } else if (
-    !isSingletonSequence(forest) &&
-    isSingletonTree(head(forest) as Tree<T>)
-  ) {
+  } else if (hasFirstTreeAsSingleton(forest)) {
     return max(1, depthForest(tail(forest)));
   }
   return max(
@@ -141,10 +174,6 @@ export function isElementEDescentOfElementFInTree<T>(
   if (isSingletonTree(tree)) {
     return equals(theRoot(tree), elementF) && equals(elementF, elementE);
   }
-  console.log(
-    'blabla',
-    isTheElementPresentInTheForest(elementE, subForestInTree(elementF, tree))
-  );
   return (
     (equals(theRoot(tree), elementF) &&
       isTheElementPresentInTheTree(elementE, tree)) ||
@@ -248,7 +277,9 @@ export function numberOfElementsOfGivenValueInForest<T>(
   element: T,
   forest: Forest<T>
 ): Integer {
-  if (isSingletonTreeInSingletonForest(forest)) {
+  if (isEmpty(forest)) {
+    return 0;
+  } else if (isSingletonTreeInSingletonForest(forest)) {
     return equals(element, theRootOfFirstTreeOfForest(forest)) ? 1 : 0;
   } else if (isSingletonForest(forest)) {
     return (
@@ -289,15 +320,15 @@ export function treeLeavesMinimumLevel<T>(tree: Tree<T>): number {
  * @returns
  */
 export function forestLeavesMinimumLevel<T>(forest: Forest<T>): number {
-  if (isSingletonTree(head(forest) as Tree<T>)) {
-    return 1;
-  } else if (
-    length(forest) === 1 &&
-    !isSingletonTree(head(forest) as Tree<T>)
+  if (
+    isSingletonTreeInSingletonForest(forest) ||
+    hasFirstTreeAsSingleton(forest) ||
+    isEmpty(forest)
   ) {
+    return 1;
+  } else if (isSingletonForest(forest)) {
     return 1 + forestLeavesMinimumLevel(theForestOfFirstTreeOfForest(forest));
   }
-
   return min(
     1 + forestLeavesMinimumLevel(theForestOfFirstTreeOfForest(forest)),
     forestLeavesMinimumLevel(tail(forest))
@@ -310,12 +341,14 @@ export function levelAndPresenceOfElementInForest<T>(
   element: T,
   forest: Forest<T>
 ): LevelPresence {
-  if (isSingletonSequence(forest) && compose(isSingletonTree, head)(forest)) {
-    return equals(element, compose(theRoot, head)(forest))
+  if (isEmpty(forest)) {
+    return { level: 0, present: false };
+  } else if (isSingletonTreeInSingletonForest(forest)) {
+    return equals(element, theRootOfFirstTreeOfForest(forest))
       ? { level: 1, present: true }
       : { level: 0, present: false };
-  } else if (isSingletonSequence(forest) && !isSingletonTree(head(forest))) {
-    if (equals(element, compose(theRoot, head)(forest))) {
+  } else if (isSingletonForest(forest)) {
+    if (equals(element, theRootOfFirstTreeOfForest(forest))) {
       return {
         level: 1,
         present: true,
@@ -323,16 +356,13 @@ export function levelAndPresenceOfElementInForest<T>(
     } else {
       const { level, present } = levelAndPresenceOfElementInForest(
         element,
-        compose(theChildrenForest, head)(forest)
+        theForestOfFirstTreeOfForest(forest)
       );
       return present
         ? { level: level + 1, present: true }
         : { level: level, present: false };
     }
-  } else if (
-    !isSingletonSequence(forest) &&
-    compose(isSingletonTree, head)(forest)
-  ) {
+  } else if (hasFirstTreeAsSingleton(forest)) {
     if (equals(element, compose(theRoot, head)(forest))) {
       return {
         level: 1,
@@ -353,22 +383,21 @@ export function levelAndPresenceOfElementInForest<T>(
       level: 1,
       present: true,
     };
+  }
+  const { level, present } = levelAndPresenceOfElementInForest(
+    element,
+    compose(theChildrenForest, head)(forest)
+  );
+  if (present) {
+    return { level: level + 1, present: true };
   } else {
     const { level, present } = levelAndPresenceOfElementInForest(
       element,
-      compose(theChildrenForest, head)(forest)
+      tail(forest)
     );
-    if (present) {
-      return { level: level + 1, present: true };
-    } else {
-      const { level, present } = levelAndPresenceOfElementInForest(
-        element,
-        tail(forest)
-      );
-      return present
-        ? { level: level + 1, present: true }
-        : { level: level, present: false };
-    }
+    return present
+      ? { level: level + 1, present: true }
+      : { level: level, present: false };
   }
 }
 
@@ -424,7 +453,9 @@ export function subForestInTree<T>(element: T, tree: Tree<T>): Forest<T> {
  * @param forest
  */
 export function subForestInForest<T>(element: T, forest: Forest<T>): Forest<T> {
-  if (isSingletonTreeInSingletonForest(forest)) {
+  if (isEmpty(forest)) {
+    return [];
+  } else if (isSingletonTreeInSingletonForest(forest)) {
     return equals(theRootOfFirstTreeOfForest(forest), element) ? forest : [];
   } else if (isSingletonForest(forest)) {
     return equals(theRootOfFirstTreeOfForest(forest), element)
@@ -572,7 +603,7 @@ export const areTwoForestsSymmetricalToEachOther: AreTwoForestsSymmetricalToEach
     }
 
     return (
-      equals(theRoot(head(leftForest)), theRoot(last(leftForest))) &&
+      equals(theRoot(head(leftForest)), theRoot(last(rightForest))) &&
       areTwoForestsSymmetricalToEachOther(tail(leftForest), init(rightForest))
     );
   };

@@ -22,6 +22,8 @@ import {
   TheRoot,
   CreateSymetricalOfBinaryTree,
   TheBinaryTree,
+  ElementsEqualTo,
+  AreAllElementsEquals,
 } from './binary-tree.types';
 
 /**
@@ -76,6 +78,49 @@ export function theRightChild<T>(
   return { ...node.rightChild };
 }
 
+/**
+ *
+ */
+export const areAllElementsEquals: AreAllElementsEquals = <T>(
+  tree: BinaryTree<T>
+) => {
+  if (isSingleton(tree)) {
+    return true;
+  } else if (isUnaryLeft(tree)) {
+    return elementsEqualTo(theRoot(tree), theLeftChild(tree));
+  } else if (isUnaryRight(tree)) {
+    return elementsEqualTo(theRoot(tree), theRightChild(tree));
+  }
+
+  return (
+    elementsEqualTo(theRoot(tree), theLeftChild(tree)) &&
+    elementsEqualTo(theRoot(tree), theRightChild(tree))
+  );
+};
+
+export const elementsEqualTo: ElementsEqualTo = <T>(
+  element: T,
+  tree: BinaryTree<T>
+) => {
+  if (isSingleton(tree)) {
+    return equals(theRoot(tree), element);
+  } else if (isUnaryLeft(tree)) {
+    return (
+      equals(theRoot(tree), element) &&
+      elementsEqualTo(element, theLeftChild(tree))
+    );
+  } else if (isUnaryRight(tree)) {
+    return (
+      equals(theRoot(tree), element) &&
+      elementsEqualTo(element, theRightChild(tree))
+    );
+  }
+  return (
+    equals(theRoot(tree), element) &&
+    elementsEqualTo(element, theLeftChild(tree)) &&
+    elementsEqualTo(element, theRightChild(tree))
+  );
+};
 /**
  * :: BinaryTree -> BinaryTree -> boolean
  * @param leftTree BinaryTree<T> | undefined

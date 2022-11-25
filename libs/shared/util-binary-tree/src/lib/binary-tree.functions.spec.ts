@@ -16,7 +16,6 @@ import {
   subTreeOf,
   isEmptyTree,
   binaryTreesElementsIsEquals,
-
   binaryTreeDepth,
   levelFor,
   isSameStructure,
@@ -33,9 +32,11 @@ import {
   isElementEDescentOfElementF,
   areTwoBinaryTreesSymmetricalToEachOther,
   isSingleton,
+  createSymetricalOfBinaryTree,
+  areAllElementsEqual,
 } from './binary-tree.functions';
 import { BinaryTree } from './binary-tree.types';
-import {performance} from 'perf_hooks';
+import { performance } from 'perf_hooks';
 
 const numberBinaryTree: BinaryTree<number> = {
   root: 1,
@@ -157,6 +158,27 @@ const rightSideOfSymetricalTree: BinaryTree<string> = {
     },
   },
 };
+const allElementsEqualsTree: BinaryTree<string> = {
+  root: 'A',
+  leftChild: {
+    root: 'A',
+    leftChild: {
+      root: 'A',
+    },
+    rightChild: {
+      root: 'A',
+      leftChild: {
+        root: 'A',
+      },
+    },
+  },
+  rightChild: {
+    root: 'A',
+    rightChild: {
+      root: 'A',
+    },
+  },
+};
 
 const prefixedLinerizedUppercaseAlphabetTree = [
   'A',
@@ -204,6 +226,14 @@ const prefixedfixedLinerizedlowercaseAlphabetTree = [
 ];
 
 describe('functionnal binary tree ', () => {
+  it('areAllElementsEqual', () => {
+    const t0 = performance.now();
+    areAllElementsEqual(allElementsEqualsTree);
+    const t1 = performance.now();
+    console.log('areAllElementsEqual' + (t1 - t0), 'milliseconds');
+    expect(areAllElementsEqual(allElementsEqualsTree)).toBe(true);
+    expect(areAllElementsEqual(leftSideOfSymetricalTree)).toBe(false);
+  });
   it('are Two Binary trees symmetrical to each other', () => {
     const t0 = performance.now();
     areTwoBinaryTreesSymmetricalToEachOther(
@@ -367,6 +397,15 @@ describe('functionnal binary tree ', () => {
       binaryTreeRightChildPrefixedLinearization: ['D', 'E', 'F', 'G'],
     });
   });
+  it('createSymetricalOfBinaryTree', () => {
+    const t0 = performance.now();
+    createSymetricalOfBinaryTree(leftSideOfSymetricalTree);
+    const t1 = performance.now();
+    console.log('createSymetricalOfBinaryTree ' + (t1 - t0), 'milliseconds');
+    expect(createSymetricalOfBinaryTree(leftSideOfSymetricalTree)).toEqual(
+      rightSideOfSymetricalTree
+    );
+  });
   it('depthOfABinaryTree', () => {
     const t0 = performance.now();
     depth(lowcaseAlphabetTree);
@@ -481,9 +520,7 @@ describe('functionnal binary tree ', () => {
     const t1 = performance.now();
     console.log('isSingleton ' + (t1 - t0), 'milliseconds');
     expect(isSingleton(uppercaseAlphabetTree)).toBe(false);
-    expect(
-      compose(isSingleton, subTreeOf)('C', uppercaseAlphabetTree)
-    );
+    expect(compose(isSingleton, subTreeOf)('C', uppercaseAlphabetTree));
   });
   it('isUnaryLeft', () => {
     const t0 = performance.now();

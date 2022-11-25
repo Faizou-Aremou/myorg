@@ -91,3 +91,7 @@ export type IsSecondForestHasLastTreeAsSingleton = <T>(
 
 export type CreateSymetricalOfTree = <T>(tree: Tree<T>) => Tree<T>;
 export type CreateSymetricalOfForest = <T>(tree: Forest<T>) => Forest<T>;
+
+export type AreAllElementsEquals = <T>(tree:Tree<T>) => boolean;
+export type AreForestElementsEqualsTo = <T>(element:T, forest:Forest<T>) => boolean;
+
