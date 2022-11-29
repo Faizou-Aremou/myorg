@@ -1,3 +1,5 @@
+import { Integer } from '@web-times-team/util-number';
+
 export type BinaryTree<T> = {
   readonly root: T;
   readonly leftChild?: BinaryTree<T>;
@@ -72,5 +74,10 @@ export type CreateSymetricalOfBinaryTree = <T>(
   tree: BinaryTree<T>
 ) => BinaryTree<T>;
 
-export type AreAllElementsEquals = <T>(tree:BinaryTree<T>) => boolean;
-export type ElementsEqualTo = <T>(element:T, tree:BinaryTree<T>) => boolean;
+export type AreAllElementsEquals = <T>(tree: BinaryTree<T>) => boolean;
+export type ElementsEqualTo = <T>(element: T, tree: BinaryTree<T>) => boolean;
+
+export type NumberOfLeavesOfLevelK = <T>(
+  levelK: Integer,
+  tree: BinaryTree<T>
+) => Integer;

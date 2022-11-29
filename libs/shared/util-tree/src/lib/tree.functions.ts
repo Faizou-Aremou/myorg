@@ -36,6 +36,8 @@ import {
   IsFirstTreeAsSingleton,
   IsSecondForestAsSingleton,
   IsSecondForestAsSingletonOfSingletonTree,
+  NumberOfLeavesOfLevelK,
+  NumberOfLeavesOfLevelKInForest,
   Tree,
 } from './tree.types';
 import { LevelPresence } from '@web-times-team/util-functionnal';
@@ -519,7 +521,7 @@ export const areBothTreesSingleton: AreBothTreesSingleton = <T>(
 ) => {
   return isSingletonTree(firstTree) && isSingletonTree(secondTree);
 };
-
+// TODO: have to handles forest empty case
 export const areTwoForestsSymmetricalToEachOther: AreTwoForestsSymmetricalToEachOther =
   <T>(leftForest: Forest<T>, rightForest: Forest<T>) => {
     if (areBothForestAsSingletonOfSingletonTree(leftForest, rightForest)) {
@@ -780,5 +782,47 @@ export const createSymetricalOfForest: CreateSymetricalOfForest = <T>(
 };
 
 /**
- * TODO: important!!!! needs to treat empty forest
+ *
+ * @param levelK
+ * @param tree
+ * @returns
  */
+export const numberOfLeavesOfLevelK: NumberOfLeavesOfLevelK = <T>(
+  levelK: Integer,
+  tree: Tree<T>
+) => {
+  if (isSingletonTree(tree)) {
+    return equals(levelK, 1) ? 1 : 0;
+  }
+  return numberOfLeavesOfLevelKInForest(levelK - 1, theChildrenForest(tree));
+};
+
+export const numberOfLeavesOfLevelKInForest: NumberOfLeavesOfLevelKInForest = <
+  T
+>(
+  levelK: Integer,
+  forest: Forest<T>
+) => {
+  if (isEmpty(forest)) {
+    return equals(levelK, 0) ? 1 : 0;
+  }
+  if (isSingletonTreeInSingletonForest(forest)) {
+    return equals(levelK, 1) ? 1 : 0;
+  } else if (isSingletonForest(forest)) {
+    return numberOfLeavesOfLevelKInForest(
+      levelK - 1,
+      theForestOfFirstTreeOfForest(forest)
+    );
+  } else if (hasFirstTreeAsSingleton(forest)) {
+    return (
+      (equals(levelK, 1) ? 1 : 0) +
+      numberOfLeavesOfLevelKInForest(levelK, tail(forest))
+    );
+  }
+  return (
+    numberOfLeavesOfLevelKInForest(
+      levelK - 1,
+      theForestOfFirstTreeOfForest(forest)
+    ) + numberOfLeavesOfLevelKInForest(levelK, tail(forest))
+  );
+};

@@ -1,6 +1,7 @@
 import { LevelPresence, removeOne } from '@web-times-team/util-functionnal';
 import { Integer } from '@web-times-team/util-number';
 import { hasSameElements, hasSameSise } from '@web-times-team/util-sequence';
+import { copyFile } from 'fs';
 import {
   append,
   compose,
@@ -24,6 +25,7 @@ import {
   TheBinaryTree,
   ElementsEqualTo,
   AreAllElementsEquals,
+  NumberOfLeavesOfLevelK,
 } from './binary-tree.types';
 
 /**
@@ -865,21 +867,44 @@ export const numberOfDescendantsOf = compose(
 
 /**
  *
- * @param node
+ * @param tree
  * @returns
  */
-export function numberOfLeaves<T>(node: BinaryTree<T> | undefined): number {
-  if (isEmptyTree(node)) {
+export function numberOfLeaves<T>(tree: BinaryTree<T> | undefined): number {
+  if (isEmptyTree(tree)) {
     return 0;
-  } else if (isSingleton<T>(node)) {
+  } else if (isSingleton<T>(tree)) {
     return 1;
-  } else if (isUnaryLeft(node)) {
-    return numberOfLeaves<T>(node.leftChild);
-  } else if (isUnaryRight(node)) {
-    return numberOfLeaves(node.rightChild);
+  } else if (isUnaryLeft(tree)) {
+    return numberOfLeaves<T>(theLeftChild(tree));
+  } else if (isUnaryRight(tree)) {
+    return numberOfLeaves(theRightChild(tree));
   }
-  return numberOfLeaves(node.leftChild) + numberOfLeaves(node.rightChild);
+  return numberOfLeaves(tree.leftChild) + numberOfLeaves(tree.rightChild);
 }
+/**
+ *
+ * @param levelK
+ * @param tree
+ * @returns
+ */
+export const numberOfLeavesOfLevelK: NumberOfLeavesOfLevelK = <T>(
+  levelK: Integer,
+  tree: BinaryTree<T>
+) => {
+  if (isSingleton(tree)) {
+    return equals(levelK, 1) ? 1 : 0;
+  } else if (isUnaryLeft(tree)) {
+    return numberOfLeavesOfLevelK(levelK - 1, theLeftChild(tree));
+  } else if (isUnaryRight(tree)) {
+    return numberOfLeavesOfLevelK(levelK - 1, theRightChild(tree));
+  }
+  return (
+    numberOfLeavesOfLevelK(levelK - 1, theLeftChild(tree)) +
+    numberOfLeavesOfLevelK(levelK - 1, theRightChild(tree))
+  );
+};
+
 /**
  *
  * @param node

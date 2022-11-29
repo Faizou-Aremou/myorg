@@ -13,6 +13,7 @@ import {
   areTwoTreesSymmetricalToEachOther,
   createSymetricalOfTree,
   areAllElementsEquals,
+  numberOfLeavesOfLevelK,
 } from './tree.functions';
 import { Tree } from './tree.types';
 import { performance } from 'perf_hooks';
@@ -321,5 +322,12 @@ describe('functionnal tree ', () => {
     const t1 = performance.now();
     console.log('forestLeavesMinimumLevel ' + (t1 - t0), 'milliseconds');
     expect(forestLeavesMinimumLevel(theChildrenForest(numberTree))).toBe(1);
+  });
+  it('numberOfLeavesOfLevelK', () => {
+    const t0 = performance.now();
+    numberOfLeavesOfLevelK(3, numberTree);
+    const t1 = performance.now();
+    console.log('numberOfLeavesOfLevelKInForest ' + (t1 - t0), 'milliseconds');
+    expect(numberOfLeavesOfLevelK(3, numberTree)).toBe(10);
   });
 });

@@ -33,7 +33,8 @@ import {
   areTwoBinaryTreesSymmetricalToEachOther,
   isSingleton,
   createSymetricalOfBinaryTree,
-  areAllElementsEqual,
+  numberOfLeavesOfLevelK,
+  areAllElementsEquals,
 } from './binary-tree.functions';
 import { BinaryTree } from './binary-tree.types';
 import { performance } from 'perf_hooks';
@@ -228,11 +229,11 @@ const prefixedfixedLinerizedlowercaseAlphabetTree = [
 describe('functionnal binary tree ', () => {
   it('areAllElementsEqual', () => {
     const t0 = performance.now();
-    areAllElementsEqual(allElementsEqualsTree);
+    areAllElementsEquals(allElementsEqualsTree);
     const t1 = performance.now();
     console.log('areAllElementsEqual' + (t1 - t0), 'milliseconds');
-    expect(areAllElementsEqual(allElementsEqualsTree)).toBe(true);
-    expect(areAllElementsEqual(leftSideOfSymetricalTree)).toBe(false);
+    expect(areAllElementsEquals(allElementsEqualsTree)).toBe(true);
+    expect(areAllElementsEquals(leftSideOfSymetricalTree)).toBe(false);
   });
   it('are Two Binary trees symmetrical to each other', () => {
     const t0 = performance.now();
@@ -723,6 +724,15 @@ describe('functionnal binary tree ', () => {
     console.log('numberOfLeaves ' + (t1 - t0), 'milliseconds');
     expect(numberOfLeaves(numberBinaryTree)).toBe(4);
   });
+  it('numberOfLeavesOfLevelK', () => {
+    const t0 = performance.now();
+    numberOfLeavesOfLevelK(3, numberBinaryTree);
+    const t1 = performance.now();
+    console.log('numberOfLeavesOfLevelK ' + (t1 - t0), 'milliseconds');
+    expect(numberOfLeavesOfLevelK(3, numberBinaryTree)).toBe(4);
+    expect(numberOfLeavesOfLevelK(4, numberBinaryTree)).toBe(0);
+    expect(numberOfLeavesOfLevelK(1, numberBinaryTree)).toBe(0);
+  });
   it('minimumLevelOfLeaves', () => {
     const t0 = performance.now();
     binaryTreeLeavesMinimumLevel(numberBinaryTree);
@@ -804,3 +814,5 @@ describe('functionnal binary tree ', () => {
     });
   });
 });
+
+
