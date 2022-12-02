@@ -1,4 +1,5 @@
 import { Integer } from '@web-times-team/util-number';
+import { Sequence } from '@web-times-team/util-sequence';
 
 export type BinaryTree<T> = {
   readonly root: T;
@@ -81,3 +82,10 @@ export type NumberOfLeavesOfLevelK = <T>(
   levelK: Integer,
   tree: BinaryTree<T>
 ) => Integer;
+
+export type AncestorsList = <T>(element: T, tree: BinaryTree<T>) => Sequence<T>;
+
+export type ContainsAncestors = <T>(
+  element: T,
+  tree: BinaryTree<T>
+) => { contains: boolean; ancestorsList: Sequence<T> };

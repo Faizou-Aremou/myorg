@@ -35,6 +35,7 @@ import {
   createSymetricalOfBinaryTree,
   numberOfLeavesOfLevelK,
   areAllElementsEquals,
+  ancestorsList,
 } from './binary-tree.functions';
 import { BinaryTree } from './binary-tree.types';
 import { performance } from 'perf_hooks';
@@ -227,6 +228,13 @@ const prefixedfixedLinerizedlowercaseAlphabetTree = [
 ];
 
 describe('functionnal binary tree ', () => {
+  it('ancestorsList', () => {
+    const t0 = performance.now();
+    ancestorsList('G', leftSideOfSymetricalTree);
+    const t1 = performance.now();
+    console.log('areAllElementsEqual' + (t1 - t0), 'milliseconds');
+    expect(ancestorsList('G', leftSideOfSymetricalTree)).toEqual(['A', 'C', 'E']);
+  });
   it('areAllElementsEqual', () => {
     const t0 = performance.now();
     areAllElementsEquals(allElementsEqualsTree);
@@ -814,5 +822,3 @@ describe('functionnal binary tree ', () => {
     });
   });
 });
-
-

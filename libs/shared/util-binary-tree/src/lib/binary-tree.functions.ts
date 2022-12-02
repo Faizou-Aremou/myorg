@@ -26,6 +26,8 @@ import {
   ElementsEqualTo,
   AreAllElementsEquals,
   NumberOfLeavesOfLevelK,
+  AncestorsList,
+  ContainsAncestors,
 } from './binary-tree.types';
 
 /**
@@ -80,6 +82,47 @@ export function theRightChild<T>(
   return { ...node.rightChild };
 }
 
+export const ancestorsList: AncestorsList = <T>(
+  element: T,
+  tree: BinaryTree<T>
+) => {
+  if (isSingleton(tree)) {
+    return [];
+  } else if (isUnaryLeft(tree) && equals(element, theRoot(tree))) {
+    return [];
+  } else if (isUnaryLeft(tree) && !equals(element, theRoot(tree))) {
+    const { contains, ancestorsList } = containsAncestors(
+      element,
+      theLeftChild(tree)
+    );
+    return contains ? prepend(theRoot(tree), ancestorsList) : [];
+  } else if (isUnaryRight(tree) && equals(element, theRoot(tree))) {
+    return [];
+  } else if (isUnaryRight(tree) && !equals(element, theRoot(tree))) {
+    const { contains, ancestorsList } = containsAncestors(
+      element,
+      theRightChild(tree)
+    );
+    return contains ? prepend(theRoot(tree), ancestorsList) : [];
+  } else if (isBinaryRootNode(tree) && equals(element, theRoot(tree))) {
+    return [];
+  }
+
+  const { contains, ancestorsList } = containsAncestors(
+    element,
+    theLeftChild(tree)
+  );
+
+  if (contains) {
+    return prepend(theRoot(tree), ancestorsList);
+  } else {
+    const { contains, ancestorsList } = containsAncestors(
+      element,
+      theRightChild(tree)
+    );
+    return contains ? prepend(theRoot(tree), ancestorsList) : [];
+  }
+};
 /**
  *
  */
@@ -433,6 +476,62 @@ export function binaryTreePrefixedLeftRightSequences<T>(
       binaryTreeRightChildPrefixedLinearization,
   };
 }
+/**
+ * 
+ * @param element 
+ * @param tree 
+ * @returns 
+ */
+export const containsAncestors: ContainsAncestors = <T>(
+  element: T,
+  tree: BinaryTree<T>
+) => {
+  if (isSingleton(tree)) {
+    return equals(element, theRoot(tree))
+      ? { contains: true, ancestorsList: [] }
+      : { contains: false, ancestorsList: [] };
+  } else if (isUnaryLeft(tree) && equals(element, theRoot(tree))) {
+    return { contains: true, ancestorsList: [] };
+  } else if (isUnaryLeft(tree) && !equals(element, theRoot(tree))) {
+    const { contains, ancestorsList } = containsAncestors(
+      element,
+      theLeftChild(tree)
+    );
+    return contains
+      ? { contains, ancestorsList: prepend(theRoot(tree), ancestorsList) }
+      : { contains, ancestorsList };
+  } else if (isUnaryRight(tree) && equals(element, theRoot(tree))) {
+    return { contains: true, ancestorsList: [] };
+  } else if (isUnaryRight(tree) && !equals(element, theRoot(tree))) {
+    const { contains, ancestorsList } = containsAncestors(
+      element,
+      theRightChild(tree)
+    );
+    return contains
+      ? { contains, ancestorsList: prepend(theRoot(tree), ancestorsList) }
+      : { contains, ancestorsList };
+  } else if (isBinaryRootNode(tree) && equals(element, theRoot(tree))) {
+    return { contains: true, ancestorsList: [] };
+  }
+
+  const { contains, ancestorsList } = containsAncestors(
+    element,
+    theLeftChild(tree)
+  );
+
+  if (contains) {
+    return { contains, ancestorsList: prepend(theRoot(tree), ancestorsList) };
+  } else {
+    const { contains, ancestorsList } = containsAncestors(
+      element,
+      theRightChild(tree)
+    );
+
+    return contains
+      ? { contains, ancestorsList: prepend(theRoot(tree), ancestorsList) }
+      : { contains, ancestorsList };
+  }
+};
 
 /**
  * binaryTree -> number
