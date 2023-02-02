@@ -1,3 +1,6 @@
+import { Integer } from '@web-times-team/util-number';
+import { Sequence } from '@web-times-team/util-sequence';
+
 export type BinaryTree<T> = {
   readonly root: T;
   readonly leftChild?: BinaryTree<T>;
@@ -23,15 +26,15 @@ export type RightUnaryRootNode<T> = {
 };
 
 export type TheBinaryTree = <T>(
-  root: T,
-  leftChild?: BinaryTree<T>,
-  rightChild?: BinaryTree<T>
+  root: Readonly<T>,
+  leftChild?: Readonly<BinaryTree<T>>,
+  rightChild?: Readonly<BinaryTree<T>>
 ) => BinaryTree<T>;
 
 export type theBinaryRootTree = <T>(
-  root: T,
-  leftChild: BinaryTree<T>,
-  rightChild: BinaryTree<T>
+  root: Readonly<T>,
+  leftChild: Readonly<BinaryTree<T>>,
+  rightChild: Readonly<BinaryTree<T>>
 ) => BinaryRootTree<T>;
 
 export type TheRoot = <T>(
@@ -51,17 +54,38 @@ export type AreTwoBinaryTreesSymmetricalToEachOther = <T>(
   rightTree: BinaryTree<T> | undefined
 ) => boolean;
 
-export type BothBinaryTreesAreEmpty = <T>(
+export type AreBothBinaryTreesEmpty = <T>(
   firstBinaryTree: BinaryTree<T> | undefined,
   secondBinaryTree: BinaryTree<T> | undefined
 ) => boolean;
-export type SecondBinaryTreeisEmptyInDoublet = <T>(
+
+export type IsSecondBinaryTreeEmpty = <T>(
   firstBinaryTree: BinaryTree<T> | undefined,
   secondBinaryTree: BinaryTree<T> | undefined
 ) => boolean;
-export type FirstBinaryTreeisEmptyInDoublet = <T>(
+
+export type IsFirstBinaryTreeEmpty = <T>(
   firstBinaryTree: BinaryTree<T> | undefined,
   secondBinaryTree: BinaryTree<T> | undefined
 ) => boolean;
 
 export type IsBinaryRootNode = <T>(tree: BinaryTree<T>) => boolean;
+
+export type CreateSymetricalOfBinaryTree = <T>(
+  tree: BinaryTree<T>
+) => BinaryTree<T>;
+
+export type AreAllElementsEquals = <T>(tree: BinaryTree<T>) => boolean;
+export type ElementsEqualTo = <T>(element: T, tree: BinaryTree<T>) => boolean;
+
+export type NumberOfLeavesOfLevelK = <T>(
+  levelK: Integer,
+  tree: BinaryTree<T>
+) => Integer;
+
+export type AncestorsList = <T>(element: T, tree: BinaryTree<T>) => Sequence<T>;
+
+export type ContainsAncestors = <T>(
+  element: T,
+  tree: BinaryTree<T>
+) => { contains: boolean; ancestorsList: Sequence<T> };

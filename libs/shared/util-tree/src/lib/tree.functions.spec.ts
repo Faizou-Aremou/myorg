@@ -4,15 +4,19 @@ import {
   isSingletonTree,
   maxDegree,
   maxForestDegree,
-  theTreeRoot,
+  theRoot,
   treeLeavesMinimumLevel,
   depthTree,
   numberOfElementsOfGivenValueInTree,
   isTheElementPresentInTheTree,
   isElementEDescentOfElementFInTree,
-} from './shared-util-tree.functions';
-import { Tree } from './shared-util-tree.types';
-import {performance} from 'perf_hooks';
+  areTwoTreesSymmetricalToEachOther,
+  createSymetricalOfTree,
+  areAllElementsEquals,
+  numberOfLeavesOfLevelK,
+} from './tree.functions';
+import { Tree } from './tree.types';
+import { performance } from 'perf_hooks';
 
 const numberTree: Tree<number> = {
   root: 1,
@@ -43,8 +47,127 @@ const numberTree: Tree<number> = {
     { root: 11, forest: [] },
   ],
 };
+const leftSideOfSymetricalNumberTree: Tree<number> = {
+  root: 1,
+  forest: [
+    {
+      root: 2,
+      forest: [
+        { root: 12, forest: [] },
+        { root: 13, forest: [] },
+        { root: 14, forest: [] },
+        { root: 15, forest: [] },
+        { root: 16, forest: [] },
+        { root: 17, forest: [] },
+        { root: 18, forest: [] },
+        { root: 19, forest: [] },
+        { root: 20, forest: [] },
+        { root: 21, forest: [] },
+      ],
+    },
+    { root: 3, forest: [] },
+    { root: 4, forest: [] },
+    { root: 5, forest: [] },
+    { root: 6, forest: [] },
+    { root: 7, forest: [] },
+    { root: 8, forest: [] },
+    { root: 9, forest: [] },
+    { root: 10, forest: [] },
+    { root: 11, forest: [] },
+  ],
+};
+const rightSideOfSymetricalNumberTree: Tree<number> = {
+  root: 1,
+  forest: [
+    { root: 11, forest: [] },
+    { root: 10, forest: [] },
+    { root: 9, forest: [] },
+    { root: 8, forest: [] },
+    { root: 7, forest: [] },
+    { root: 6, forest: [] },
+    { root: 5, forest: [] },
+    { root: 4, forest: [] },
+    { root: 3, forest: [] },
+    {
+      root: 2,
+      forest: [
+        { root: 21, forest: [] },
+        { root: 20, forest: [] },
+        { root: 19, forest: [] },
+        { root: 18, forest: [] },
+        { root: 17, forest: [] },
+        { root: 16, forest: [] },
+        { root: 15, forest: [] },
+        { root: 14, forest: [] },
+        { root: 13, forest: [] },
+        { root: 12, forest: [] },
+      ],
+    },
+  ],
+};
+const elementEqualNumberTree: Tree<number> = {
+  root: 1,
+  forest: [
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    { root: 1, forest: [] },
+    {
+      root: 1,
+      forest: [
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+        { root: 1, forest: [] },
+      ],
+    },
+  ],
+};
 
 describe('functionnal tree ', () => {
+  it('areAllElementsEquals', () => {
+    const t0 = performance.now();
+    areAllElementsEquals(elementEqualNumberTree);
+    const t1 = performance.now();
+    console.log('areAllElementsEquals ' + (t1 - t0), 'milliseconds');
+    expect(areAllElementsEquals(elementEqualNumberTree)).toBe(true);
+    expect(areAllElementsEquals(leftSideOfSymetricalNumberTree)).toBe(false);
+  });
+  it('areTwoTreesSymmetricalToEachOther', () => {
+    const t0 = performance.now();
+    areTwoTreesSymmetricalToEachOther(
+      leftSideOfSymetricalNumberTree,
+      rightSideOfSymetricalNumberTree
+    );
+    const t1 = performance.now();
+    console.log(
+      'areTwoTreesSymmetricalToEachOther ' + (t1 - t0),
+      'milliseconds'
+    );
+    expect(
+      areTwoTreesSymmetricalToEachOther(
+        leftSideOfSymetricalNumberTree,
+        rightSideOfSymetricalNumberTree
+      )
+    ).toBe(true);
+    expect(
+      areTwoTreesSymmetricalToEachOther(
+        leftSideOfSymetricalNumberTree,
+        leftSideOfSymetricalNumberTree
+      )
+    ).toBe(false);
+  });
   it('childrenForest', () => {
     const t0 = performance.now();
     theChildrenForest(numberTree);
@@ -76,6 +199,15 @@ describe('functionnal tree ', () => {
       { root: 10, forest: [] },
       { root: 11, forest: [] },
     ]);
+  });
+  it('createSymetricalOfTree', () => {
+    const t0 = performance.now();
+    createSymetricalOfTree(leftSideOfSymetricalNumberTree);
+    const t1 = performance.now();
+    console.log('childrenForest ' + (t1 - t0), 'milliseconds');
+    expect(createSymetricalOfTree(leftSideOfSymetricalNumberTree)).toEqual(
+      rightSideOfSymetricalNumberTree
+    );
   });
   it('depthTree', () => {
     const t0 = performance.now();
@@ -172,10 +304,10 @@ describe('functionnal tree ', () => {
   });
   it('root', () => {
     const t0 = performance.now();
-    theTreeRoot(numberTree);
+    theRoot(numberTree);
     const t1 = performance.now();
     console.log('root ' + (t1 - t0), 'milliseconds');
-    expect(theTreeRoot(numberTree)).toBe(1);
+    expect(theRoot(numberTree)).toBe(1);
   });
   it('treeLeavesMinimumLevel', () => {
     const t0 = performance.now();
@@ -190,5 +322,12 @@ describe('functionnal tree ', () => {
     const t1 = performance.now();
     console.log('forestLeavesMinimumLevel ' + (t1 - t0), 'milliseconds');
     expect(forestLeavesMinimumLevel(theChildrenForest(numberTree))).toBe(1);
+  });
+  it('numberOfLeavesOfLevelK', () => {
+    const t0 = performance.now();
+    numberOfLeavesOfLevelK(3, numberTree);
+    const t1 = performance.now();
+    console.log('numberOfLeavesOfLevelKInForest ' + (t1 - t0), 'milliseconds');
+    expect(numberOfLeavesOfLevelK(3, numberTree)).toBe(10);
   });
 });
