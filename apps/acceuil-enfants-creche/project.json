@@ -1,0 +1,70 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/acceuil-enfants-creche/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/acceuil-enfants-creche",
+        "compiler": "babel",
+        "index": "apps/acceuil-enfants-creche/src/index.html",
+        "baseHref": "/",
+        "main": "apps/acceuil-enfants-creche/src/main.ts",
+        "polyfills": "apps/acceuil-enfants-creche/src/polyfills.ts",
+        "tsConfig": "apps/acceuil-enfants-creche/tsconfig.app.json",
+        "assets": [
+          "apps/acceuil-enfants-creche/src/favicon.ico",
+          "apps/acceuil-enfants-creche/src/assets"
+        ],
+        "styles": ["apps/acceuil-enfants-creche/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/acceuil-enfants-creche/src/environments/environment.ts",
+              "with": "apps/acceuil-enfants-creche/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "acceuil-enfants-creche:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "acceuil-enfants-creche:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/acceuil-enfants-creche/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/acceuil-enfants-creche"],
+      "options": {
+        "jestConfig": "apps/acceuil-enfants-creche/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

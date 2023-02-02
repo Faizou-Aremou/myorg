@@ -25,6 +25,7 @@
       "@web-times-team/ui-catalog": ["libs/shared/ui-catalog/src/index.ts"],
       "@web-times-team/ui-file": ["libs/shared/ui-file/src/index.ts"],
       "@web-times-team/ui-tabs": ["libs/shared/ui-tabs/src/index.ts"],
+<<<<<<< HEAD
       "@web-times-team/util-animation": [
         "libs/shared/util-animation/src/index.ts"
       ],
@@ -37,6 +38,14 @@
         "libs/shared/util-functionnal/src/index.ts"
       ],
       "@web-times-team/util-media": ["libs/shared/util-media/src/index.ts"],
+=======
+      "@web-times-team/util-binary-tree": [
+        "libs/shared/util-binary-tree/src/index.ts"
+      ],
+      "@web-times-team/util-functionnal": [
+        "libs/shared/util-functionnal/src/index.ts"
+      ],
+>>>>>>> definion des concepts du domaine
       "@web-times-team/util-number": ["libs/shared/util-number/src/index.ts"],
       "@web-times-team/util-sequence": [
         "libs/shared/util-sequence/src/index.ts"

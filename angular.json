@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "acceuil-enfants-creche": "apps/acceuil-enfants-creche",
+    "acceuil-enfants-creche-e2e": "apps/acceuil-enfants-creche-e2e",
     "open-food": "apps/open-food",
     "open-food-e2e": "apps/open-food-e2e",
     "shared-authorization": "libs/shared/authorization",
