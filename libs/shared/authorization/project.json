@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/shared/authorization"],
+      "outputs": [
+        "dist/libs/shared/authorization"
+      ],
       "options": {
         "project": "libs/shared/authorization/ng-package.json"
       },
@@ -21,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/authorization"],
+      "outputs": [
+        "coverage/libs/shared/authorization"
+      ],
       "options": {
         "jestConfig": "libs/shared/authorization/jest.config.ts",
         "passWithNoTests": true

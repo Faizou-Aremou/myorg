@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": ["dist/libs/shared/ui-catalog"],
+      "outputs": [
+        "dist/libs/shared/ui-catalog"
+      ],
       "options": {
         "project": "libs/shared/ui-catalog/ng-package.json"
       },
@@ -22,7 +24,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/ui-catalog"],
+      "outputs": [
+        "coverage/libs/shared/ui-catalog"
+      ],
       "options": {
         "jestConfig": "libs/shared/ui-catalog/jest.config.ts",
         "passWithNoTests": true

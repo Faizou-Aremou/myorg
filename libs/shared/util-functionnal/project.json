@@ -4,20 +4,15 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/shared/util-functionnal"],
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "project": "libs/shared/util-functionnal/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/shared/util-functionnal/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/shared/util-functionnal/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
+        "outputPath": "dist/libs/shared/util-functionnal",
+        "tsConfig": "libs/shared/util-functionnal/tsconfig.lib.json",
+        "packageJson": "libs/shared/util-functionnal/package.json",
+        "main": "libs/shared/util-functionnal/src/index.ts",
+        "assets": ["libs/shared/util-functionnal/*.md"]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

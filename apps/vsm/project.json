@@ -6,15 +6,20 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/apps/vsm",
+        "outputPath": "dist/vsm/browser",
         "index": "apps/vsm/src/index.html",
         "main": "apps/vsm/src/main.ts",
         "polyfills": "apps/vsm/src/polyfills.ts",
         "tsConfig": "apps/vsm/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/vsm/src/favicon.ico", "apps/vsm/src/assets"],
+        "assets": [
+          "apps/vsm/src/favicon.ico",
+          "apps/vsm/src/assets"
+        ],
         "styles": [
           "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
           "apps/vsm/src/styles.scss"
@@ -75,16 +80,80 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/vsm/**/*.ts", "apps/vsm/**/*.html"]
+        "lintFilePatterns": [
+          "apps/vsm/**/*.ts",
+          "apps/vsm/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/vsm"],
+      "outputs": [
+        "coverage/apps/vsm"
+      ],
       "options": {
         "jestConfig": "apps/vsm/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/vsm/server",
+        "main": "apps/vsm/server.ts",
+        "tsConfig": "apps/vsm/tsconfig.server.json",
+        "inlineStyleLanguage": "scss"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/vsm/src/environments/environment.ts",
+              "with": "apps/vsm/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "vsm:build:development",
+          "serverTarget": "vsm:server:development"
+        },
+        "production": {
+          "browserTarget": "vsm:build:production",
+          "serverTarget": "vsm:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": [
+          "/"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "vsm:build:production",
+          "serverTarget": "vsm:server:production"
+        },
+        "development": {
+          "browserTarget": "vsm:build:development",
+          "serverTarget": "vsm:server:development"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   },
   "tags": []

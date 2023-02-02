@@ -1,3 +1,5 @@
+
+import { isInfNumber, isSupNumber } from '@web-times-team/util-functionnal';
 import {
   embelishSlipInTwo,
   embelishIncludes,
@@ -10,9 +12,8 @@ import {
   insertionSort,
   insertion,
   trimSequence,
-} from './sequence.functions';
+} from './shared-util-sequence.functions';
 
-import { isInfNumber, isSupNumber } from './common.functions';
 
 const numberList = [12, 13, 20, 8, 3, 4, 0, 5, 3];
 const words = ['spray', 'limit', 'elite', 'ola'];
