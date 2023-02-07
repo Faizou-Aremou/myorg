@@ -25,9 +25,13 @@
       "@web-times-team/ui-catalog": ["libs/shared/ui-catalog/src/index.ts"],
       "@web-times-team/ui-file": ["libs/shared/ui-file/src/index.ts"],
       "@web-times-team/ui-tabs": ["libs/shared/ui-tabs/src/index.ts"],
+      "@web-times-team/util-animation": [
+        "libs/shared/util-animation/src/index.ts"
+      ],
       "@web-times-team/util-binary-tree": [
         "libs/shared/util-binary-tree/src/index.ts"
       ],
+      "@web-times-team/util-figure": ["libs/shared/util-figure/src/index.ts"],
       "@web-times-team/util-functionnal": [
         "libs/shared/util-functionnal/src/index.ts"
       ],
@@ -35,7 +39,8 @@
       "@web-times-team/util-sequence": [
         "libs/shared/util-sequence/src/index.ts"
       ],
-      "@web-times-team/util-tree": ["libs/shared/util-tree/src/index.ts"]
+      "@web-times-team/util-tree": ["libs/shared/util-tree/src/index.ts"],
+      "@web-times-team/util-ui": ["libs/shared/util-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
