@@ -35,6 +35,7 @@
       "@web-times-team/util-functionnal": [
         "libs/shared/util-functionnal/src/index.ts"
       ],
+      "@web-times-team/util-media": ["libs/shared/util-media/src/index.ts"],
       "@web-times-team/util-number": ["libs/shared/util-number/src/index.ts"],
       "@web-times-team/util-sequence": [
         "libs/shared/util-sequence/src/index.ts"

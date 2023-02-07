@@ -1,0 +1,70 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/video-player/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/video-player",
+        "compiler": "babel",
+        "index": "apps/video-player/src/index.html",
+        "baseHref": "/",
+        "main": "apps/video-player/src/main.ts",
+        "polyfills": "apps/video-player/src/polyfills.ts",
+        "tsConfig": "apps/video-player/tsconfig.app.json",
+        "assets": [
+          "apps/video-player/src/favicon.ico",
+          "apps/video-player/src/assets"
+        ],
+        "styles": ["apps/video-player/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/video-player/src/environments/environment.ts",
+              "with": "apps/video-player/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "video-player:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "video-player:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/video-player/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/video-player"],
+      "options": {
+        "jestConfig": "apps/video-player/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
