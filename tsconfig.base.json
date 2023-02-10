@@ -31,6 +31,7 @@
       "@web-times-team/util-binary-tree": [
         "libs/shared/util-binary-tree/src/index.ts"
       ],
+      "@web-times-team/util-canvas": ["libs/shared/util-canvas/src/index.ts"],
       "@web-times-team/util-figure": ["libs/shared/util-figure/src/index.ts"],
       "@web-times-team/util-functionnal": [
         "libs/shared/util-functionnal/src/index.ts"

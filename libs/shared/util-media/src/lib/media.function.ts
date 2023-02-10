@@ -1,3 +1,5 @@
+
+import { mediaConfig } from './media.config';
 import {
   AdvanceMedia,
   ConvertMediaCurrentTimeToSeekRangeValue,
@@ -5,33 +7,31 @@ import {
   VolumeChangeUp,
 } from './media.functions.types';
 
-const mediaScale = 100;
-const minimumVolumeChangeDown = 0;
-const maximumVolumeChangeDown = 0;
-
 export const advanceMedia: AdvanceMedia = (
   seekRangeValue,
   htmlMediaElement
 ) => {
-  const mediaTime = (htmlMediaElement.duration * seekRangeValue) / mediaScale;
+  const mediaTime =
+    (htmlMediaElement.duration * seekRangeValue) / mediaConfig.mediaScale;
   htmlMediaElement.currentTime = mediaTime;
 };
 
 export const convertMediaCurrentTimeToSeekRangeValue: ConvertMediaCurrentTimeToSeekRangeValue =
   (htmlMediaElement) => {
     const scaledSeekRangeValue =
-      (htmlMediaElement.currentTime * mediaScale) / htmlMediaElement.duration;
+      (htmlMediaElement.currentTime * mediaConfig.mediaScale) /
+      htmlMediaElement.duration;
     return scaledSeekRangeValue;
   };
 
 export const volumeChangeDown: VolumeChangeDown = (htmlMediaElement) => {
-  if (htmlMediaElement.volume > minimumVolumeChangeDown) {
+  if (htmlMediaElement.volume > mediaConfig.minimumVolumeChangeDown) {
     htmlMediaElement.volume -= 0.1;
   }
 };
 
 export const volumeChangeUp: VolumeChangeUp = (htmlMediaElement) => {
-  if (htmlMediaElement.volume < maximumVolumeChangeDown) {
+  if (htmlMediaElement.volume < mediaConfig.maximumVolumeChangeDown) {
     htmlMediaElement.volume += 0.1;
   }
 };

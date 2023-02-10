@@ -12,6 +12,7 @@
     "shared-ui-tabs": "libs/shared/ui-tabs",
     "shared-util-animation": "libs/shared/util-animation",
     "shared-util-binary-tree": "libs/shared/util-binary-tree",
+    "shared-util-canvas": "libs/shared/util-canvas",
     "shared-util-figure": "libs/shared/util-figure",
     "shared-util-functionnal": "libs/shared/util-functionnal",
     "shared-util-media": "libs/shared/util-media",
