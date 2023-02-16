@@ -42,7 +42,10 @@
         "libs/shared/util-sequence/src/index.ts"
       ],
       "@web-times-team/util-tree": ["libs/shared/util-tree/src/index.ts"],
-      "@web-times-team/util-ui": ["libs/shared/util-ui/src/index.ts"]
+      "@web-times-team/util-ui": ["libs/shared/util-ui/src/index.ts"],
+      "@web-times-team/util-web-component": [
+        "libs/shared/util-web-component/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

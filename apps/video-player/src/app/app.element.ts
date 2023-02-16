@@ -1,11 +1,14 @@
 import style from '!!raw-loader!sass-loader!./app.element.scss';
-import { isEmpty, head, tail } from 'ramda';
+import {
+  createBindedProperties,
+  createStyleElementFormImportedStyle,
+  WebComponentElement,
+} from '@web-times-team/util-web-component';
 import template from 'raw-loader!./app.element.html';
 
-const styleElement = document.createElement('style');
-styleElement.innerHTML = style;
+const styleElement = createStyleElementFormImportedStyle(style);
 
-export class AppElement extends HTMLElement {
+export class AppElement extends WebComponentElement {
   // AppElement is "host"
   public static observedAttributes = [];
 
@@ -13,50 +16,11 @@ export class AppElement extends HTMLElement {
     const title = 'video-player';
     this.attachComponentTemplateToHost(
       template,
-      this.createBindedProperties([['${title}', title]])
+      createBindedProperties([['${title}', title]]),
+      styleElement
     );
-  }
-
-  attachComponentTemplateToHost(
-    template: string,
-    properties: BindedProperties
-  ): void {
-    this.attachShadow({ mode: 'open' });
-    const bindedTemplate = this.bindingHostPropertiesToComponentVariables(
-      properties,
-      template
-    );
-    this.shadowRoot.innerHTML = bindedTemplate;
-    this.addStyleToShadowRoot(styleElement);
-  }
-  addStyleToShadowRoot(styleElement: HTMLStyleElement): void {
-    this.shadowRoot.appendChild(styleElement);
-  }
-  createBindedProperties(
-    bindedProperties: [string, unknown][]
-  ): BindedProperties {
-    return bindedProperties as BindedProperties;
-  }
-  private bindingHostPropertiesToComponentVariables(
-    properties: BindedProperties,
-    template: string
-  ): string {
-    return replacePropertiesValuesInTemplate(template, properties);
   }
 }
-customElements.define('myorg-root', AppElement);
+customElements.define('video-player-root', AppElement);
 
 export type BindedProperties = [string, unknown][];
-function replacePropertiesValuesInTemplate(
-  template: string,
-  properties: [string, unknown][]
-): string {
-  if (isEmpty(properties)) {
-    return template;
-  }
-  const headElement = head(properties);
-  return replacePropertiesValuesInTemplate(
-    template.replace(headElement[0], `${headElement[1]}`),
-    tail(properties)
-  );
-}

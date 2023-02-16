@@ -1,0 +1,34 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util-web-component/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/util-web-component",
+        "tsConfig": "libs/shared/util-web-component/tsconfig.lib.json",
+        "packageJson": "libs/shared/util-web-component/package.json",
+        "main": "libs/shared/util-web-component/src/index.ts",
+        "assets": ["libs/shared/util-web-component/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/util-web-component/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/util-web-component"],
+      "options": {
+        "jestConfig": "libs/shared/util-web-component/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
