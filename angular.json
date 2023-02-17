@@ -20,7 +20,7 @@
     "shared-util-sequence": "libs/shared/util-sequence",
     "shared-util-tree": "libs/shared/util-tree",
     "shared-util-ui": "libs/shared/util-ui",
-    "shared-util-web-component": "libs/shared/util-web-component",
+    "shared-util-web-components": "libs/shared/util-web-components",
     "video-player": "apps/video-player",
     "video-player-e2e": "apps/video-player-e2e",
     "vsm": "apps/vsm",

@@ -33,15 +33,15 @@ export function createStyleElementFormImportedStyle(
 
 export function replacePropertiesValuesInTemplate(
   template: string,
-  properties: [string, unknown][]
+  properties: BindedProperties
 ): string {
   if (isEmpty(properties)) {
     return template;
   }
-  const headElement = head(properties);
+  const headElement = head(properties) as [string, unknown];
   return replacePropertiesValuesInTemplate(
     template.replace(headElement[0], `${headElement[1]}`),
-    tail(properties)
+    createBindedProperties(tail(properties))
   );
 }
 
@@ -64,7 +64,9 @@ export function defineCustomElement<T extends CustomElementConstructor>(
     if (extendedElement) {
       customElements.define(`wtt-${name}`, customClass);
     } else {
-      customElements.define(`wtt-${name}`, customClass, { extends: extendedElement });
+      customElements.define(`wtt-${name}`, customClass, {
+        extends: extendedElement,
+      });
     }
   } catch (error) {
     throw new Error('defineCustomElement Error');

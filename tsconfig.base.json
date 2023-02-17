@@ -45,6 +45,9 @@
       "@web-times-team/util-ui": ["libs/shared/util-ui/src/index.ts"],
       "@web-times-team/util-web-component": [
         "libs/shared/util-web-component/src/index.ts"
+      ],
+      "@web-times-team/util-web-components": [
+        "libs/shared/util-web-components/src/index.ts"
       ]
     }
   },

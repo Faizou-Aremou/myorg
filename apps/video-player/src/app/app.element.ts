@@ -4,7 +4,7 @@ import {
   createStyleElementFormImportedStyle,
   defineCustomElement,
   WebComponentElement,
-} from '@web-times-team/util-web-component';
+} from '@web-times-team/util-web-components';
 import template from 'raw-loader!./app.element.html';
 //TODO: Add automatically when create file with schematic or other technique
 const styleElement = createStyleElementFormImportedStyle(style);

@@ -21,7 +21,8 @@
           "apps/video-player/src/assets"
         ],
         "styles": ["apps/video-player/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "webpackConfig": "apps/video-player/webpack.config.js"
       },
       "configurations": {
         "production": {
