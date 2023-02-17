@@ -2,25 +2,25 @@ import style from '!!raw-loader!sass-loader!./app.element.scss';
 import {
   createBindedProperties,
   createStyleElementFormImportedStyle,
+  defineCustomElement,
   WebComponentElement,
 } from '@web-times-team/util-web-component';
 import template from 'raw-loader!./app.element.html';
-
+//TODO: Add automatically when create file with schematic or other technique
 const styleElement = createStyleElementFormImportedStyle(style);
 
 export class AppElement extends WebComponentElement {
-  // AppElement is "host"
   public static observedAttributes = [];
-
+  //TODO: Add automatically when create file with schematic or other technique
   connectedCallback() {
     const title = 'video-player';
+    const bindedProperties = createBindedProperties([['${title}', title]]);
     this.attachComponentTemplateToHost(
       template,
-      createBindedProperties([['${title}', title]]),
+      bindedProperties,
       styleElement
     );
   }
 }
-customElements.define('video-player-root', AppElement);
-
-export type BindedProperties = [string, unknown][];
+//TODO: Add automatically when create file with schematic or other technique
+defineCustomElement('app-element', AppElement, 'section');

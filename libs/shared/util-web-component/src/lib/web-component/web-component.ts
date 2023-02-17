@@ -54,3 +54,19 @@ export function createBindedProperties(
 ): BindedProperties {
   return bindedProperties as BindedProperties;
 }
+
+export function defineCustomElement<T extends CustomElementConstructor>(
+  name: string,
+  customClass: T,
+  extendedElement?: string
+): void {
+  try {
+    if (extendedElement) {
+      customElements.define(`wtt-${name}`, customClass);
+    } else {
+      customElements.define(`wtt-${name}`, customClass, { extends: extendedElement });
+    }
+  } catch (error) {
+    throw new Error('defineCustomElement Error');
+  }
+}
