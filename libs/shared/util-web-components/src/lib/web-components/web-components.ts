@@ -1,25 +1,12 @@
-import { head, isEmpty, tail } from 'ramda';
-
 export class WebComponentElement extends HTMLElement {
+  protected template = '';
   protected attachComponentTemplateToHost(
     template: string,
-    properties: BindedProperties,
-    styleElement: HTMLStyleElement
+    styleElement?: HTMLStyleElement,
   ): void {
     const shadowRoot = this.attachShadow({ mode: 'open' });
-    const bindedTemplate = this.bindingHostPropertiesToComponentVariables(
-      properties,
-      template
-    );
-    shadowRoot.innerHTML = bindedTemplate;
-    shadowRoot.appendChild(styleElement);
-  }
-
-  private bindingHostPropertiesToComponentVariables(
-    properties: BindedProperties,
-    template: string
-  ): string {
-    return replacePropertiesValuesInTemplate(template, properties);
+    shadowRoot.innerHTML = template;
+    styleElement ? shadowRoot.appendChild(styleElement) : undefined;
   }
 }
 
@@ -31,29 +18,20 @@ export function createStyleElementFormImportedStyle(
   return styleElement;
 }
 
-export function replacePropertiesValuesInTemplate(
-  template: string,
-  properties: BindedProperties
-): string {
-  if (isEmpty(properties)) {
-    return template;
-  }
-  const headElement = head(properties) as [string, unknown];
-  return replacePropertiesValuesInTemplate(
-    template.replace(headElement[0], `${headElement[1]}`),
-    createBindedProperties(tail(properties))
-  );
-}
+// export function replacePropertiesValuesInTemplate(
+//   template: string,
+//   bindeProperties: BindedProperties
+// ): string {
+//   if (isEmpty(bindeProperties)) {
+//     return template;
+//   }
+//   const headElement = head(bindeProperties) as [string, unknown];
+//   return replacePropertiesValuesInTemplate(
+//     template.replace(headElement[0], `${headElement[1]}`),
+//     createBindedProperties(tail(bindeProperties))
+//   );
+// }
 
-export type BindedProperties = [string, unknown][] & {
-  __brand: 'BindedProperties';
-};
-
-export function createBindedProperties(
-  bindedProperties: [string, unknown][]
-): BindedProperties {
-  return bindedProperties as BindedProperties;
-}
 
 export function defineCustomElement<T extends CustomElementConstructor>(
   name: string,

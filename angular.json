@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "device-orientation": "apps/device-orientation",
+    "device-orientation-e2e": "apps/device-orientation-e2e",
     "open-food": "apps/open-food",
     "open-food-e2e": "apps/open-food-e2e",
     "shared-authorization": "libs/shared/authorization",
