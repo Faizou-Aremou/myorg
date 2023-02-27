@@ -21,8 +21,7 @@
           "apps/device-orientation/src/assets"
         ],
         "styles": ["apps/device-orientation/src/styles.scss"],
-        "scripts": [],
-        "webpackConfig": "apps/device-orientation/webpack.config.js"
+        "scripts": []
       },
       "configurations": {
         "production": {
@@ -38,13 +37,16 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false
+        },
+        "dev": {
+          "webpackConfig": "apps/device-orientation/webpack.config.js"
         }
       }
     },
     "serve": {
       "executor": "@nrwl/web:dev-server",
       "options": {
-        "buildTarget": "device-orientation:build"
+        "buildTarget": "device-orientation:build:dev"
       },
       "configurations": {
         "production": {
