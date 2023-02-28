@@ -29,14 +29,21 @@ if (window.DeviceOrientationEvent) {
 } else {
   alert(DEVICE_ORIENTATION_SUPPORT_ERROR_MSG);
 }
-const myorgRoot: AppElement = document.querySelector('myorg-root');
+const myorgRoot: AppElement = document.querySelector('app-root');
 
 function deviceOrientationHandler(
   gammaAngle: number,
   betaAngle: number,
   alphaAngle: number
 ) {
-  myorgRoot.shadowRoot.querySelector('.gamma-angle').innerHTML = 'gamma : ' + Math.round(gammaAngle);
-  myorgRoot.shadowRoot.querySelector('.beta-angle').innerHTML = 'beta : ' + Math.round(betaAngle);
-  myorgRoot.shadowRoot.querySelector('.alpha-angle').innerHTML = 'alpha : ' + Math.round(alphaAngle);
+  (
+    myorgRoot.shadowRoot.querySelector('.logo') as HTMLImageElement
+  ).style.transform =
+    'rotate(' + alphaAngle + 'deg) rotate3d(1,0,0, ' + betaAngle * -1 + 'deg)';
+  myorgRoot.shadowRoot.querySelector('.gamma-angle').innerHTML =
+    'gamma : ' + Math.round(gammaAngle);
+  myorgRoot.shadowRoot.querySelector('.beta-angle').innerHTML =
+    'beta : ' + Math.round(betaAngle);
+  myorgRoot.shadowRoot.querySelector('.alpha-angle').innerHTML =
+    'alpha : ' + Math.round(alphaAngle);
 }
