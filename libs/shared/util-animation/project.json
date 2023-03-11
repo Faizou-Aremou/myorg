@@ -1,4 +1,5 @@
 {
+  "name": "shared-util-animation",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/util-animation/src",
   "projectType": "library",
@@ -23,7 +24,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/util-animation"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-animation"],
       "options": {
         "jestConfig": "libs/shared/util-animation/jest.config.ts",
         "passWithNoTests": true

@@ -1,13 +1,13 @@
 {
+  "name": "shared-authorization",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/shared/authorization/src",
   "prefix": "myorg",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": [
-        "dist/libs/shared/authorization"
-      ],
+      "outputs": ["{workspaceRoot}/dist/libs/shared/authorization"],
       "options": {
         "project": "libs/shared/authorization/ng-package.json"
       },
@@ -23,9 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/shared/authorization"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/authorization"],
       "options": {
         "jestConfig": "libs/shared/authorization/jest.config.ts",
         "passWithNoTests": true

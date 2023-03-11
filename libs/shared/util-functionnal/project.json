@@ -1,4 +1,5 @@
 {
+  "name": "shared-util-functionnal",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/util-functionnal/src",
   "projectType": "library",
@@ -23,7 +24,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/util-functionnal"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-functionnal"],
       "options": {
         "jestConfig": "libs/shared/util-functionnal/jest.config.ts",
         "passWithNoTests": true

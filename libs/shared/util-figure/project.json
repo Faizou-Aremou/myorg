@@ -1,4 +1,5 @@
 {
+  "name": "shared-util-figure",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/util-figure/src",
   "projectType": "library",
@@ -23,7 +24,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/util-figure"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-figure"],
       "options": {
         "jestConfig": "libs/shared/util-figure/jest.config.ts",
         "passWithNoTests": true

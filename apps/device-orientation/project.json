@@ -1,11 +1,12 @@
 {
+  "name": "device-orientation",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/device-orientation/src",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -44,9 +45,10 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nrwl/webpack:dev-server",
       "options": {
-        "buildTarget": "device-orientation:build:dev"
+        "buildTarget": "device-orientation:build:dev",
+        "proxyConfig": "apps/device-orientation/proxy.conf.json"
       },
       "configurations": {
         "production": {
@@ -63,7 +65,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/device-orientation"],
+      "outputs": ["{workspaceRoot}/coverage/apps/device-orientation"],
       "options": {
         "jestConfig": "apps/device-orientation/jest.config.ts",
         "passWithNoTests": true

@@ -1,4 +1,5 @@
 {
+  "name": "vsm",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/vsm/src",
@@ -6,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/vsm/browser",
         "index": "apps/vsm/src/index.html",
@@ -16,10 +15,7 @@
         "polyfills": "apps/vsm/src/polyfills.ts",
         "tsConfig": "apps/vsm/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/vsm/src/favicon.ico",
-          "apps/vsm/src/assets"
-        ],
+        "assets": ["apps/vsm/src/favicon.ico", "apps/vsm/src/assets"],
         "styles": [
           "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
           "apps/vsm/src/styles.scss"
@@ -80,17 +76,12 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/vsm/**/*.ts",
-          "apps/vsm/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/vsm/**/*.ts", "apps/vsm/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/vsm"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/vsm"],
       "options": {
         "jestConfig": "apps/vsm/jest.config.ts",
         "passWithNoTests": true
@@ -120,7 +111,21 @@
           "extractLicenses": false
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "production",
+      "production": {
+        "outputHashing": "media",
+        "fileReplacements": [
+          {
+            "replace": "apps/vsm/src/environments/environment.ts",
+            "with": "apps/vsm/src/environments/environment.prod.ts"
+          }
+        ]
+      },
+      "development": {
+        "optimization": false,
+        "sourceMap": true,
+        "extractLicenses": false
+      }
     },
     "serve-ssr": {
       "executor": "@nguniversal/builders:ssr-dev-server",
@@ -139,9 +144,7 @@
     "prerender": {
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": [
-          "/"
-        ]
+        "routes": ["/"]
       },
       "configurations": {
         "production": {
