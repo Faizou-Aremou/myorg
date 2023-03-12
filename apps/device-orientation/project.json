@@ -47,8 +47,7 @@
     "serve": {
       "executor": "@nrwl/webpack:dev-server",
       "options": {
-        "buildTarget": "device-orientation:build:dev",
-        "proxyConfig": "apps/device-orientation/proxy.conf.json"
+        "buildTarget": "device-orientation:build:dev"
       },
       "configurations": {
         "production": {

@@ -5,6 +5,7 @@ import {
 // import './app.element.scss';
 import template from 'raw-loader!./app.element.html';
 import style from '!!raw-loader!sass-loader!./app.element.scss';
+import * as facade from './facade';
 const styleElement = createStyleElementFormImportedStyle(style);
 const DEVICE_ORIENTATION_SUPPORT_ERROR_MSG =
   'Device orientation not supported on your device or browser.  Sorry.';
@@ -46,4 +47,14 @@ function deviceOrientationHandler(
     'beta : ' + Math.round(betaAngle);
   myorgRoot.shadowRoot.querySelector('.alpha-angle').innerHTML =
     'alpha : ' + Math.round(alphaAngle);
+}
+
+let response;
+try {
+  response = await facade.fetchTest();
+  const responseDiv = document.createElement('div');
+  responseDiv.innerHTML = response.message;
+  myorgRoot.shadowRoot.append(responseDiv);
+} catch (error) {
+  console.error(error);
 }
