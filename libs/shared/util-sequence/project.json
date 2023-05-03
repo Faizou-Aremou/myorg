@@ -1,4 +1,5 @@
 {
+  "name": "shared-util-sequence",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/util-sequence/src",
   "projectType": "library",
@@ -23,7 +24,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/util-sequence"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-sequence"],
       "options": {
         "jestConfig": "libs/shared/util-sequence/jest.config.ts",
         "passWithNoTests": true

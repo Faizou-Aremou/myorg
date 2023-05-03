@@ -1,11 +1,12 @@
 {
+  "name": "video-player",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/video-player/src",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -42,7 +43,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nrwl/webpack:dev-server",
       "options": {
         "buildTarget": "video-player:build"
       },
@@ -61,7 +62,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/video-player"],
+      "outputs": ["{workspaceRoot}/coverage/apps/video-player"],
       "options": {
         "jestConfig": "apps/video-player/jest.config.ts",
         "passWithNoTests": true

@@ -1,6 +1,5 @@
 import style from '!!raw-loader!sass-loader!./app.element.scss';
 import {
-  createBindedProperties,
   createStyleElementFormImportedStyle,
   defineCustomElement,
   WebComponentElement,
@@ -14,13 +13,11 @@ export class AppElement extends WebComponentElement {
   //TODO: Add automatically when create file with schematic or other technique
   connectedCallback() {
     const title = 'video-player';
-    const bindedProperties = createBindedProperties([['${title}', title]]);
     this.attachComponentTemplateToHost(
       template,
-      bindedProperties,
-      styleElement
+      styleElement,
     );
   }
 }
 //TODO: Add automatically when create file with schematic or other technique
-defineCustomElement('app-element', AppElement, 'section');
+customElements.define('app-root', AppElement);

@@ -1,13 +1,13 @@
 {
+  "name": "shared-ui-tabs",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/shared/ui-tabs/src",
   "prefix": "myorg",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": [
-        "dist/libs/shared/ui-tabs"
-      ],
+      "outputs": ["{workspaceRoot}/dist/libs/shared/ui-tabs"],
       "options": {
         "project": "libs/shared/ui-tabs/ng-package.json"
       },
@@ -23,9 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/shared/ui-tabs"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/ui-tabs"],
       "options": {
         "jestConfig": "libs/shared/ui-tabs/jest.config.ts",
         "passWithNoTests": true

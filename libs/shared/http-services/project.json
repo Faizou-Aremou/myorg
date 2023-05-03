@@ -1,13 +1,13 @@
 {
+  "name": "shared-http-services",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/shared/http-services/src",
   "prefix": "myorg",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": [
-        "dist/libs/shared/http-services"
-      ],
+      "outputs": ["{workspaceRoot}/dist/libs/shared/http-services"],
       "options": {
         "project": "libs/shared/http-services/ng-package.json"
       },
@@ -23,9 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/shared/http-services"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/http-services"],
       "options": {
         "jestConfig": "libs/shared/http-services/jest.config.ts",
         "passWithNoTests": true

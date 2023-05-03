@@ -2,7 +2,7 @@
 module.exports = (config, context) => {
   return {
     ...config,
-    devtool: 'source-map',
+    devtool: "eval-source-map",
     module: {
       ...config.module
     },

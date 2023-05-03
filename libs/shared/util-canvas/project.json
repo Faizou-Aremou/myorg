@@ -1,4 +1,5 @@
 {
+  "name": "shared-util-canvas",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/util-canvas/src",
   "projectType": "library",
@@ -23,7 +24,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/util-canvas"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-canvas"],
       "options": {
         "jestConfig": "libs/shared/util-canvas/jest.config.ts",
         "passWithNoTests": true
