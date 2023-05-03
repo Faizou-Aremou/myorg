@@ -1,0 +1,64 @@
+{
+  "name": "forms-and-files-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/forms-and-files-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/forms-and-files-api",
+        "main": "apps/forms-and-files-api/src/main.ts",
+        "tsConfig": "apps/forms-and-files-api/tsconfig.app.json",
+        "assets": ["apps/forms-and-files-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/forms-and-files-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "forms-and-files-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "forms-and-files-api:build:development"
+        },
+        "production": {
+          "buildTarget": "forms-and-files-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/forms-and-files-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/forms-and-files-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
