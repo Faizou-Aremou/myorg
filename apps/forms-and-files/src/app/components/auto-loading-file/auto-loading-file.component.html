@@ -1,0 +1,17 @@
+<form name="formUpload">
+  <section>
+    <label for="given-name"
+      ><span> Name: </span>
+      <input type="text" id="given-name" name="givenName" required
+    /></label>
+    <br />
+    <label for="family-name">
+      <span>Family Name: </span>
+      <input type="text" id="family-name" name="familyName" required
+    /></label>
+  </section>
+  <p>Please Select one or more pictures/files :</p>
+  <input type="hidden"  id="names-all-files" name="namesAllFiles">
+  <input type="file" multiple name="formFiles" id="formFiles" (change)="uploadFileWithoutParameters()">
+  <button type="submit" id="submitForm" (click)="sendForm($event)"> Send</button> 
+</form>
