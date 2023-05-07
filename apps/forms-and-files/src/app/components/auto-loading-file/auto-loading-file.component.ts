@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./auto-loading-file.component.css'],
 })
 export class AutoLoadingFileComponent {
-
+  isSend=false //TODO:find better way to handle this
   uploadFileWithoutParameters(): void { return }
   sendForm(event: Event): void { event.preventDefault(); }
 
