@@ -10,7 +10,7 @@ import { userFilesRouter } from './routes/user-files';
 const app = express();
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.use('api/user-files', userFilesRouter);
+app.use('/api/user-files', userFilesRouter);
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to forms-and-files-api!' });
 });
